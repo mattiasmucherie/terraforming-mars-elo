@@ -1,4 +1,6 @@
+@import "./fonts.css";
+
 html,
 body {
-  font-family: Helvetica Neue, sans-serif;
+  font-family: "Enter Sansman", Helvetica Neue, sans-serif;
 }

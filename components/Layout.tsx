@@ -1,15 +1,12 @@
 import React, { FC, ReactNode } from "react"
 import Header from "./Header"
-import styled from "styled-components"
+import { Box } from "@chakra-ui/react"
 
-const Container = styled.div`
-  padding: 0rem 1.5rem;
-`
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>
       <Header />
-      <Container>{children}</Container>
+      <Box pt="2">{children}</Box>
     </>
   )
 }

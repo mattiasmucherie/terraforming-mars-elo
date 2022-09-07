@@ -12,6 +12,21 @@ import {
 } from "@chakra-ui/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import styled from "styled-components"
+import { UpDownIcon, AddIcon } from "@chakra-ui/icons"
+
+const Item = styled(Box)`
+  font-size: 22px;
+  font-size: 20px;
+  height: 2em;
+  display: flex;
+  align-items: center;
+`
+
+const IconContainer = styled.div`
+  margin-right: 0.6em;
+  padding-bottom: 3px; // Visually aligns with label
+`
 
 const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
   isOpen,
@@ -21,16 +36,19 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
   const items = useMemo(
     () => [
       {
-        label: "Home",
+        label: "Ranking",
         href: "/",
+        icon: <UpDownIcon h="3" w="3" />,
       },
       {
-        label: "Register Match",
+        label: "Register match",
         href: "/new-match",
+        icon: <AddIcon h="3" w="3" />,
       },
       {
-        label: "Add Player",
+        label: "Add player",
         href: "/new-player",
+        icon: <AddIcon h="3" w="3" />,
       },
     ],
     []
@@ -56,9 +74,12 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
           <Box pt="2">
             <VStack spacing={4} align="stretch">
               {items.map((item) => (
-                <Box h="35px" key={item.label}>
-                  <Link href={item.href}>{item.label}</Link>
-                </Box>
+                <Link href={item.href} key={item.label}>
+                  <Item passHref>
+                    <IconContainer>{item.icon}</IconContainer>
+                    {item.label}
+                  </Item>
+                </Link>
               ))}
             </VStack>
           </Box>

@@ -43,7 +43,10 @@ const MatchForm: FC<MatchFormProps> = ({ users }) => {
 
   const handleSubmit = async () => {
     try {
-      const listOfNames = rankingOfPlayers.map((p) => p.name)
+      const listOfNames = rankingOfPlayers.map((p) => ({
+        name: p.name,
+        corporation: null,
+      }))
       await axios.post("/api/new-match", listOfNames)
       router.push("/")
     } catch (e) {

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import prisma from "../../lib/prisma"
 import { elo } from "../../utils/elo"
-import { array, string, ValidationError } from "yup"
+import { array, object, string, ValidationError } from "yup"
 import { getErrorMessage } from "../../utils/errorMessages"
 
 export default async function handler(
@@ -11,13 +11,19 @@ export default async function handler(
   if (req.method === "POST") {
     try {
       const namesSchema = array()
-        .of(string().ensure())
+        .of(
+          object({
+            name: string().required(),
+            corporationId: string().uuid(),
+          })
+        )
         .min(2, "We need at least two players")
         .required()
-      const names = await namesSchema.validate(req.body)
+      const names: { name: string; corporationId?: string }[] =
+        await namesSchema.validate(req.body)
 
       // Get users of the inputted users
-      const arrayOfName = names.map((n) => ({ name: n }))
+      const arrayOfName = names.map((n) => ({ name: n.name }))
       const users = await prisma.user.findMany({
         where: {
           OR: arrayOfName,
@@ -29,14 +35,33 @@ export default async function handler(
             "One of the names entered is incorrect and could not be found in the DB",
         })
       }
-      users.sort((a, b) => names.indexOf(a.name) - names.indexOf(b.name))
+      users.sort(
+        (a, b) =>
+          names.indexOf({ name: a.name }) - names.indexOf({ name: b.name })
+      )
       // Calculate their new ranking
       const newRanking = elo(
         users.map((u) => u.rank),
         1
       )
-      // Update their ranking on their profile TODO: create match first and then update ranking
-      const updatedUser = await prisma.$transaction(
+      // Create match
+      await prisma.match.create({
+        data: {
+          users: { connect: users.map((u) => ({ id: u.id })) },
+          matchRankings: {
+            createMany: {
+              data: users.map((u, i) => ({
+                userId: u.id,
+                newRank: newRanking[i],
+                prevRank: u.rank,
+                corporationId: names[i].corporationId,
+              })),
+            },
+          },
+        },
+      })
+
+      await prisma.$transaction(
         users.map((u, i) => {
           return prisma.user.update({
             where: { id: u.id },
@@ -45,21 +70,7 @@ export default async function handler(
         })
       )
 
-      // Create match
-      await prisma.match.create({
-        data: {
-          users: { connect: updatedUser.map((u) => ({ id: u.id })) },
-          matchRankings: {
-            createMany: {
-              data: updatedUser.map((u, i) => ({
-                userId: u.id,
-                newRank: u.rank,
-                prevRank: users[i].rank,
-              })),
-            },
-          },
-        },
-      })
+      // 95d2bfae-f4d2-41af-9e80-e9233d4d46d1
       res.status(200).json({ message: "Match was created!" })
     } catch (e) {
       if (e instanceof ValidationError) {

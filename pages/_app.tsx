@@ -4,6 +4,7 @@ import type { AppProps } from "next/app"
 import { Layout } from "../components"
 import { DefaultTheme, ThemeProvider } from "styled-components"
 import Head from "next/head"
+import { ChakraProvider } from "@chakra-ui/react"
 
 const theme: DefaultTheme = {
   colors: {
@@ -43,11 +44,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <ThemeProvider theme={theme}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
+      <ChakraProvider>
+        <ThemeProvider theme={theme}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </ChakraProvider>
     </>
   )
 }

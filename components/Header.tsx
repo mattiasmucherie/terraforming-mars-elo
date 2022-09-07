@@ -1,17 +1,10 @@
 import React from "react"
 import styled from "styled-components"
 import Link from "next/link"
-import Heading from "./Heading"
+import { Heading } from "@chakra-ui/react"
 
 const HeaderContainer = styled.header`
   padding: 1.5rem;
-`
-
-const PageHeading = styled(Heading)`
-  font-size: 26px;
-  margin: 0;
-  color: ${({ theme }) => theme.colors.seedBrown};
-  cursor: pointer;
 `
 
 const PageHeaderLink = styled.a`
@@ -37,7 +30,7 @@ const Header = () => {
     <HeaderContainer>
       <Link href="/" passHref>
         <PageHeaderLink>
-          <PageHeading>TerraRanking</PageHeading>
+          <Heading size="lg">TerraRanking</Heading>
         </PageHeaderLink>
       </Link>
       <ItemContainer>

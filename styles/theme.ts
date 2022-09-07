@@ -1,11 +1,13 @@
 import { DefaultTheme } from "styled-components"
 
-const theme: DefaultTheme = {
+const theme = {
   colors: {
-    primary: "#451804",
-    secondary: "#c1440e",
-    light: "#e77d11",
-    lighter: "#fda600",
+    seedBrown: "#451804",
+    rustRed: "#c1440e",
+    mangoOrange: "#e77d11",
+    supernovaOrange: "#fda600",
+    plantationGreen: "#152B21",
+    whisperGray: "#F0E7E7",
   },
 }
 

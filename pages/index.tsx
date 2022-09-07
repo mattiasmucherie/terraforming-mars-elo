@@ -12,7 +12,7 @@ const Home: NextPage<HomeProps> = ({ users }) => {
   return (
     <>
       <Head>
-        <title>Terra Ranking</title>
+        <title>TerraRanking</title>
         <meta name="description" content="Ranking for Terraforming Mars" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -38,7 +38,7 @@ const Header = () => {
     <HeaderContainer>
       <Link href="/" passHref>
         <PageHeaderLink>
-          <PageHeading>Terra Ranking</PageHeading>
+          <PageHeading>TerraRanking</PageHeading>
         </PageHeaderLink>
       </Link>
       <ItemContainer>

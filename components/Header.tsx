@@ -9,7 +9,7 @@ const HeaderContainer = styled.header`
 
 const PageHeaderLink = styled.a`
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.seedBrown};
 `
 
 const ItemContainer = styled.ul`

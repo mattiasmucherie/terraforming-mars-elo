@@ -2,20 +2,12 @@ import "normalize.css"
 import "../styles/globals.css"
 import type { AppProps } from "next/app"
 import { Layout } from "../components"
-import { DefaultTheme, ThemeProvider } from "styled-components"
+import { ThemeProvider } from "styled-components"
 import Head from "next/head"
 import { ChakraProvider } from "@chakra-ui/react"
+import { theme, chakraTheme } from "../styles"
 
-const theme: DefaultTheme = {
-  colors: {
-    primary: "#451804",
-    secondary: "#c1440e",
-    light: "#e77d11",
-    lighter: "#fda600",
-  },
-}
-
-function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
@@ -44,15 +36,15 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <ChakraProvider>
-        <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        <ChakraProvider theme={chakraTheme}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
-        </ThemeProvider>
-      </ChakraProvider>
+        </ChakraProvider>
+      </ThemeProvider>
     </>
   )
 }
 
-export default MyApp
+export default App

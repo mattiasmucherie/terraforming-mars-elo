@@ -1,47 +1,35 @@
 import React from "react"
 import styled from "styled-components"
 import Link from "next/link"
-import { Heading } from "@chakra-ui/react"
+import { IconButton, Heading, useDisclosure, Box } from "@chakra-ui/react"
+import { HamburgerIcon } from "@chakra-ui/icons"
+import NavDrawer from "./NavDrawer"
 
-const HeaderContainer = styled.header`
-  padding: 1.5rem;
-`
-
-const PageHeaderLink = styled.a`
-  text-decoration: none;
-  color: ${({ theme }) => theme.colors.seedBrown};
-`
-
-const ItemContainer = styled.ul`
-  display: flex;
-  padding: 0;
-  margin: 0;
-  justify-content: space-between;
-`
-const Items = styled.li`
-  list-style: none;
-  padding: 1rem 0;
-  a {
-    text-decoration: none;
-  }
-`
 const Header = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
-    <HeaderContainer>
-      <Link href="/" passHref>
-        <PageHeaderLink>
+    <>
+      <Box
+        p="4"
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Link href="/">
           <Heading size="lg">TerraRanking</Heading>
-        </PageHeaderLink>
-      </Link>
-      <ItemContainer>
-        <Items>
-          <Link href="/new-player">New Player</Link>
-        </Items>
-        <Items>
-          <Link href="/new-match">New Match</Link>
-        </Items>
-      </ItemContainer>
-    </HeaderContainer>
+        </Link>
+
+        <IconButton
+          onClick={onOpen}
+          variant="outline"
+          aria-label="Open menu"
+          icon={<HamburgerIcon />}
+        />
+      </Box>
+
+      <NavDrawer isOpen={isOpen} onClose={onClose} />
+    </>
   )
 }
 

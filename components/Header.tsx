@@ -4,12 +4,14 @@ import Link from "next/link"
 import Heading from "./Heading"
 
 const HeaderContainer = styled.header`
-  padding: 2rem;
+  padding: 1.5rem;
 `
 
 const PageHeading = styled(Heading)`
   font-size: 26px;
   margin: 0;
+  color: ${({ theme }) => theme.colors.primary};
+  cursor: pointer;
 `
 const ItemContainer = styled.ul`
   display: flex;
@@ -28,7 +30,9 @@ const Items = styled.li`
 const Header = () => {
   return (
     <HeaderContainer>
-      <PageHeading>Terra Ranking</PageHeading>
+      <Link href="/">
+        <PageHeading>Terra Ranking</PageHeading>
+      </Link>
       <ItemContainer>
         <Items>
           <Link href="/new-player">New Player</Link>

@@ -10,13 +10,13 @@ const HeaderContainer = styled.header`
 const PageHeading = styled(Heading)`
   font-size: 26px;
   margin: 0;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.seedBrown};
   cursor: pointer;
 `
 
 const PageHeaderLink = styled.a`
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.seedBrown};
 `
 
 const ItemContainer = styled.ul`

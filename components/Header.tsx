@@ -13,6 +13,12 @@ const PageHeading = styled(Heading)`
   color: ${({ theme }) => theme.colors.primary};
   cursor: pointer;
 `
+
+const PageHeaderLink = styled.a`
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.primary};
+`
+
 const ItemContainer = styled.ul`
   display: flex;
   padding: 0;
@@ -30,8 +36,10 @@ const Items = styled.li`
 const Header = () => {
   return (
     <HeaderContainer>
-      <Link href="/">
-        <PageHeading>Terra Ranking</PageHeading>
+      <Link href="/" passHref>
+        <PageHeaderLink>
+          <PageHeading>Terra Ranking</PageHeading>
+        </PageHeaderLink>
       </Link>
       <ItemContainer>
         <Items>

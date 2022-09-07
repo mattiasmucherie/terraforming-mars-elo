@@ -1,11 +1,10 @@
-import React from "react"
+import React, { FC, ReactNode } from "react"
 import Header from "./Header"
 
-const Layout = ({ children }) => {
+const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>
       <Header />
-
       {children}
     </>
   )

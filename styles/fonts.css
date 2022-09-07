@@ -1,5 +1,5 @@
 @font-face {
   font-family: "Enter Sansman";
   src: local("Enter Sansman"),
-    url(../assets/fonts/enter-sansman.ttf) format("truetype");
+    url(/fonts/enter-sansman.ttf) format("truetype");
 }

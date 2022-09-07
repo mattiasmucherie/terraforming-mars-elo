@@ -3,12 +3,14 @@ import styled from "styled-components"
 import Link from "next/link"
 
 const HeaderContainer = styled.header`
-  padding: 2rem;
+  padding: 1.5rem;
 `
 
 const PageTitle = styled.h1`
   font-size: 26px;
   margin: 0;
+  color: ${({ theme }) => theme.colors.primary};
+  cursor: pointer;
 `
 const ItemContainer = styled.ul`
   display: flex;
@@ -27,7 +29,9 @@ const Items = styled.li`
 const Header = () => {
   return (
     <HeaderContainer>
-      <PageTitle>Terra Ranking</PageTitle>
+      <Link href="/">
+        <PageTitle>Terra Ranking</PageTitle>
+      </Link>
       <ItemContainer>
         <Items>
           <Link href="/new-player">New Player</Link>

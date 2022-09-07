@@ -1,5 +1,26 @@
 @font-face {
   font-family: "Enter Sansman";
-  src: local("Enter Sansman"),
-    url(/fonts/enter-sansman.ttf) format("truetype");
+  src: local("Enter Sansman"), url(/fonts/enter-sansman.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "SourceSansPro";
+  src: url("/fonts/source-sans-pro/SourceSansPro-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SourceSansPro";
+  src: url("/fonts/source-sans-pro/SourceSansPro-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SourceSansPro";
+  src: url("/fonts/source-sans-pro/SourceSansPro-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
 }

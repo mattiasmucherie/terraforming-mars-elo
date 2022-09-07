@@ -1,12 +1,13 @@
 import React from "react"
 import styled from "styled-components"
 import Link from "next/link"
+import Heading from "./Heading"
 
 const HeaderContainer = styled.header`
   padding: 2rem;
 `
 
-const PageTitle = styled.h1`
+const PageHeading = styled(Heading)`
   font-size: 26px;
   margin: 0;
 `
@@ -27,7 +28,7 @@ const Items = styled.li`
 const Header = () => {
   return (
     <HeaderContainer>
-      <PageTitle>Terra Ranking</PageTitle>
+      <PageHeading>Terra Ranking</PageHeading>
       <ItemContainer>
         <Items>
           <Link href="/new-player">New Player</Link>

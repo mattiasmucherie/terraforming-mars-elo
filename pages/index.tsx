@@ -1,6 +1,5 @@
 import { User } from "@prisma/client"
 import type { NextPage } from "next"
-import Head from "next/head"
 import prisma from "../lib/prisma"
 import PlayerRanking from "../components/PlayerRanking"
 
@@ -11,11 +10,6 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({ users }) => {
   return (
     <>
-      <Head>
-        <title>TerraRanking</title>
-        <meta name="description" content="Ranking for Terraforming Mars" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       {users && users.length ? (
         <PlayerRanking users={users} />
       ) : (

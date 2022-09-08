@@ -21,7 +21,8 @@ const Header = () => {
   return (
     <Container>
       <Box
-        p="6"
+        px="4"
+        py="6"
         display="flex"
         alignItems="center"
         justifyContent="space-between"

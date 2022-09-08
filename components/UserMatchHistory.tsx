@@ -1,6 +1,7 @@
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { FC } from "react"
 import {
+  Link as ChakraLink,
   Stat,
   Table,
   TableContainer,
@@ -11,6 +12,7 @@ import {
   Tr,
 } from "@chakra-ui/react"
 import { StatArrow } from "@chakra-ui/stat"
+import Link from "next/dist/client/link"
 
 interface UserMatchHistoryProps {
   user: User & {
@@ -39,7 +41,11 @@ const UserMatchHistory: FC<UserMatchHistoryProps> = ({ user }) => {
                   m.matchRankings[0].newRank - m.matchRankings[0].prevRank
                 return (
                   <Tr key={m.id}>
-                    <Td>{new Date(m.createdAt).toLocaleDateString("sv-SE")}</Td>
+                    <Td>
+                      <ChakraLink as={Link} href={`/match/${m.id}`}>
+                        {new Date(m.createdAt).toLocaleDateString("sv-SE")}
+                      </ChakraLink>
+                    </Td>
                     <Td>{m.matchRankings[0].standing || "?"}</Td>
                     <Td>
                       <Stat>

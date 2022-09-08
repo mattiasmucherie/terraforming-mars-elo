@@ -13,7 +13,7 @@ import {
 import Link from "next/link"
 import { useRouter } from "next/router"
 import styled from "styled-components"
-import { UpDownIcon, AddIcon } from "@chakra-ui/icons"
+import { UpDownIcon, AddIcon, CalendarIcon } from "@chakra-ui/icons"
 
 const Item = styled(Box)`
   font-size: 22px;
@@ -50,6 +50,7 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
         href: "/new-player",
         icon: <AddIcon h="3" w="3" />,
       },
+      { label: "Matches", href: "/match", icon: <CalendarIcon h="3" w="3" /> },
     ],
     []
   )

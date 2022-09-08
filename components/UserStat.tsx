@@ -21,7 +21,7 @@ const UserStat: FC<UserStatProps> = ({ user }) => {
     ? user.rank - user.matches[0].matchRankings[0].prevRank
     : undefined
   return (
-    <Wrap>
+    <Wrap px="2">
       <WrapItem p="2">
         <Avatar
           size="lg"

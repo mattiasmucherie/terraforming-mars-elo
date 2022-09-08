@@ -2,6 +2,7 @@ import { NextPage } from "next"
 import prisma from "../lib/prisma"
 import { Corporation, User } from "@prisma/client"
 import MatchForm from "../components/MatchForm"
+import { Layout } from "../components"
 
 interface NewMatchProps {
   users: User[]
@@ -14,7 +15,11 @@ const NewMatch: NextPage<NewMatchProps> = ({ users, corporations }) => {
   if (!corporations || !corporations.length) {
     return <p>Could not load corporations</p>
   }
-  return <MatchForm users={users} corporations={corporations} />
+  return (
+    <Layout>
+      <MatchForm users={users} corporations={corporations} />
+    </Layout>
+  )
 }
 export default NewMatch
 

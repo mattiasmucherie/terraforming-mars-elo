@@ -1,3 +1,5 @@
 import Layout from "./Layout"
+import MatchTable from "./MatchTable"
+import ListOfMatches from "./ListOfMatches"
 
-export { Layout }
+export { Layout, MatchTable, ListOfMatches }

@@ -5,6 +5,7 @@ import { Text } from "@chakra-ui/react"
 import UserStat from "../../components/UserStat"
 import UserMatchHistory from "../../components/UserMatchHistory"
 import prisma from "../../lib/prisma"
+import { Layout } from "../../components"
 
 type UserPageProps = {
   user:
@@ -22,10 +23,10 @@ const UserPage: NextPage<UserPageProps> = ({ user }) => {
   }
 
   return (
-    <>
+    <Layout fullWidth>
       <UserStat user={user} />
       <UserMatchHistory user={user}></UserMatchHistory>
-    </>
+    </Layout>
   )
 }
 

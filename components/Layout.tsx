@@ -2,11 +2,16 @@ import React, { FC, ReactNode } from "react"
 import Header from "./Header"
 import { Box } from "@chakra-ui/react"
 
-const Layout: FC<{ children: ReactNode }> = ({ children }) => {
+const Layout: FC<{ children: ReactNode; fullWidth?: boolean }> = ({
+  children,
+  fullWidth,
+}) => {
   return (
     <>
       <Header />
-      <Box p="2">{children}</Box>
+      <Box py={4} px={fullWidth ? 0 : 4}>
+        {children}
+      </Box>
     </>
   )
 }

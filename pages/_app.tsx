@@ -47,9 +47,7 @@ function App({ Component, pageProps }: AppProps) {
 
       <ThemeProvider theme={theme}>
         <ChakraProvider theme={chakraTheme}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <Component {...pageProps} />
         </ChakraProvider>
       </ThemeProvider>
     </>

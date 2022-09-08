@@ -34,7 +34,6 @@ const MatchTable: FC<MatchTableProps> = ({ match }) => {
         </TableCaption>
         <Thead>
           <Tr>
-            <Th>#</Th>
             <Th>Name</Th>
             <Th>Corp</Th>
             <Th>Elo change</Th>
@@ -45,7 +44,6 @@ const MatchTable: FC<MatchTableProps> = ({ match }) => {
             const eloChange = mr.newRank - mr.prevRank
             return (
               <Tr key={mr.id}>
-                <Td>{mr.standing}</Td>
                 <Td>
                   <ChakraLink as={Link} href={`/user/${mr.userId}`}>
                     {mr.user.name}

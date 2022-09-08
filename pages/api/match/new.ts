@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import prisma from "../../lib/prisma"
-import { elo } from "../../utils/elo"
+import prisma from "../../../lib/prisma"
+import { elo } from "../../../utils/elo"
 import { array, object, string, ValidationError } from "yup"
-import { getErrorMessage } from "../../utils/errorMessages"
+import { getErrorMessage } from "../../../utils/errorMessages"
 
 export default async function handler(
   req: NextApiRequest,
@@ -37,7 +37,8 @@ export default async function handler(
       }
       users.sort(
         (a, b) =>
-          names.indexOf({ name: a.name }) - names.indexOf({ name: b.name })
+          names.findIndex((n) => n.name === a.name) -
+          names.findIndex((n) => n.name === b.name)
       )
       // Calculate their new ranking
       const newRanking = elo(

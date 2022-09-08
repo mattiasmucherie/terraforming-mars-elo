@@ -10,7 +10,7 @@ const NewPlayer: NextPage = () => {
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     try {
-      await axios.post("/api/create-user", { name })
+      await axios.post("/api/users/new", { name })
       router.push("/")
     } catch (e) {
       console.error()

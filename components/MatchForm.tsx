@@ -47,7 +47,7 @@ const MatchForm: FC<MatchFormProps> = ({ users }) => {
         name: p.name,
         corporation: null,
       }))
-      await axios.post("/api/new-match", listOfNames)
+      await axios.post("/api/match/new", listOfNames)
       router.push("/")
     } catch (e) {
       console.error(e)

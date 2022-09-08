@@ -10,11 +10,11 @@ A [Next.js](https://nextjs.org/docs/getting-started) project.
 `yarn prisma migrate reset` to reset the database
 
 ### API:s
-- `/api/create-user` expects a body with 
+- `/api/users/new` expects a body with 
 ```js
  {name: "Mattias"}
  ```
-- `/api/new-match` expects a body with an array of names in winning order, outputs list of users with updated ranking
+- `/api/match/new` expects a body with an array of names in winning order, outputs list of users with updated ranking
 ```js
 ['Rikard', 'Mattias','Cornelius']
 ```

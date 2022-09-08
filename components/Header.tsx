@@ -5,31 +5,42 @@ import { IconButton, Heading, useDisclosure, Box } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 import NavDrawer from "./NavDrawer"
 
+const Container = styled.div`
+  background: orange;
+  background-image: url("/images/mars-with-tiles.jpeg");
+  background-size: cover;
+`
+
+const Brand = styled(Heading)`
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+`
+
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <>
+    <Container>
       <Box
-        p="4"
+        p="6"
         display="flex"
         alignItems="center"
         justifyContent="space-between"
       >
         <Link href="/">
-          <Heading size="lg">TerraRanking</Heading>
+          <Brand size="lg" color="white">
+            TerraRanking
+          </Brand>
         </Link>
 
         <IconButton
           onClick={onOpen}
-          variant="outline"
           aria-label="Open menu"
           icon={<HamburgerIcon />}
         />
       </Box>
 
       <NavDrawer isOpen={isOpen} onClose={onClose} />
-    </>
+    </Container>
   )
 }
 

@@ -32,7 +32,7 @@ const UserMatchHistory: FC<UserMatchHistoryProps> = ({ user }) => {
             <Thead>
               <Tr>
                 <Th>Date</Th>
-                <Th>Rank</Th>
+                <Th>#</Th>
                 <Th>Δ Elo</Th>
                 <Th>Corp</Th>
               </Tr>

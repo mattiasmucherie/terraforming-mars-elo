@@ -5,6 +5,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  images: { domains: ["ekhaqsvkyqszwbsovncd.supabase.co"] },
 }
 
 module.exports = nextConfig

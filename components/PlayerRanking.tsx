@@ -21,7 +21,7 @@ const PlayerRanking: FC<{ users: User[] }> = ({ users }) => {
           <Tr>
             <Th>Player</Th>
             <Th isNumeric>Score</Th>
-            <Th isNumeric>Rank</Th>
+            <Th isNumeric>#</Th>
           </Tr>
         </Thead>
 

@@ -21,6 +21,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const matches = await prisma.match.findMany({
       include: { matchRankings: { include: { user: true } } },
+      orderBy: { createdAt: "desc" },
     })
     return { props: { matches: JSON.parse(JSON.stringify(matches)) } }
   } catch (e) {

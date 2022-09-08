@@ -34,7 +34,7 @@ const MatchTable: FC<MatchTableProps> = ({ match }) => {
         </TableCaption>
         <Thead>
           <Tr>
-            <Th>Rank</Th>
+            <Th>#</Th>
             <Th>Name</Th>
             <Th>Corp</Th>
             <Th>Elo change</Th>

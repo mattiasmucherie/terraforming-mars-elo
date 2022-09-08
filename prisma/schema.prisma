@@ -37,6 +37,7 @@ model MatchRanking {
   newRank       Float
   corporation   Corporation? @relation(fields: [corporationId], references: [id])
   corporationId String?
+  standing      Int
 }
 
 model Corporation {

@@ -12,7 +12,15 @@ export default async function handler(
   const user = await prisma.user.findUnique({
     where: { id },
     include: {
-      matches: { include: { matchRankings: { where: { userId: id } } } },
+      matches: {
+        include: {
+          matchRankings: {
+            where: { userId: id },
+            include: { corporation: true },
+          },
+        },
+        orderBy: { createdAt: "desc" },
+      },
     },
   })
   res.status(200).json(user)

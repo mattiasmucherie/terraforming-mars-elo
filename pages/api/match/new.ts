@@ -56,6 +56,7 @@ export default async function handler(
                 newRank: newRanking[i],
                 prevRank: u.rank,
                 corporationId: names[i].corporationId,
+                standing: i + 1,
               })),
             },
           },

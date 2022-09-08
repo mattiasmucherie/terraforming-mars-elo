@@ -15,7 +15,6 @@ type UserPageProps = {
 }
 
 const UserPage: NextPage<UserPageProps> = ({ user }) => {
-  console.warn(user)
   if (!user) {
     return <Text>Could not get user info</Text>
   }
@@ -23,7 +22,7 @@ const UserPage: NextPage<UserPageProps> = ({ user }) => {
   return (
     <>
       <UserStat user={user} />
-      <UserMatchHistory></UserMatchHistory>
+      <UserMatchHistory user={user}></UserMatchHistory>
     </>
   )
 }

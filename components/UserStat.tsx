@@ -13,8 +13,8 @@ interface UserStatProps {
 }
 const UserStat: FC<UserStatProps> = ({ user }) => {
   const statArrow = user.matches.length
-    ? user.rank -
-      user.matches[user.matches.length - 1].matchRankings[0].prevRank
+    ? (user.rank - user.matches[0].matchRankings[0].prevRank) /
+      user.matches.length
     : undefined
   return (
     <Stat>
@@ -24,7 +24,7 @@ const UserStat: FC<UserStatProps> = ({ user }) => {
         {typeof statArrow === "number" ? (
           <>
             <StatArrow type={statArrow > 0 ? "increase" : "decrease"} />
-            {Math.round(statArrow)}
+            avg {Math.round(statArrow)}
           </>
         ) : (
           "This player has never played a match"

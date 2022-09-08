@@ -20,7 +20,6 @@ interface UserMatchHistoryProps {
   }
 }
 const UserMatchHistory: FC<UserMatchHistoryProps> = ({ user }) => {
-  console.warn(user.matches)
   return (
     <>
       {user.matches.length ? (
@@ -41,7 +40,7 @@ const UserMatchHistory: FC<UserMatchHistoryProps> = ({ user }) => {
                 return (
                   <Tr key={m.id}>
                     <Td>{new Date(m.createdAt).toLocaleDateString("sv-SE")}</Td>
-                    <Td>{(m.matchRankings[0] as any).standing || "?"}</Td>
+                    <Td>{m.matchRankings[0].standing || "?"}</Td>
                     <Td>
                       <Stat>
                         <StatArrow

@@ -2,6 +2,7 @@ import { Match, MatchRanking, User } from "@prisma/client"
 import { FC } from "react"
 import {
   Table,
+  TableCaption,
   TableContainer,
   Tbody,
   Td,
@@ -20,6 +21,7 @@ const ListOfMatches: FC<ListOfMatchesProps> = ({ matches }) => {
   return (
     <TableContainer>
       <Table>
+        <TableCaption placement="top">List of matches played</TableCaption>
         <Thead>
           <Tr>
             <Th>Date</Th>

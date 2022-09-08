@@ -38,6 +38,11 @@ function App({ Component, pageProps }: AppProps) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
+        <script
+          async
+          src="https://kit.fontawesome.com/2c2e87960d.js"
+          crossOrigin="anonymous"
+        ></script>
       </Head>
 
       <ThemeProvider theme={theme}>

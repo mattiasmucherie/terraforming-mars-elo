@@ -13,7 +13,9 @@ import {
 import Link from "next/link"
 import { useRouter } from "next/router"
 import styled from "styled-components"
-import { UpDownIcon, AddIcon, CalendarIcon } from "@chakra-ui/icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faListOl, faUserPlus } from "@fortawesome/free-solid-svg-icons"
+import { faCalendar, faCalendarPlus } from "@fortawesome/free-regular-svg-icons"
 
 const Item = styled(Box)`
   font-size: 22px;
@@ -24,8 +26,8 @@ const Item = styled(Box)`
 `
 
 const IconContainer = styled.div`
-  margin-right: 0.6em;
-  padding-bottom: 3px; // Visually aligns with label
+  width: 40px;
+  font-size: 18px;
 `
 
 const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
@@ -38,19 +40,23 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
       {
         label: "Ranking",
         href: "/",
-        icon: <UpDownIcon h="3" w="3" />,
+        icon: faListOl,
+      },
+      {
+        label: "Matches",
+        href: "/match",
+        icon: faCalendar,
       },
       {
         label: "Register match",
         href: "/new-match",
-        icon: <AddIcon h="3" w="3" />,
+        icon: faCalendarPlus,
       },
       {
         label: "Add player",
         href: "/new-player",
-        icon: <AddIcon h="3" w="3" />,
+        icon: faUserPlus,
       },
-      { label: "Matches", href: "/match", icon: <CalendarIcon h="3" w="3" /> },
     ],
     []
   )
@@ -77,7 +83,9 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
               {items.map((item) => (
                 <Link href={item.href} key={item.label}>
                   <Item passHref>
-                    <IconContainer>{item.icon}</IconContainer>
+                    <IconContainer>
+                      <FontAwesomeIcon icon={item.icon} />
+                    </IconContainer>
                     {item.label}
                   </Item>
                 </Link>

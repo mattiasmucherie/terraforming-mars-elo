@@ -1,4 +1,4 @@
-import { Match, MatchRanking, User } from "@prisma/client"
+import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { FC } from "react"
 import {
   Stat,
@@ -13,9 +13,14 @@ import {
 import { StatArrow } from "@chakra-ui/stat"
 
 interface UserMatchHistoryProps {
-  user: User & { matches: (Match & { matchRankings: MatchRanking[] })[] }
+  user: User & {
+    matches: (Match & {
+      matchRankings: (MatchRanking & { corporation: Corporation | null })[]
+    })[]
+  }
 }
 const UserMatchHistory: FC<UserMatchHistoryProps> = ({ user }) => {
+  console.warn(user.matches)
   return (
     <>
       {user.matches.length ? (
@@ -26,6 +31,7 @@ const UserMatchHistory: FC<UserMatchHistoryProps> = ({ user }) => {
                 <Th>Date</Th>
                 <Th>Rank</Th>
                 <Th>Δ Elo</Th>
+                <Th>Corp</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -44,6 +50,7 @@ const UserMatchHistory: FC<UserMatchHistoryProps> = ({ user }) => {
                         {Math.round(eloChange)}
                       </Stat>
                     </Td>
+                    <Td>{m.matchRankings[0].corporation?.name || "?"}</Td>
                   </Tr>
                 )
               })}

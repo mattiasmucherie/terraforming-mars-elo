@@ -5,11 +5,15 @@ import {
   StatLabel,
   StatNumber,
 } from "@chakra-ui/stat"
-import { Match, MatchRanking, User } from "@prisma/client"
+import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { FC } from "react"
 
 interface UserStatProps {
-  user: User & { matches: (Match & { matchRankings: MatchRanking[] })[] }
+  user: User & {
+    matches: (Match & {
+      matchRankings: (MatchRanking & { corporation: Corporation | null })[]
+    })[]
+  }
 }
 const UserStat: FC<UserStatProps> = ({ user }) => {
   const statArrow = user.matches.length

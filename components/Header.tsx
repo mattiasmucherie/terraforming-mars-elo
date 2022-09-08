@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Link from "next/link"
-import { IconButton, Heading, useDisclosure, Box } from "@chakra-ui/react"
+import { IconButton, Heading, useDisclosure, Box, Text } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 import NavDrawer from "./NavDrawer"
 
@@ -13,6 +13,13 @@ const Container = styled.div`
 
 const Brand = styled(Heading)`
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+`
+
+const Tagline = styled(Text)`
+  line-height: 1.25;
+  font-size: 13px;
+  color: white;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
 `
 
 const Header = () => {
@@ -27,11 +34,18 @@ const Header = () => {
         alignItems="center"
         justifyContent="space-between"
       >
-        <Link href="/">
-          <Brand size="lg" color="white">
-            TerraRanking
-          </Brand>
-        </Link>
+        <Box>
+          <Link href="/">
+            <Brand size="lg" color="white">
+              TerraRanking
+            </Brand>
+          </Link>
+
+          <Tagline>
+            Winning one game was a big step. <br />
+            Ranking #1 will give you a new world.
+          </Tagline>
+        </Box>
 
         <IconButton
           onClick={onOpen}

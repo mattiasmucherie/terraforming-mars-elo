@@ -6,7 +6,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>
       <Header />
-      <Box pt="2">{children}</Box>
+      <Box p="2">{children}</Box>
     </>
   )
 }

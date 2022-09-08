@@ -10,6 +10,7 @@ import {
   Tr,
 } from "@chakra-ui/react"
 import { User } from "@prisma/client"
+import Link from "next/link"
 import { FC } from "react"
 
 const PlayerRanking: FC<{ users: User[] }> = ({ users }) => {
@@ -27,7 +28,9 @@ const PlayerRanking: FC<{ users: User[] }> = ({ users }) => {
         <Tbody>
           {users.map((u, i) => (
             <Tr key={u.name}>
-              <Td>{u.name}</Td>
+              <Td>
+                <Link href={`/user/${u.id}`}>{u.name}</Link>
+              </Td>
               <Td isNumeric>{Math.round(u.rank)}</Td>
               <Td isNumeric>{i + 1}</Td>
             </Tr>

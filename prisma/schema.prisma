@@ -17,6 +17,7 @@ model User {
   rank         Float          @default(1000)
   matches      Match[]        @relation(name: "matches")
   MatchRanking MatchRanking[]
+  image        String?
 }
 
 model Match {

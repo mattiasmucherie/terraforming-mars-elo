@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from "react"
+import React, { FC, useCallback, useMemo } from "react"
 import {
   Box,
   Drawer,
@@ -18,15 +18,20 @@ import { faListOl, faUserPlus } from "@fortawesome/free-solid-svg-icons"
 import { faCalendar, faCalendarPlus } from "@fortawesome/free-regular-svg-icons"
 
 const Item = styled(Box)`
-  font-size: 22px;
-  font-size: 20px;
+  font-size: 18px;
   height: 2em;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  border-left: 5px solid;
+  border-color: ${(p) =>
+    p.isActive ? p.theme.colors.mangoOrange : "transparent"};
+  box-sizing: border-box;
+  padding: 31px 24px 33px;
 `
 
 const IconContainer = styled.div`
-  width: 40px;
+  width: 34px;
   font-size: 18px;
 `
 
@@ -61,10 +66,10 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
     []
   )
 
-  // Closes drawer on navigation
-  useEffect(() => {
-    onClose()
-  }, [router.asPath, onClose])
+  const isActive = useCallback(
+    (item: any) => router.pathname === item.href,
+    [router]
+  )
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="right">
@@ -77,22 +82,20 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
           <Heading size="md">Menu</Heading>
         </DrawerHeader>
 
-        <DrawerBody>
-          <Box pt="2">
-            <VStack spacing={4} align="stretch">
-              {items.map((item) => (
-                <Link href={item.href} key={item.label}>
-                  <Item passHref>
-                    <IconContainer>
-                      <FontAwesomeIcon icon={item.icon} />
-                    </IconContainer>
-                    {item.label}
-                  </Item>
-                </Link>
-              ))}
-            </VStack>
-          </Box>
-        </DrawerBody>
+        <Box pt="2">
+          <VStack spacing={0} align="stretch">
+            {items.map((item) => (
+              <Link href={item.href} key={item.label}>
+                <Item passHref isActive={isActive(item)} onClick={onClose}>
+                  <IconContainer>
+                    <FontAwesomeIcon icon={item.icon} />
+                  </IconContainer>
+                  {item.label}
+                </Item>
+              </Link>
+            ))}
+          </VStack>
+        </Box>
       </DrawerContent>
     </Drawer>
   )

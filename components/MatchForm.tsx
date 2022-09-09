@@ -114,7 +114,7 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
             </ListItem>
           ))}
         </List>
-        <Center height="200px">
+        <Center height="auto">
           <Divider orientation="vertical" />
         </Center>
         <OrderedList>

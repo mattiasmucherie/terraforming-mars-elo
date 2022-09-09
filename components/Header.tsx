@@ -16,8 +16,9 @@ const Brand = styled(Heading)`
 `
 
 const Tagline = styled(Text)`
-  line-height: 1.25;
-  font-size: 13px;
+  line-height: 1.2;
+  font-size: 12px;
+  margin-left: 1px;
   color: white;
   text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
 `

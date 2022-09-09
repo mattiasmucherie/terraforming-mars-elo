@@ -1,4 +1,5 @@
 import {
+  Box,
   Table,
   TableContainer,
   Tbody,
@@ -10,6 +11,7 @@ import {
 import { User } from "@prisma/client"
 import Link from "next/link"
 import { FC } from "react"
+import CurrentLeader from "./CurrentLeader"
 
 const PlayerRanking: FC<{ users: User[] }> = ({ users }) => {
   if (!users || users.length === 0) {
@@ -17,29 +19,35 @@ const PlayerRanking: FC<{ users: User[] }> = ({ users }) => {
   }
 
   return (
-    <TableContainer>
-      <Table variant="simple">
-        <Thead>
-          <Tr>
-            <Th>Player</Th>
-            <Th isNumeric>Score</Th>
-            <Th isNumeric>#</Th>
-          </Tr>
-        </Thead>
+    <>
+      <Box mx="4" mt="0" mb="5">
+        <CurrentLeader user={users[0]} />
+      </Box>
 
-        <Tbody>
-          {users.map((u, i) => (
-            <Tr key={u.name}>
-              <Td>
-                <Link href={`/user/${u.id}`}>{u.name}</Link>
-              </Td>
-              <Td isNumeric>{Math.round(u.rank)}</Td>
-              <Td isNumeric>{i + 1}</Td>
+      <TableContainer>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Player</Th>
+              <Th isNumeric>Score</Th>
+              <Th isNumeric>Rank</Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+          </Thead>
+
+          <Tbody>
+            {users.map((u, i) => (
+              <Tr key={u.name}>
+                <Td>
+                  <Link href={`/user/${u.id}`}>{u.name}</Link>
+                </Td>
+                <Td isNumeric>{Math.round(u.rank)}</Td>
+                <Td isNumeric>{i + 1}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </>
   )
 }
 

@@ -2,7 +2,6 @@ import React, { FC, useCallback, useMemo } from "react"
 import {
   Box,
   Drawer,
-  DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerHeader,

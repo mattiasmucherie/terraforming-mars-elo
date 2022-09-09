@@ -84,7 +84,11 @@ const EditProfilePictureModal: FC<EditUsernameModalProps> = ({ user }) => {
           <ModalHeader>Change Profile Picture</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input type="file" onChange={(e) => handleChange(e)} />
+            <Input
+              type="file"
+              onChange={(e) => handleChange(e)}
+              accept="image/png, image/jpeg"
+            />
           </ModalBody>
 
           <ModalFooter>

@@ -14,7 +14,11 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faListOl, faUserPlus } from "@fortawesome/free-solid-svg-icons"
+import {
+  faBuilding,
+  faListOl,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons"
 import { faCalendar, faCalendarPlus } from "@fortawesome/free-regular-svg-icons"
 
 const Item = styled(Box)`
@@ -62,6 +66,7 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
         href: "/new-player",
         icon: faUserPlus,
       },
+      { label: "Corporations", href: "/corporation", icon: faBuilding },
     ],
     []
   )

@@ -3,6 +3,8 @@ import prisma from "../../../lib/prisma"
 import { elo } from "../../../utils/elo"
 import { array, number, object, string, ValidationError } from "yup"
 import { getErrorMessage } from "../../../utils/errorMessages"
+import { toKeyAlias } from "@babel/types"
+import increment = toKeyAlias.increment
 
 export default async function handler(
   req: NextApiRequest,
@@ -63,6 +65,12 @@ export default async function handler(
           },
         },
       })
+      if (names[0].corporationId) {
+        await prisma.corporation.update({
+          where: { id: names[0].corporationId },
+          data: { wins: { increment: 1 } },
+        })
+      }
 
       await prisma.$transaction(
         users.map((u, i) => {

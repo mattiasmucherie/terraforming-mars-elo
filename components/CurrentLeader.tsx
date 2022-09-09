@@ -47,7 +47,7 @@ const CurrentLeader: FC<{ user: User }> = ({ user }) => {
             </StatGroup>
           </Box>
 
-          <Avatar ml="5" mr="1" size="lg" src={user.image}>
+          <Avatar ml="5" mr="1" size="lg" src={user.image || undefined}>
             <AvatarBadge boxSize="1.25em" bg={theme.colors.supernovaOrange}>
               <FontAwesomeIcon icon={faStar} color="white" fontSize="0.45em" />
             </AvatarBadge>

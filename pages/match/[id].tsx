@@ -3,7 +3,7 @@ import { string, ValidationError } from "yup"
 import prisma from "../../lib/prisma"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
-import { Layout, MatchTable } from "../../components"
+import { MatchTable, withLayout } from "../../components"
 
 interface MatchProps {
   match:
@@ -19,14 +19,10 @@ const MatchPage: NextPage<MatchProps> = ({ match }) => {
   if (!match) {
     return <Text>Could not load match data</Text>
   }
-  return (
-    <Layout fullWidth>
-      <MatchTable match={match} />
-    </Layout>
-  )
+  return <MatchTable match={match} />
 }
 
-export default MatchPage
+export default withLayout(MatchPage, { fullWidth: true })
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const idSchema = string().uuid().required()

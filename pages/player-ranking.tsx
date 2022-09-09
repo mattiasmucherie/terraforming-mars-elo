@@ -1,21 +1,17 @@
 import { User } from "@prisma/client"
 import type { NextPage } from "next"
 import prisma from "../lib/prisma"
-import { Layout, PlayerRanking } from "../components"
+import { withLayout, PlayerRanking } from "../components"
 
 interface PlayerRankingProps {
   users: User[]
 }
 
-const PlayerRankingPage: NextPage<PlayerRankingProps> = ({ users }) => {
-  return (
-    <Layout fullWidth>
-      <PlayerRanking users={users} />
-    </Layout>
-  )
-}
+const PlayerRankingPage: NextPage<PlayerRankingProps> = ({ users }) => (
+  <PlayerRanking users={users} />
+)
 
-export default PlayerRankingPage
+export default withLayout(PlayerRankingPage, { fullWidth: true })
 
 export async function getServerSideProps() {
   const users = await prisma.user.findMany({

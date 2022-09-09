@@ -2,7 +2,7 @@ import { NextPage } from "next"
 import { FormEventHandler, useState } from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
-import { Layout } from "../components"
+import { withLayout } from "../components"
 
 const NewPlayer: NextPage = () => {
   const [name, setName] = useState("")
@@ -18,12 +18,10 @@ const NewPlayer: NextPage = () => {
     }
   }
   return (
-    <Layout>
-      <form onSubmit={onSubmit}>
-        <input onChange={(e) => setName(e.target.value)} />
-        <button type="submit">Register</button>
-      </form>
-    </Layout>
+    <form onSubmit={onSubmit}>
+      <input onChange={(e) => setName(e.target.value)} />
+      <button type="submit">Register</button>
+    </form>
   )
 }
-export default NewPlayer
+export default withLayout(NewPlayer)

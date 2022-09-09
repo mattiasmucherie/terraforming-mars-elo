@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from "next"
 import prisma from "../../lib/prisma"
 import { Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
-import { Layout, ListOfMatches } from "../../components"
+import { ListOfMatches, withLayout } from "../../components"
 
 interface MatchesPageProps {
   matches:
@@ -13,13 +13,10 @@ const MatchesPage: NextPage<MatchesPageProps> = ({ matches }) => {
   if (!matches || !matches.length) {
     return <Text>Could not find any matches</Text>
   }
-  return (
-    <Layout fullWidth>
-      <ListOfMatches matches={matches} />
-    </Layout>
-  )
+  return <ListOfMatches matches={matches} />
 }
-export default MatchesPage
+
+export default withLayout(MatchesPage, { fullWidth: true })
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {

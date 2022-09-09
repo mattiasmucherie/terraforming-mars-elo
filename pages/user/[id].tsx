@@ -3,7 +3,7 @@ import { string, ValidationError } from "yup"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
 import prisma from "../../lib/prisma"
-import { Layout, UserMatchHistory, UserStat } from "../../components"
+import { UserMatchHistory, UserStat, withLayout } from "../../components"
 
 type UserPageProps = {
   user:
@@ -21,14 +21,14 @@ const UserPage: NextPage<UserPageProps> = ({ user }) => {
   }
 
   return (
-    <Layout fullWidth>
+    <>
       <UserStat user={user} />
       <UserMatchHistory user={user} />
-    </Layout>
+    </>
   )
 }
 
-export default UserPage
+export default withLayout(UserPage, { fullWidth: true })
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const idSchema = string().uuid().required()

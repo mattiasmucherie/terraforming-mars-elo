@@ -17,19 +17,6 @@ interface CorporationTableProps {
   corporations: (Corporation & { matchRanking: MatchRanking[] })[]
 }
 const CorporationTable: FC<CorporationTableProps> = ({ corporations }) => {
-  const corps = [...corporations]
-  corps.sort((cA, cB) => {
-    if (cA.matchRanking.length && cB.matchRanking.length) {
-      return cB.wins / cB.matchRanking.length - cA.wins / cA.matchRanking.length
-    }
-    if (!cA.matchRanking.length) {
-      return 1
-    }
-    if (!cB.matchRanking.length) {
-      return -1
-    }
-    return 1
-  })
   return (
     <TableContainer>
       <Table>
@@ -44,7 +31,7 @@ const CorporationTable: FC<CorporationTableProps> = ({ corporations }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {corps.map((c) => {
+          {corporations.map((c) => {
             const winRate = c.matchRanking.length
               ? `${Math.round((c.wins / c.matchRanking.length) * 100)} %`
               : "-"

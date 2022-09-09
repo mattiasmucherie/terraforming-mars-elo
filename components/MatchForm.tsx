@@ -21,6 +21,7 @@ import {
   NumberDecrementStepper,
   InputGroup,
   InputLeftAddon,
+  Spinner,
 } from "@chakra-ui/react"
 import { DeleteIcon } from "@chakra-ui/icons"
 
@@ -173,7 +174,7 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
         </OrderedList>
       </ListContainer>
       <Button onClick={handleSubmit} disabled={loading}>
-        Submit New Match
+        {loading ? <Spinner /> : "Submit New Match"}
       </Button>
     </Container>
   )

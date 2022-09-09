@@ -23,6 +23,12 @@ import EditUsernameModal from "./EditUsernameModal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGear } from "@fortawesome/free-solid-svg-icons"
 import EditProfilePictureModal from "./EditProfilePictureModal"
+import styled from "styled-components"
+
+const IconContainer = styled.div`
+  width: 14px;
+  font-size: 18px;
+`
 
 interface UserStatProps {
   user: User & {
@@ -31,6 +37,7 @@ interface UserStatProps {
     })[]
   }
 }
+
 const UserStat: FC<UserStatProps> = ({ user }) => {
   const statArrow = user.matches.length
     ? user.rank - user.matches[0].matchRankings[0].prevRank
@@ -70,7 +77,9 @@ const UserStat: FC<UserStatProps> = ({ user }) => {
         </Wrap>
         <Menu>
           <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-            <FontAwesomeIcon icon={faGear} />
+            <IconContainer>
+              <FontAwesomeIcon icon={faGear} />
+            </IconContainer>
           </MenuButton>
           <MenuList>
             <EditUsernameModal user={user} />

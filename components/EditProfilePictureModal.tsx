@@ -1,8 +1,6 @@
 import {
-  Box,
   Button,
   ButtonGroup,
-  Highlight,
   Input,
   MenuItem,
   Modal,
@@ -12,7 +10,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
   useDisclosure,
 } from "@chakra-ui/react"
 import React, { FC, useState } from "react"
@@ -23,10 +20,9 @@ import { useRouter } from "next/router"
 interface EditUsernameModalProps {
   user: User
 }
-const sizeLimit = 10 * 10 * 1024 * 1024
+const sizeLimit = 10 * 10 * 1024 * 1024 // 10Mb
 const EditProfilePictureModal: FC<EditUsernameModalProps> = ({ user }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [image, setImage] = useState<string | ArrayBuffer | null>(null)
   const [imageUrl, setImageUrl] = useState("")
   const [loading, setLoading] = useState(false)
 
@@ -51,7 +47,6 @@ const EditProfilePictureModal: FC<EditUsernameModalProps> = ({ user }) => {
       const reader = new FileReader()
       reader.addEventListener("load", async () => {
         try {
-          setImage(reader.result)
           await uploadImage(reader.result)
         } catch (e) {
           console.error(e)

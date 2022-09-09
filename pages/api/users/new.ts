@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import prisma from "../../../lib/prisma"
 import { string, ValidationError } from "yup"
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime"
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,7 +19,9 @@ export default async function handler(
       if (e instanceof ValidationError) {
         return res.status(400).json({ message: e.message })
       }
-      console.error(e)
+      if (e instanceof PrismaClientKnownRequestError) {
+        return res.status(400).json({ message: `Username is taken` })
+      }
       return res.status(500).json({ message: "Something went wrong" })
     }
   } else {

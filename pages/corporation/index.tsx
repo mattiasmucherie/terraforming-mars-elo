@@ -32,13 +32,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
           cB.wins / cB.matchRanking.length - cA.wins / cA.matchRanking.length
         )
       }
-      if (!cA.matchRanking.length) {
-        return 1
-      }
-      if (!cB.matchRanking.length) {
-        return -1
-      }
-      return 1
+      return cB.matchRanking.length - cA.matchRanking.length
     })
     return { props: { corporations: JSON.parse(JSON.stringify(corporations)) } }
   } catch (e) {

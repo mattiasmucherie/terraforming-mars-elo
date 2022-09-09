@@ -38,11 +38,13 @@ model MatchRanking {
   corporation   Corporation? @relation(fields: [corporationId], references: [id])
   corporationId String?
   standing      Int
+  victoryPoints Int?
 }
 
 model Corporation {
   id           String         @id @default(uuid())
   name         String         @unique
   image        String?
-  MatchRanking MatchRanking[]
+  matchRanking MatchRanking[]
+  wins         Int            @default(0)
 }

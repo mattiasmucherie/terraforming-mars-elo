@@ -11,9 +11,16 @@ import {
   IconButton,
   List,
   ListItem,
+  NumberInputField,
+  NumberInput,
   OrderedList,
   Select,
   Text,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  InputGroup,
+  InputLeftAddon,
 } from "@chakra-ui/react"
 import { DeleteIcon } from "@chakra-ui/icons"
 
@@ -32,16 +39,17 @@ interface MatchFormProps {
   users: User[]
   corporations: Corporation[]
 }
-type RankedPlayers = User & { corporationId?: string }
+type RankedPlayer = User & { corporationId?: string; victoryPoints?: number }
 
 const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
   const [listOfPlayers, setListOfPlayers] = useState<User[]>(users)
-  const [rankingOfPlayers, setRankingOfPlayers] = useState<RankedPlayers[]>([])
+  const [rankingOfPlayers, setRankingOfPlayers] = useState<RankedPlayer[]>([])
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const handleCorpChange = (
     e: ChangeEvent<HTMLSelectElement>,
-    p: User & Corporation
+    p: RankedPlayer
   ) => {
     const corp = corporations.find((c) => c.name === e.target.value)
     if (corp) {
@@ -66,15 +74,34 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
   }
 
   const handleSubmit = async () => {
+    setLoading(true)
     try {
       const listOfNames = rankingOfPlayers.map((p) => ({
         name: p.name,
         corporationId: p.corporationId,
+        victoryPoints: p.victoryPoints,
       }))
       await axios.post("/api/match/new", listOfNames)
       router.push("/")
     } catch (e) {
       console.error(e)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleNumberInputChange = async (e: string, p: RankedPlayer) => {
+    const vPoints = Number(e)
+    if (vPoints) {
+      setRankingOfPlayers((prevState) => {
+        const index = prevState.findIndex((ps) => ps.id === p.id)
+        return prevState.map((uc, i) => {
+          if (i === index) {
+            return { ...uc, victoryPoints: vPoints }
+          }
+          return uc
+        })
+      })
     }
   }
   return (
@@ -120,11 +147,34 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
                   </option>
                 ))}
               </Select>
+              <InputGroup my={1}>
+                <InputLeftAddon>VP</InputLeftAddon>
+                <NumberInput
+                  defaultValue={0}
+                  min={0}
+                  max={200}
+                  width="100px"
+                  allowMouseWheel
+                  onChange={(e) => handleNumberInputChange(e, p)}
+                  placeholder="Victory points"
+                >
+                  <NumberInputField
+                    borderTopLeftRadius={0}
+                    borderBottomLeftRadius={0}
+                  />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              </InputGroup>
             </ListItem>
           ))}
         </OrderedList>
       </ListContainer>
-      <Button onClick={handleSubmit}>Submit New Match</Button>
+      <Button onClick={handleSubmit} disabled={loading}>
+        Submit New Match
+      </Button>
     </Container>
   )
 }

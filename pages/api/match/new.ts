@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import prisma from "../../../lib/prisma"
 import { elo } from "../../../utils/elo"
-import { array, object, string, ValidationError } from "yup"
+import { array, number, object, string, ValidationError } from "yup"
 import { getErrorMessage } from "../../../utils/errorMessages"
 
 export default async function handler(
@@ -15,12 +15,12 @@ export default async function handler(
           object({
             name: string().required(),
             corporationId: string().uuid(),
+            victoryPoints: number(),
           })
         )
         .min(2, "We need at least two players")
         .required()
-      const names: { name: string; corporationId?: string }[] =
-        await namesSchema.validate(req.body)
+      const names = await namesSchema.validate(req.body)
 
       // Get users of the inputted users
       const arrayOfName = names.map((n) => ({ name: n.name }))
@@ -57,6 +57,7 @@ export default async function handler(
                 prevRank: u.rank,
                 corporationId: names[i].corporationId,
                 standing: i + 1,
+                victoryPoints: names[i].victoryPoints,
               })),
             },
           },

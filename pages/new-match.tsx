@@ -25,7 +25,9 @@ export default NewMatch
 
 export async function getServerSideProps() {
   const users = await prisma.user.findMany({})
-  const corporations = await prisma.corporation.findMany({})
+  const corporations = await prisma.corporation.findMany({
+    orderBy: { name: "asc" },
+  })
   return {
     props: {
       users: JSON.parse(JSON.stringify(users)),

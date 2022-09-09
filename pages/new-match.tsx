@@ -1,8 +1,7 @@
 import { NextPage } from "next"
 import prisma from "../lib/prisma"
 import { Corporation, User } from "@prisma/client"
-import MatchForm from "../components/MatchForm"
-import { Layout } from "../components"
+import { Layout, MatchForm } from "../components"
 
 interface NewMatchProps {
   users: User[]

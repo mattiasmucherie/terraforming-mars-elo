@@ -2,10 +2,8 @@ import { GetServerSideProps, NextPage } from "next"
 import { string, ValidationError } from "yup"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
-import UserStat from "../../components/UserStat"
-import UserMatchHistory from "../../components/UserMatchHistory"
 import prisma from "../../lib/prisma"
-import { Layout } from "../../components"
+import { Layout, UserMatchHistory, UserStat } from "../../components"
 
 type UserPageProps = {
   user:
@@ -25,7 +23,7 @@ const UserPage: NextPage<UserPageProps> = ({ user }) => {
   return (
     <Layout fullWidth>
       <UserStat user={user} />
-      <UserMatchHistory user={user}></UserMatchHistory>
+      <UserMatchHistory user={user} />
     </Layout>
   )
 }

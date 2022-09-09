@@ -1,8 +1,7 @@
 import { User } from "@prisma/client"
 import type { NextPage } from "next"
 import prisma from "../lib/prisma"
-import PlayerRanking from "../components/PlayerRanking"
-import { Layout } from "../components"
+import { Layout, PlayerRanking } from "../components"
 
 interface PlayerRankingProps {
   users: User[]

@@ -22,7 +22,6 @@ import { faCalendar, faCalendarPlus } from "@fortawesome/free-regular-svg-icons"
 
 const Item = styled(Box)`
   font-size: 18px;
-  height: 2em;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -30,7 +29,7 @@ const Item = styled(Box)`
   border-color: ${(p) =>
     p.$isActive ? p.theme.colors.mangoOrange : "transparent"};
   box-sizing: border-box;
-  padding: 31px 24px 33px;
+  padding: 11px 24px 13px;
 `
 
 const IconContainer = styled.div`
@@ -87,7 +86,7 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
         </DrawerHeader>
 
         <Box pt="2">
-          <VStack spacing={0} align="stretch">
+          <VStack spacing={2} align="stretch">
             {items.map((item) => (
               <Link href={item.href} key={item.label}>
                 <Item passHref $isActive={isActive(item)} onClick={onClose}>

@@ -26,7 +26,9 @@ const Header = () => {
       >
         <Box>
           <Link href="/">
-            <Brand />
+            <div>
+              <Brand />
+            </div>
           </Link>
         </Box>
 

@@ -3,7 +3,7 @@ import React from "react"
 
 const BrandSymbol = () => {
   return (
-    <Heading size="md" color="white">
+    <Heading size="md" color="white" lineHeight={1} pt="1px">
       TR
     </Heading>
   )

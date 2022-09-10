@@ -28,7 +28,7 @@ const Item = styled(Box)`
   cursor: pointer;
   border-left: 5px solid;
   border-color: ${(p) =>
-    p.isActive ? p.theme.colors.mangoOrange : "transparent"};
+    p.$isActive ? p.theme.colors.mangoOrange : "transparent"};
   box-sizing: border-box;
   padding: 31px 24px 33px;
 `
@@ -47,7 +47,7 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
     () => [
       {
         label: "Ranking",
-        href: "/",
+        href: "/player-ranking",
         icon: faListOl,
       },
       {
@@ -90,7 +90,7 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
           <VStack spacing={0} align="stretch">
             {items.map((item) => (
               <Link href={item.href} key={item.label}>
-                <Item passHref isActive={isActive(item)} onClick={onClose}>
+                <Item passHref $isActive={isActive(item)} onClick={onClose}>
                   <IconContainer>
                     <FontAwesomeIcon icon={item.icon} />
                   </IconContainer>

@@ -1,8 +1,9 @@
 import "normalize.css"
 import "../styles/globals.css"
 import type { AppProps } from "next/app"
-import { ThemeProvider } from "styled-components"
+import Script from "next/script"
 import Head from "next/head"
+import { ThemeProvider } from "styled-components"
 import { ChakraProvider } from "@chakra-ui/react"
 import { theme, chakraTheme } from "../styles"
 
@@ -37,12 +38,15 @@ function App({ Component, pageProps }: AppProps) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
+      </Head>
+
+      <Script id="font-awesome">
         <script
           async
           src="https://kit.fontawesome.com/2c2e87960d.js"
           crossOrigin="anonymous"
         ></script>
-      </Head>
+      </Script>
 
       <ThemeProvider theme={theme}>
         <ChakraProvider theme={chakraTheme}>

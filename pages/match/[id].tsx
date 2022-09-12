@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from "next"
+import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { string, ValidationError } from "yup"
 import prisma from "../../lib/prisma"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
@@ -24,7 +24,16 @@ const MatchPage: NextPage<MatchProps> = ({ match }) => {
 
 export default withLayout(MatchPage, { fullWidth: true })
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const matches = await prisma.match.findMany({ select: { id: true } })
+
+  return {
+    paths: matches.map((m) => ({ params: { id: m.id } })),
+    fallback: true,
+  }
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
   const idSchema = string().uuid().required()
   try {
     const id = await idSchema.validate(context.params?.id)

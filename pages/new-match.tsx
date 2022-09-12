@@ -19,7 +19,7 @@ const NewMatch: NextPage<NewMatchProps> = ({ users, corporations }) => {
 
 export default withLayout(NewMatch)
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const users = await prisma.user.findMany({})
   const corporations = await prisma.corporation.findMany({
     orderBy: { name: "asc" },
@@ -29,5 +29,6 @@ export async function getServerSideProps() {
       users: JSON.parse(JSON.stringify(users)),
       corporations: JSON.parse(JSON.stringify(corporations)),
     },
+    revalidate: 10,
   }
 }

@@ -1,5 +1,5 @@
 import Layout from "../../components/Layout"
-import { GetServerSideProps, NextPage } from "next"
+import { GetServerSideProps, GetStaticProps, NextPage } from "next"
 import prisma from "../../lib/prisma"
 import CorporationTable from "../../components/CorporationTable"
 import { Corporation, MatchRanking } from "@prisma/client"
@@ -21,7 +21,7 @@ const CorporationPage: NextPage<CorporationPage> = ({ corporations }) => {
 
 export default CorporationPage
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   try {
     const corporations = await prisma.corporation.findMany({
       include: { matchRanking: true },
@@ -34,7 +34,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
       }
       return cB.matchRanking.length - cA.matchRanking.length
     })
-    return { props: { corporations: JSON.parse(JSON.stringify(corporations)) } }
+    return {
+      props: { corporations: JSON.parse(JSON.stringify(corporations)) },
+      revalidate: 10,
+    }
   } catch (e) {
     console.error(e)
   }

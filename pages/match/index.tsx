@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from "next"
+import { GetServerSideProps, GetStaticProps, NextPage } from "next"
 import prisma from "../../lib/prisma"
 import { Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
@@ -18,13 +18,16 @@ const MatchesPage: NextPage<MatchesPageProps> = ({ matches }) => {
 
 export default withLayout(MatchesPage, { fullWidth: true })
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   try {
     const matches = await prisma.match.findMany({
       include: { matchRankings: { include: { user: true } } },
       orderBy: { createdAt: "desc" },
     })
-    return { props: { matches: JSON.parse(JSON.stringify(matches)) } }
+    return {
+      props: { matches: JSON.parse(JSON.stringify(matches)) },
+      revalidate: 10,
+    }
   } catch (e) {
     return { props: {} }
   }

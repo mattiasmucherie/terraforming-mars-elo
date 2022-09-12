@@ -44,7 +44,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
       },
     })
 
-    return { props: { match: JSON.parse(JSON.stringify(match)) } }
+    return {
+      props: { match: JSON.parse(JSON.stringify(match)) },
+      revalidate: 10,
+    }
   } catch (e) {
     if (e instanceof ValidationError) {
       return {

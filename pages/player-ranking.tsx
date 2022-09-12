@@ -16,6 +16,8 @@ export default withLayout(PlayerRankingPage, { fullWidth: true })
 export async function getServerSideProps() {
   const users = await prisma.user.findMany({
     orderBy: { rank: "desc" },
+    include: { MatchRanking: true },
   })
-  return { props: { users: JSON.parse(JSON.stringify(users)) } }
+  const userPlayed = users.filter((u) => u.MatchRanking.length)
+  return { props: { users: JSON.parse(JSON.stringify(userPlayed)) } }
 }

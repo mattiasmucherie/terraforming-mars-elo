@@ -1,4 +1,9 @@
-import { GetServerSideProps, NextPage } from "next"
+import {
+  GetServerSideProps,
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from "next"
 import { string, ValidationError } from "yup"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
@@ -30,7 +35,13 @@ const UserPage: NextPage<UserPageProps> = ({ user }) => {
 
 export default withLayout(UserPage, { fullWidth: true })
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const users = await prisma.user.findMany({ select: { id: true } })
+
+  return { paths: users.map((u) => ({ params: { id: u.id } })), fallback: true }
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
   const idSchema = string().uuid().required()
   try {
     const id = await idSchema.validate(context.params?.id)
@@ -49,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     })
 
-    return { props: { user: JSON.parse(JSON.stringify(user)) } }
+    return { props: { user: JSON.parse(JSON.stringify(user)) }, revalidate: 10 }
   } catch (e) {
     if (e instanceof ValidationError) {
       return {

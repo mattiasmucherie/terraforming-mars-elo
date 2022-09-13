@@ -31,7 +31,7 @@ const NewPlayer: NextPage = () => {
         <Input
           value={name}
           onChange={handleInputChanged}
-          placeholder="Mark Watney..."
+          placeholder="Ex. Mark Watney"
         />
       </FormControl>
 

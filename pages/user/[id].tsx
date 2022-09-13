@@ -33,7 +33,7 @@ const UserPage: NextPage<UserPageProps> = ({ user }) => {
   )
 }
 
-export default withLayout(UserPage, { fullWidth: true })
+export default withLayout(UserPage, { fullWidth: true, heading: "Player" })
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const users = await prisma.user.findMany({ select: { id: true } })

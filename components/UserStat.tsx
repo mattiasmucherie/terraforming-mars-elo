@@ -46,6 +46,7 @@ const UserStat: FC<UserStatProps> = ({ user }) => {
     <>
       <Box
         px="2"
+        pb="4"
         display="flex"
         alignItems="center"
         justifyContent="space-between"

@@ -4,7 +4,6 @@ import {
   Link as ChakraLink,
   Stat,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
@@ -28,10 +27,6 @@ const MatchTable: FC<MatchTableProps> = ({ match }) => {
   return (
     <TableContainer>
       <Table>
-        <TableCaption placement="top">
-          Match stats from{" "}
-          {new Date(match.createdAt).toLocaleDateString("sv-SE")}
-        </TableCaption>
         <Thead>
           <Tr>
             <Th>Name</Th>

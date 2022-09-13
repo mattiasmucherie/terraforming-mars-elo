@@ -17,7 +17,7 @@ const NewMatch: NextPage<NewMatchProps> = ({ users, corporations }) => {
   return <MatchForm users={users} corporations={corporations} />
 }
 
-export default withLayout(NewMatch)
+export default withLayout(NewMatch, { heading: "Register match" })
 
 export async function getStaticProps() {
   const users = await prisma.user.findMany({})

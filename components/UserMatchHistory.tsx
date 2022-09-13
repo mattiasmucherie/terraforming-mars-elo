@@ -4,7 +4,6 @@ import {
   Link as ChakraLink,
   Stat,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
@@ -28,7 +27,6 @@ const UserMatchHistory: FC<UserMatchHistoryProps> = ({ user }) => {
       {user.matches.length ? (
         <TableContainer>
           <Table variant="simple">
-            <TableCaption placement="top">Match History</TableCaption>
             <Thead>
               <Tr>
                 <Th>Date</Th>

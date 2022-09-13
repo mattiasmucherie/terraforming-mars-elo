@@ -4,6 +4,7 @@ import prisma from "../../lib/prisma"
 import CorporationTable from "../../components/CorporationTable"
 import { Corporation, MatchRanking } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
+import { withLayout } from "../../components"
 
 interface CorporationPage {
   corporations: (Corporation & { matchRanking: MatchRanking[] })[]
@@ -19,7 +20,7 @@ const CorporationPage: NextPage<CorporationPage> = ({ corporations }) => {
   )
 }
 
-export default CorporationPage
+export default withLayout(CorporationPage, { heading: "Corporations" })
 
 export const getStaticProps: GetStaticProps = async () => {
   try {

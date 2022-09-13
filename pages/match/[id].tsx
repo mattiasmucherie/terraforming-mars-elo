@@ -22,7 +22,12 @@ const MatchPage: NextPage<MatchProps> = ({ match }) => {
   return <MatchTable match={match} />
 }
 
-export default withLayout(MatchPage, { fullWidth: true })
+export default withLayout(MatchPage, (props: any) => ({
+  fullWidth: true,
+  heading: `Match | ${new Date(props.match.createdAt).toLocaleDateString(
+    "sv-SE"
+  )}`,
+}))
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const matches = await prisma.match.findMany({ select: { id: true } })

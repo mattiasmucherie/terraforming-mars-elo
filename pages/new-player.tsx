@@ -1,5 +1,5 @@
 import { NextPage } from "next"
-import { FormEventHandler, useCallback, useState } from "react"
+import { ChangeEvent, FormEventHandler, useCallback, useState } from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
 import { withLayout } from "../components"
@@ -20,7 +20,7 @@ const NewPlayer: NextPage = () => {
   }
 
   const handleInputChanged = useCallback(
-    (e: any) => setName(e.target.value),
+    (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value),
     []
   )
 

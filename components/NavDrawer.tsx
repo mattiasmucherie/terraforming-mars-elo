@@ -99,8 +99,8 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
         <Divider mb="2" />
 
         {sections.map(({ items }, i) => (
-          <>
-            <Box key={i}>
+          <React.Fragment key={i}>
+            <Box>
               <VStack spacing={0} align="stretch">
                 {items.map((item) => (
                   <Link href={item.href} key={item.label}>
@@ -116,7 +116,7 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
             </Box>
 
             <Divider my="2" key={i + "divider"} />
-          </>
+          </React.Fragment>
         ))}
       </DrawerContent>
     </Drawer>

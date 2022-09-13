@@ -13,11 +13,7 @@ const CorporationPage: NextPage<CorporationPage> = ({ corporations }) => {
   if (!corporations || !corporations.length) {
     return <Text> Could not load any corporations</Text>
   }
-  return (
-    <Layout>
-      <CorporationTable corporations={corporations} />
-    </Layout>
-  )
+  return <CorporationTable corporations={corporations} />
 }
 
 export default withLayout(CorporationPage, { heading: "Corporations" })

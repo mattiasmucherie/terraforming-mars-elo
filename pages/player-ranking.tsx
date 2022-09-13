@@ -11,7 +11,10 @@ const PlayerRankingPage: NextPage<PlayerRankingProps> = ({ users }) => (
   <PlayerRanking users={users} />
 )
 
-export default withLayout(PlayerRankingPage, { fullWidth: true })
+export default withLayout(PlayerRankingPage, {
+  heading: "Top list",
+  fullWidth: true,
+})
 
 export async function getStaticProps() {
   const users = await prisma.user.findMany({

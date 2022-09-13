@@ -17,6 +17,7 @@ import {
   faBuilding,
   faListOl,
   faUserPlus,
+  faChartLine,
 } from "@fortawesome/free-solid-svg-icons"
 import { faCalendar, faCalendarPlus } from "@fortawesome/free-regular-svg-icons"
 
@@ -49,6 +50,7 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
         href: "/player-ranking",
         icon: faListOl,
       },
+      { label: "Chart", href: "ranking-chart", icon: faChartLine },
       {
         label: "Matches",
         href: "/match",

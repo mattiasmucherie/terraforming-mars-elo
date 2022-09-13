@@ -4,7 +4,7 @@ export const Config: ChartOptions<"line"> = {
   animation: false,
   plugins: {
     legend: {
-      position: "right",
+      position: "bottom",
     },
   },
   parsing: false,
@@ -22,7 +22,7 @@ export const Config: ChartOptions<"line"> = {
       display: true,
       title: { display: true, text: "Game #" },
     },
-    y: { display: true, title: { display: true, text: "Elo" } },
+    y: { display: true },
   },
   elements: { point: { radius: 0 } },
 }

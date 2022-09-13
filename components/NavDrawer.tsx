@@ -1,11 +1,12 @@
 import React, { FC, useCallback, useMemo } from "react"
 import {
   Box,
+  CloseButton,
+  Divider,
   Drawer,
-  DrawerCloseButton,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
+  Flex,
   Heading,
   VStack,
 } from "@chakra-ui/react"
@@ -30,7 +31,7 @@ const Item = styled(Box)`
   border-color: ${(p) =>
     p.$isActive ? p.theme.colors.mangoOrange : "transparent"};
   box-sizing: border-box;
-  padding: 11px 24px 13px;
+  padding: 16px 24px;
 `
 
 const IconContainer = styled.div`
@@ -43,30 +44,38 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
   onClose,
 }) => {
   const router = useRouter()
-  const items = useMemo(
+  const sections = useMemo(
     () => [
       {
-        label: "Ranking",
-        href: "/player-ranking",
-        icon: faListOl,
+        items: [
+          {
+            label: "Ranking",
+            href: "/player-ranking",
+            icon: faListOl,
+          },
+          { label: "Chart", href: "ranking-chart", icon: faChartLine },
+          {
+            label: "Matches",
+            href: "/match",
+            icon: faCalendar,
+          },
+          { label: "Corporations", href: "/corporation", icon: faBuilding },
+        ],
       },
-      { label: "Chart", href: "ranking-chart", icon: faChartLine },
       {
-        label: "Matches",
-        href: "/match",
-        icon: faCalendar,
+        items: [
+          {
+            label: "Register match",
+            href: "/new-match",
+            icon: faCalendarPlus,
+          },
+          {
+            label: "Add player",
+            href: "/new-player",
+            icon: faUserPlus,
+          },
+        ],
       },
-      {
-        label: "Register match",
-        href: "/new-match",
-        icon: faCalendarPlus,
-      },
-      {
-        label: "Add player",
-        href: "/new-player",
-        icon: faUserPlus,
-      },
-      { label: "Corporations", href: "/corporation", icon: faBuilding },
     ],
     []
   )
@@ -81,26 +90,34 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
       <DrawerOverlay />
 
       <DrawerContent>
-        <DrawerCloseButton />
-
-        <DrawerHeader>
+        <Flex alignItems="center" justifyContent="space-between" p="4" pr="3">
           <Heading size="md">Menu</Heading>
-        </DrawerHeader>
 
-        <Box pt="2">
-          <VStack spacing={2} align="stretch">
-            {items.map((item) => (
-              <Link href={item.href} key={item.label}>
-                <Item passHref $isActive={isActive(item)} onClick={onClose}>
-                  <IconContainer>
-                    <FontAwesomeIcon icon={item.icon} />
-                  </IconContainer>
-                  {item.label}
-                </Item>
-              </Link>
-            ))}
-          </VStack>
-        </Box>
+          <CloseButton onClick={onClose} size="md" />
+        </Flex>
+
+        <Divider mb="2" />
+
+        {sections.map(({ items }, i) => (
+          <>
+            <Box key={i}>
+              <VStack spacing={0} align="stretch">
+                {items.map((item) => (
+                  <Link href={item.href} key={item.label}>
+                    <Item passHref $isActive={isActive(item)} onClick={onClose}>
+                      <IconContainer>
+                        <FontAwesomeIcon icon={item.icon} />
+                      </IconContainer>
+                      {item.label}
+                    </Item>
+                  </Link>
+                ))}
+              </VStack>
+            </Box>
+
+            <Divider my="2" key={i + "divider"} />
+          </>
+        ))}
       </DrawerContent>
     </Drawer>
   )

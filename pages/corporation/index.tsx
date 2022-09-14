@@ -16,7 +16,10 @@ const CorporationPage: NextPage<CorporationPage> = ({ corporations }) => {
   return <CorporationTable corporations={corporations} />
 }
 
-export default withLayout(CorporationPage, { heading: "Corporations" })
+export default withLayout(CorporationPage, {
+  fullWidth: true,
+  heading: "Corporations",
+})
 
 export const getStaticProps: GetStaticProps = async () => {
   try {

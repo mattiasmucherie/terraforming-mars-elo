@@ -28,5 +28,5 @@ Try them out to see all the info you can get. Right now it doesn't matter if `GE
 
 And I haven't touched anything on the frontend yet
 
-### Reabuild Prisma
+### Rebuild Prisma
 ```yarn prisma generate```

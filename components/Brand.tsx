@@ -4,6 +4,7 @@ import styled from "styled-components"
 
 const Container = styled(Heading)`
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: -1px;
 
   &:active {
     text-decoration: underline;

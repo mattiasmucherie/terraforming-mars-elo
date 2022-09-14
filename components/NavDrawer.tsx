@@ -19,6 +19,7 @@ import {
   faListOl,
   faUserPlus,
   faChartLine,
+  IconDefinition,
 } from "@fortawesome/free-solid-svg-icons"
 import { faCalendar, faCalendarPlus } from "@fortawesome/free-regular-svg-icons"
 
@@ -39,7 +40,7 @@ const IconContainer = styled.div`
   font-size: 18px;
 `
 
-const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
+const NavDrawer: FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
   onClose,
 }) => {
@@ -81,7 +82,8 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
   )
 
   const isActive = useCallback(
-    (item: any) => router.pathname === item.href,
+    (item: { label: string; href: string; icon: IconDefinition }) =>
+      router.pathname === item.href,
     [router]
   )
 
@@ -99,8 +101,8 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
         <Divider mb="2" />
 
         {sections.map(({ items }, i) => (
-          <>
-            <Box key={i}>
+          <React.Fragment key={i}>
+            <Box>
               <VStack spacing={0} align="stretch">
                 {items.map((item) => (
                   <Link href={item.href} key={item.label}>
@@ -116,7 +118,7 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: any }> = ({
             </Box>
 
             <Divider my="2" key={i + "divider"} />
-          </>
+          </React.Fragment>
         ))}
       </DrawerContent>
     </Drawer>

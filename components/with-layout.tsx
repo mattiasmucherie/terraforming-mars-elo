@@ -1,8 +1,13 @@
-import React, { useMemo } from "react"
+import React, { ComponentType, useMemo } from "react"
 import Layout from "./Layout"
 
-const withLayout: any = (Component: any, layoutConfig: any) => {
-  function ComponentWithLayout(props: any) {
+type LayoutProps = { heading?: string; fullWidth?: boolean }
+
+const withLayout = <T extends {}>(
+  Component: ComponentType<T>,
+  layoutConfig: LayoutProps | ((p: T) => LayoutProps)
+) => {
+  const ComponentWithLayout = (props: T) => {
     const layoutProps = useMemo(
       () =>
         typeof layoutConfig === "function" ? layoutConfig(props) : layoutConfig,

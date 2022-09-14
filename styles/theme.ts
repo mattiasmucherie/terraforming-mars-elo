@@ -1,7 +1,6 @@
-import { DefaultTheme } from "styled-components"
-
 const theme = {
   colors: {
+    black: "#111111",
     seedBrown: "#451804",
     rustRed: "#c1440e",
     mangoOrange: "#e77d11",

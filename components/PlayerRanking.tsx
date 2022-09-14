@@ -10,8 +10,6 @@ import {
   Th,
   Thead,
   Tr,
-  Wrap,
-  WrapItem,
 } from "@chakra-ui/react"
 import { User } from "@prisma/client"
 import Link from "next/link"

@@ -101,24 +101,22 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: () => void }> = ({
         <Divider mb="2" />
 
         {sections.map(({ items }, i) => (
-          <React.Fragment key={i}>
-            <Box>
-              <VStack spacing={0} align="stretch">
-                {items.map((item) => (
-                  <Link href={item.href} key={item.label}>
-                    <Item passHref $isActive={isActive(item)} onClick={onClose}>
-                      <IconContainer>
-                        <FontAwesomeIcon icon={item.icon} />
-                      </IconContainer>
-                      {item.label}
-                    </Item>
-                  </Link>
-                ))}
-              </VStack>
-            </Box>
+          <Box key={i}>
+            <VStack spacing={0} align="stretch">
+              {items.map((item) => (
+                <Link href={item.href} key={item.label}>
+                  <Item passHref $isActive={isActive(item)} onClick={onClose}>
+                    <IconContainer>
+                      <FontAwesomeIcon icon={item.icon} />
+                    </IconContainer>
+                    {item.label}
+                  </Item>
+                </Link>
+              ))}
+            </VStack>
 
-            <Divider my="2" key={i + "divider"} />
-          </React.Fragment>
+            <Divider my="2" />
+          </Box>
         ))}
       </DrawerContent>
     </Drawer>

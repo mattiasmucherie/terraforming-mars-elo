@@ -10,7 +10,7 @@ const nextConfig = {
     return [
       {
         source: "/",
-        destination: "/player-ranking",
+        destination: "/home",
       },
     ]
   },

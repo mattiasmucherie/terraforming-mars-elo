@@ -16,7 +16,7 @@ const MatchesPage: NextPage<MatchesPageProps> = ({ matches }) => {
   return <ListOfMatches matches={matches} />
 }
 
-export default withLayout(MatchesPage, { fullWidth: true, heading: "Matches" })
+export default withLayout(MatchesPage, { heading: "Matches" })
 
 export const getStaticProps: GetStaticProps = async () => {
   try {

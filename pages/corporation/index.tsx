@@ -17,7 +17,6 @@ const CorporationPage: NextPage<CorporationPage> = ({ corporations }) => {
 }
 
 export default withLayout(CorporationPage, {
-  fullWidth: true,
   heading: "Corporations",
 })
 

@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react"
 import { StatArrow } from "@chakra-ui/stat"
 import Link from "next/dist/client/link"
+import { FullWidthContainer } from "./Layout"
 
 interface MatchTableProps {
   match: Match & {
@@ -25,38 +26,42 @@ interface MatchTableProps {
 
 const MatchTable: FC<MatchTableProps> = ({ match }) => {
   return (
-    <TableContainer>
-      <Table>
-        <Thead>
-          <Tr>
-            <Th>Name</Th>
-            <Th>Corp</Th>
-            <Th>Elo change</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {match.matchRankings.map((mr) => {
-            const eloChange = mr.newRank - mr.prevRank
-            return (
-              <Tr key={mr.id}>
-                <Td>
-                  <ChakraLink as={Link} href={`/user/${mr.userId}`}>
-                    {mr.user.name}
-                  </ChakraLink>
-                </Td>
-                <Td>{mr.corporation?.name || "?"}</Td>
-                <Td>
-                  <Stat>
-                    <StatArrow type={eloChange > 0 ? "increase" : "decrease"} />
-                    {Math.round(eloChange)}
-                  </Stat>
-                </Td>
-              </Tr>
-            )
-          })}
-        </Tbody>
-      </Table>
-    </TableContainer>
+    <FullWidthContainer>
+      <TableContainer>
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>Name</Th>
+              <Th>Corp</Th>
+              <Th>Elo change</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {match.matchRankings.map((mr) => {
+              const eloChange = mr.newRank - mr.prevRank
+              return (
+                <Tr key={mr.id}>
+                  <Td>
+                    <ChakraLink as={Link} href={`/user/${mr.userId}`}>
+                      {mr.user.name}
+                    </ChakraLink>
+                  </Td>
+                  <Td>{mr.corporation?.name || "?"}</Td>
+                  <Td>
+                    <Stat>
+                      <StatArrow
+                        type={eloChange > 0 ? "increase" : "decrease"}
+                      />
+                      {Math.round(eloChange)}
+                    </Stat>
+                  </Td>
+                </Tr>
+              )
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </FullWidthContainer>
   )
 }
 

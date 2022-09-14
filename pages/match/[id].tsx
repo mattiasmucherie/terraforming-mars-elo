@@ -23,15 +23,15 @@ const MatchPage: NextPage<MatchProps> = ({ match }) => {
 }
 
 export default withLayout(MatchPage, (props) => {
-  if (props.match) {
-    return {
-      fullWidth: true,
-      heading: `Match | ${new Date(props.match.createdAt).toLocaleDateString(
-        "sv-SE"
-      )}`,
-    }
+  if (!props.match) {
+    return {}
   }
-  return { fullWidth: true }
+
+  return {
+    heading: `Match | ${new Date(props.match.createdAt).toLocaleDateString(
+      "sv-SE"
+    )}`,
+  }
 })
 
 export const getStaticPaths: GetStaticPaths = async () => {

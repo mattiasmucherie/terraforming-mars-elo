@@ -1,11 +1,11 @@
 import React, { ComponentType, useMemo } from "react"
-import Layout from "./Layout"
+import { Layout } from "./Layout"
 
-type LayoutProps = { heading?: string; fullWidth?: boolean }
+type LayoutProps = { heading?: string }
 
 const withLayout = <T extends {}>(
   Component: ComponentType<T>,
-  layoutConfig: LayoutProps | ((p: T) => LayoutProps)
+  layoutConfig?: LayoutProps | ((p: T) => LayoutProps)
 ) => {
   const ComponentWithLayout = (props: T) => {
     const layoutProps = useMemo(

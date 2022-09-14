@@ -20,6 +20,7 @@ import {
   faUserPlus,
   faChartLine,
   IconDefinition,
+  faHouse,
 } from "@fortawesome/free-solid-svg-icons"
 import { faCalendar, faCalendarPlus } from "@fortawesome/free-regular-svg-icons"
 
@@ -49,6 +50,11 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: () => void }> = ({
     () => [
       {
         items: [
+          {
+            label: "Home",
+            href: "/home",
+            icon: faHouse,
+          },
           {
             label: "Ranking",
             href: "/player-ranking",

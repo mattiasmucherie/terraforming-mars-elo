@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Box,
   Flex,
   Table,
   TableContainer,
@@ -14,7 +13,7 @@ import {
 import { User } from "@prisma/client"
 import Link from "next/link"
 import { FC } from "react"
-import CurrentLeader from "./CurrentLeader"
+import { FullWidthContainer } from "./Layout"
 
 const PlayerRanking: FC<{ users: User[] }> = ({ users }) => {
   if (!users || users.length === 0) {
@@ -22,11 +21,7 @@ const PlayerRanking: FC<{ users: User[] }> = ({ users }) => {
   }
 
   return (
-    <>
-      <Box mx="4" mt="0" mb="5">
-        <CurrentLeader user={users[0]} />
-      </Box>
-
+    <FullWidthContainer>
       <TableContainer>
         <Table variant="simple">
           <Thead>
@@ -63,7 +58,7 @@ const PlayerRanking: FC<{ users: User[] }> = ({ users }) => {
           </Tbody>
         </Table>
       </TableContainer>
-    </>
+    </FullWidthContainer>
   )
 }
 

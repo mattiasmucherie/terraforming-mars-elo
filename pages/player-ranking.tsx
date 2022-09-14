@@ -12,8 +12,7 @@ const PlayerRankingPage: NextPage<PlayerRankingProps> = ({ users }) => (
 )
 
 export default withLayout(PlayerRankingPage, {
-  heading: "Top list",
-  fullWidth: true,
+  heading: "Player ranking",
 })
 
 export async function getStaticProps() {

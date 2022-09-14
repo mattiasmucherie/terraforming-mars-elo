@@ -11,6 +11,7 @@ interface PlayerRankingProps {
 
 const RankingChartPage: NextPage<PlayerRankingProps> = ({ users, matches }) => {
   if (!users && !matches) return <div>No Users found</div>
+
   return <RankingChart users={users} matches={matches}></RankingChart>
 }
 

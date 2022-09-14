@@ -8,7 +8,12 @@ import { string, ValidationError } from "yup"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
 import prisma from "../../lib/prisma"
-import { UserMatchHistory, UserStat, withLayout } from "../../components"
+import {
+  FullWidthContainer,
+  UserMatchHistory,
+  UserStat,
+  withLayout,
+} from "../../components"
 
 type UserPageProps = {
   user:
@@ -26,14 +31,14 @@ const UserPage: NextPage<UserPageProps> = ({ user }) => {
   }
 
   return (
-    <>
+    <FullWidthContainer>
       <UserStat user={user} />
       <UserMatchHistory user={user} />
-    </>
+    </FullWidthContainer>
   )
 }
 
-export default withLayout(UserPage, { fullWidth: true, heading: "Player" })
+export default withLayout(UserPage, { heading: "Player" })
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const users = await prisma.user.findMany({ select: { id: true } })

@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetStaticProps, NextPage } from "next"
+import { GetStaticProps, NextPage } from "next"
 import prisma from "../../lib/prisma"
 import { Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"

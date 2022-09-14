@@ -1,9 +1,4 @@
-import {
-  GetServerSideProps,
-  GetStaticPaths,
-  GetStaticProps,
-  NextPage,
-} from "next"
+import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { string, ValidationError } from "yup"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"

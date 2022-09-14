@@ -1,5 +1,5 @@
 import { Corporation, User } from "@prisma/client"
-import { ChangeEvent, FC, useState } from "react"
+import { ChangeEvent, FC, useCallback, useMemo, useState } from "react"
 import styled from "styled-components"
 import { useRouter } from "next/router"
 import axios from "axios"
@@ -22,8 +22,11 @@ import {
   InputGroup,
   InputLeftAddon,
   Spinner,
+  Stat,
 } from "@chakra-ui/react"
 import { DeleteIcon } from "@chakra-ui/icons"
+import { elo } from "../utils/elo"
+import { StatArrow } from "@chakra-ui/stat"
 
 const Container = styled.div`
   display: flex;
@@ -47,6 +50,10 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
   const [rankingOfPlayers, setRankingOfPlayers] = useState<RankedPlayer[]>([])
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const newElo = useMemo(
+    () => elo(rankingOfPlayers.map((p) => p.rank)),
+    [rankingOfPlayers]
+  )
 
   const handleCorpChange = (
     e: ChangeEvent<HTMLSelectElement>,
@@ -119,7 +126,7 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
           <Divider orientation="vertical" />
         </Center>
         <OrderedList>
-          {rankingOfPlayers.map((p) => (
+          {rankingOfPlayers.map((p, i) => (
             <ListItem key={p.id} pb="3">
               <Box
                 display="flex"
@@ -128,7 +135,21 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
                 pr="0"
                 pb="1"
               >
-                <Text>{p.name}</Text>
+                <Box display="flex" gap={1}>
+                  <Text>{p.name}</Text>
+                  {newElo.length > 1 && (
+                    <Stat>
+                      <StatArrow
+                        type={
+                          Math.round(newElo[i] - p.rank) > 0
+                            ? "increase"
+                            : "decrease"
+                        }
+                      />
+                      {Math.round(Math.round(newElo[i] - p.rank))}
+                    </Stat>
+                  )}
+                </Box>
                 <IconButton
                   aria-label={`Remove ${p.name} from list`}
                   size="sm"

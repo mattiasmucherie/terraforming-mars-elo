@@ -6,6 +6,7 @@ import Head from "next/head"
 import { ThemeProvider } from "styled-components"
 import { ChakraProvider } from "@chakra-ui/react"
 import { theme, chakraTheme } from "../styles"
+import { RouterProgressBar } from "../components"
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -47,6 +48,8 @@ function App({ Component, pageProps }: AppProps) {
           crossOrigin="anonymous"
         ></script>
       </Script>
+
+      <RouterProgressBar />
 
       <ThemeProvider theme={theme}>
         <ChakraProvider theme={chakraTheme}>

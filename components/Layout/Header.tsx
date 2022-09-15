@@ -4,7 +4,7 @@ import Link from "next/link"
 import { IconButton, Heading, useDisclosure, Box } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 import NavDrawer from "./NavDrawer"
-import Brand from "./Brand"
+import Brand from "../Brand"
 
 const Container = styled.div`
   background-image: url("/images/mars-with-tiles.jpeg");

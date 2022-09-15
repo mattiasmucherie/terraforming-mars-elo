@@ -1,4 +1,3 @@
-import Layout from "../../components/Layout"
 import { GetServerSideProps, GetStaticProps, NextPage } from "next"
 import prisma from "../../lib/prisma"
 import CorporationTable from "../../components/CorporationTable"

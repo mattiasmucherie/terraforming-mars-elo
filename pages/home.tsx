@@ -37,7 +37,7 @@ const HomePage: NextPage<HomeProps> = ({ users, matches }) => {
           <CurrentLeader user={leader} />
         </Box>
 
-        <PlayerRanking users={usersExceptLeader} />
+        <PlayerRanking users={usersExceptLeader} isWithoutLeader />
 
         <Center mt="3">
           <Button

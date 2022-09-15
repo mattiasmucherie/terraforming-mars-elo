@@ -7,6 +7,13 @@ const chakraTheme = extendTheme({
     body: `"SourceSansPro", Helvetica, sans-serif`,
   },
   components: {
+    Button: {
+      variants: {
+        square: {
+          p: 0,
+        },
+      },
+    },
     Text: {
       baseStyle: { color: theme.colors.neroBlack },
     },

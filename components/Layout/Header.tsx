@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Link from "next/link"
-import { IconButton, Heading, useDisclosure, Box } from "@chakra-ui/react"
+import { useDisclosure, Box, Button } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 import NavDrawer from "./NavDrawer"
 import Brand from "../Brand"
@@ -31,11 +31,9 @@ const Header = () => {
           </Link>
         </Box>
 
-        <IconButton
-          onClick={onOpen}
-          aria-label="Open menu"
-          icon={<HamburgerIcon />}
-        />
+        <Button variant="square" colorScheme="WhiteAlpha" onClick={onOpen}>
+          <HamburgerIcon color="white" fontSize={22} />
+        </Button>
       </Box>
 
       <NavDrawer isOpen={isOpen} onClose={onClose} />

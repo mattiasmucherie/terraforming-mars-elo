@@ -7,7 +7,6 @@ import NavDrawer from "./NavDrawer"
 import Brand from "./Brand"
 
 const Container = styled.div`
-  background: orange;
   background-image: url("/images/mars-with-tiles.jpeg");
   background-size: cover;
 `

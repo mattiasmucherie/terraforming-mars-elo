@@ -8,15 +8,15 @@ const chakraTheme = extendTheme({
   },
   components: {
     Text: {
-      baseStyle: { color: theme.colors.black },
+      baseStyle: { color: theme.colors.neroBlack },
     },
     Heading: {
-      baseStyle: { color: theme.colors.black },
+      baseStyle: { color: theme.colors.neroBlack },
     },
     Table: {
       baseStyle: () => ({
         thead: {
-          th: { color: theme.colors.black },
+          th: { color: theme.colors.neroBlack },
         },
       }),
     },

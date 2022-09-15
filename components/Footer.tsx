@@ -13,8 +13,6 @@ const Tagline = styled(Text)`
   line-height: 1.25;
   font-size: 11px;
   margin-left: 1px;
-  color: white;
-  text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
 `
 
 const Footer = () => {
@@ -22,7 +20,7 @@ const Footer = () => {
     <Container p="4">
       <BrandSymbol />
 
-      <Tagline textAlign="right">
+      <Tagline color="white" textAlign="right">
         Winning one game was a big step. <br />
         Ranking #1 will give you a new world.
       </Tagline>

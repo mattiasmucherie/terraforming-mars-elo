@@ -11,6 +11,7 @@ import PageSection from "./PageSection"
 import RankingChart from "./RankingChart"
 import RouterProgressBar from "./RouterProgressBar"
 import Head from "./Head"
+import Providers from "./Providers"
 
 export {
   MatchTable,
@@ -26,4 +27,5 @@ export {
   RankingChart,
   RouterProgressBar,
   Head,
+  Providers,
 }

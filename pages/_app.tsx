@@ -1,10 +1,7 @@
 import "normalize.css"
 import "../styles/globals.css"
 import type { AppProps } from "next/app"
-import { ThemeProvider } from "styled-components"
-import { ChakraProvider } from "@chakra-ui/react"
-import { theme, chakraTheme } from "../styles"
-import { Head, RouterProgressBar } from "../components"
+import { Head, Providers, RouterProgressBar } from "../components"
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -13,11 +10,9 @@ function App({ Component, pageProps }: AppProps) {
 
       <RouterProgressBar />
 
-      <ThemeProvider theme={theme}>
-        <ChakraProvider theme={chakraTheme}>
-          <Component {...pageProps} />
-        </ChakraProvider>
-      </ThemeProvider>
+      <Providers>
+        <Component {...pageProps} />
+      </Providers>
     </>
   )
 }

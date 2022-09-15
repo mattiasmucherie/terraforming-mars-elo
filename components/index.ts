@@ -10,6 +10,7 @@ import CurrentLeader from "./CurrentLeader"
 import PageSection from "./PageSection"
 import RankingChart from "./RankingChart"
 import RouterProgressBar from "./RouterProgressBar"
+import Head from "./Head"
 
 export {
   MatchTable,
@@ -24,4 +25,5 @@ export {
   FullWidthContainer,
   RankingChart,
   RouterProgressBar,
+  Head,
 }

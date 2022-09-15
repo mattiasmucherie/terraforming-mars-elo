@@ -60,7 +60,7 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: () => void }> = ({
             href: "/player-ranking",
             icon: faListOl,
           },
-          { label: "Chart", href: "ranking-chart", icon: faChartLine },
+          { label: "Chart", href: "/ranking-chart", icon: faChartLine },
           {
             label: "Matches",
             href: "/match",

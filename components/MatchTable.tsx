@@ -1,12 +1,15 @@
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { FC } from "react"
 import {
+  Avatar,
+  Flex,
   Link as ChakraLink,
   Stat,
   Table,
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -32,8 +35,8 @@ const MatchTable: FC<MatchTableProps> = ({ match }) => {
           <Thead>
             <Tr>
               <Th>Name</Th>
+              <Th>Elo</Th>
               <Th>Corp</Th>
-              <Th>Elo change</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -43,10 +46,17 @@ const MatchTable: FC<MatchTableProps> = ({ match }) => {
                 <Tr key={mr.id}>
                   <Td>
                     <ChakraLink as={Link} href={`/user/${mr.userId}`}>
-                      {mr.user.name}
+                      <Flex alignItems="center" sx={{ cursor: "pointer" }}>
+                        <Avatar
+                          size="sm"
+                          mr="3"
+                          name={mr.user.name}
+                          src={mr.user.image || undefined}
+                        />
+                        <Text>{mr.user.name}</Text>
+                      </Flex>
                     </ChakraLink>
                   </Td>
-                  <Td>{mr.corporation?.name || "?"}</Td>
                   <Td>
                     <Stat>
                       <StatArrow
@@ -55,6 +65,7 @@ const MatchTable: FC<MatchTableProps> = ({ match }) => {
                       {Math.round(eloChange)}
                     </Stat>
                   </Td>
+                  <Td>{mr.corporation?.name || "?"}</Td>
                 </Tr>
               )
             })}

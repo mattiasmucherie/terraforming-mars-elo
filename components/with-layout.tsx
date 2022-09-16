@@ -1,7 +1,7 @@
 import React, { ComponentType, useMemo } from "react"
 import { Layout } from "./Layout"
 
-type LayoutProps = { heading?: string }
+type LayoutProps = { heading?: string | Function }
 
 const withLayout = <T extends {}>(
   Component: ComponentType<T>,

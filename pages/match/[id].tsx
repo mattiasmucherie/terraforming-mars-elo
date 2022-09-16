@@ -4,6 +4,8 @@ import prisma from "../../lib/prisma"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
 import { MatchTable, withLayout } from "../../components"
+import Moment from "react-moment"
+import { Heading } from "../../components/Layout"
 
 interface MatchProps {
   match:
@@ -22,17 +24,13 @@ const MatchPage: NextPage<MatchProps> = ({ match }) => {
   return <MatchTable match={match} />
 }
 
-export default withLayout(MatchPage, (props) => {
-  if (!props.match) {
-    return {}
-  }
-
-  return {
-    heading: `Match | ${new Date(props.match.createdAt).toLocaleDateString(
-      "sv-SE"
-    )}`,
-  }
-})
+export default withLayout(MatchPage, (props) => ({
+  heading: () => (
+    <Heading>
+      Match - <Moment date={props.match?.createdAt} format="D MMM, YYYY" />
+    </Heading>
+  ),
+}))
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const matches = await prisma.match.findMany({ select: { id: true } })

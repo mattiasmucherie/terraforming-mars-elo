@@ -60,12 +60,12 @@ const NavDrawer: FC<{ isOpen: boolean; onClose: () => void }> = ({
             href: "/player-ranking",
             icon: faListOl,
           },
-          { label: "Chart", href: "/ranking-chart", icon: faChartLine },
           {
             label: "Matches",
             href: "/match",
             icon: faCalendar,
           },
+          { label: "Score history", href: "/ranking-chart", icon: faChartLine },
           { label: "Corporations", href: "/corporation", icon: faBuilding },
         ],
       },

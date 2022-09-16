@@ -33,7 +33,7 @@ const HomePage: NextPage<HomeProps> = ({ users, matches }) => {
   return (
     <>
       <PageSection heading="Top list">
-        <Box mb="5">
+        <Box mb="4">
           <CurrentLeader user={leader} />
         </Box>
 

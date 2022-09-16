@@ -46,13 +46,10 @@ const PlayerRanking: FC<PlayerRankingProps> = ({
                 <Tr key={u.name}>
                   <Td>
                     <Link href={`/user/${u.id}`}>
-                      <Flex
-                        gap={2}
-                        alignItems="center"
-                        sx={{ cursor: "pointer" }}
-                      >
+                      <Flex alignItems="center" sx={{ cursor: "pointer" }}>
                         <Avatar
-                          size="xs"
+                          size="sm"
+                          mr="3"
                           name={u.name}
                           src={u.image || undefined}
                         />

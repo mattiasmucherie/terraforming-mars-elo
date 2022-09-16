@@ -1,61 +1,64 @@
-import { Match, MatchRanking, User } from "@prisma/client"
-import { FC } from "react"
-import {
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react"
+import { Corporation, Match, MatchRanking, User } from "@prisma/client"
+import { FC, useCallback, useMemo } from "react"
+import { Avatar, AvatarGroup, Box } from "@chakra-ui/react"
 import Link from "next/dist/client/link"
-import { Link as ChakraLink } from "@chakra-ui/layout"
-import { FullWidthContainer } from "./Layout"
+import { Flex, Badge, Stack, Stat, StatArrow } from "@chakra-ui/react"
+import Moment from "react-moment"
+import { find, propEq } from "ramda"
 
 interface ListOfMatchesProps {
   matches: (Match & { matchRankings: (MatchRanking & { user: User })[] })[]
+  corporations: Corporation[]
 }
 
-const ListOfMatches: FC<ListOfMatchesProps> = ({ matches }) => {
+const ListOfMatches: FC<ListOfMatchesProps> = ({ matches, corporations }) => {
+  const getCorp = useCallback(
+    (corpId: any) => find(propEq("id", corpId), corporations),
+    [corporations]
+  )
+
+  const getRankDiff = useCallback(
+    (matchRanking: MatchRanking) =>
+      Math.round(matchRanking.prevRank - matchRanking.newRank),
+    []
+  )
+
   return (
-    <FullWidthContainer>
-      <TableContainer>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Date</Th>
-              <Th># players</Th>
-              <Th>Winner</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {matches.map((m) => {
-              const winner = m.matchRankings.find((mr) => mr.standing === 1)
-              return (
-                <Tr key={m.id}>
-                  <Td>
-                    <ChakraLink as={Link} href={`/match/${m.id}`}>
-                      {new Date(m.createdAt).toLocaleDateString("sv-SE")}
-                    </ChakraLink>
-                  </Td>
-                  <Td>{m.matchRankings.length}</Td>
-                  <Td>
-                    {winner ? (
-                      <ChakraLink as={Link} href={`/user/${winner.userId}`}>
-                        {winner.user.name}
-                      </ChakraLink>
-                    ) : (
-                      "?"
-                    )}
-                  </Td>
-                </Tr>
-              )
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </FullWidthContainer>
+    <>
+      {matches.map((m) => {
+        return (
+          <Link href={`/match/${m.id}`} key={m.id}>
+            <Box borderWidth="1px" borderRadius="lg" mb="3" p="4">
+              <Flex justifyContent="space-between">
+                <Stack>
+                  {m.matchRankings.map((mr) => (
+                    <Flex key={mr.id} alignItems="center">
+                      <Avatar
+                        size="xs"
+                        name={mr.user.name}
+                        src={mr.user.image}
+                        mr="2"
+                      />
+
+                      <Badge mr="2">{getCorp(mr.corporationId)?.name}</Badge>
+
+                      <Stat>
+                        <StatArrow
+                          type={getRankDiff(mr) < 0 ? "increase" : "decrease"}
+                        />
+                        {getRankDiff(mr)}
+                      </Stat>
+                    </Flex>
+                  ))}
+                </Stack>
+
+                <Moment date={m.createdAt} format="D MMM" />
+              </Flex>
+            </Box>
+          </Link>
+        )
+      })}
+    </>
   )
 }
 

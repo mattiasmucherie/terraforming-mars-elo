@@ -16,12 +16,17 @@ import React, { FC } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faStar } from "@fortawesome/free-solid-svg-icons"
 import { useTheme } from "styled-components"
+import styled from "styled-components"
+
+const Container = styled(Box)`
+  cursor: pointer;
+`
 
 const CurrentLeader: FC<{ user: User }> = ({ user }) => {
   const theme = useTheme()
 
   return (
-    <Box p="3" pb="3" borderWidth="1px" borderRadius="lg">
+    <Container p="3" pb="3" borderWidth="1px" borderRadius="lg">
       <Box display="flex" alignItems="flex-start">
         <Flex flexGrow="1">
           <Box flexGrow={1}>
@@ -54,7 +59,7 @@ const CurrentLeader: FC<{ user: User }> = ({ user }) => {
           </Avatar>
         </Flex>
       </Box>
-    </Box>
+    </Container>
   )
 }
 

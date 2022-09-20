@@ -36,7 +36,7 @@ const ListOfMatches: FC<ListOfMatchesProps> = ({ matches, corporations }) => {
                       <Avatar
                         size="xs"
                         name={mr.user.name}
-                        src={mr.user.image}
+                        src={mr.user.image || undefined}
                         mr="2"
                       />
 

@@ -14,6 +14,11 @@ import { User } from "@prisma/client"
 import Link from "next/link"
 import { FC } from "react"
 import { FullWidthContainer } from "./Layout"
+import styled from "styled-components"
+
+const Row = styled(Tr)`
+  cursor: pointer;
+`
 
 interface PlayerRankingProps {
   users: User[]
@@ -43,10 +48,10 @@ const PlayerRanking: FC<PlayerRankingProps> = ({
             {users.map((u, i) => {
               const standingIndex = isWithoutLeader ? 2 : 1
               return (
-                <Tr key={u.name}>
-                  <Td>
-                    <Link href={`/user/${u.id}`}>
-                      <Flex alignItems="center" sx={{ cursor: "pointer" }}>
+                <Link href={`/user/${u.id}`} key={u.name}>
+                  <Row>
+                    <Td>
+                      <Flex alignItems="center">
                         <Avatar
                           size="sm"
                           mr="3"
@@ -55,11 +60,11 @@ const PlayerRanking: FC<PlayerRankingProps> = ({
                         />
                         <Text>{u.name}</Text>
                       </Flex>
-                    </Link>
-                  </Td>
-                  <Td isNumeric>{Math.round(u.rank)}</Td>
-                  <Td isNumeric>{i + standingIndex}</Td>
-                </Tr>
+                    </Td>
+                    <Td isNumeric>{Math.round(u.rank)}</Td>
+                    <Td isNumeric>{i + standingIndex}</Td>
+                  </Row>
+                </Link>
               )
             })}
           </Tbody>

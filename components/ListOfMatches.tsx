@@ -19,7 +19,7 @@ const ListOfMatches: FC<ListOfMatchesProps> = ({ matches, corporations }) => {
 
   const getRankDiff = useCallback(
     (matchRanking: MatchRanking) =>
-      Math.round(matchRanking.prevRank - matchRanking.newRank),
+      Math.round(matchRanking.newRank - matchRanking.prevRank),
     []
   )
 
@@ -44,7 +44,7 @@ const ListOfMatches: FC<ListOfMatchesProps> = ({ matches, corporations }) => {
 
                       <Stat>
                         <StatArrow
-                          type={getRankDiff(mr) < 0 ? "increase" : "decrease"}
+                          type={getRankDiff(mr) > 0 ? "increase" : "decrease"}
                         />
                         {getRankDiff(mr)}
                       </Stat>

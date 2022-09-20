@@ -12,6 +12,7 @@ import { Box, Button, Center } from "@chakra-ui/react"
 import { useCallback, useMemo } from "react"
 import { drop } from "ramda"
 import { useRouter } from "next/router"
+import Link from "next/link"
 
 interface HomeProps {
   users: (User & { MatchRanking: MatchRanking[] })[]
@@ -34,7 +35,9 @@ const HomePage: NextPage<HomeProps> = ({ users, matches }) => {
     <>
       <PageSection heading="Top list">
         <Box mb="4">
-          <CurrentLeader user={leader} />
+          <Link href={`/user/${leader.id}`}>
+            <CurrentLeader user={leader} />
+          </Link>
         </Box>
 
         <PlayerRanking users={usersExceptLeader} isWithoutLeader />

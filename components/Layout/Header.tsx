@@ -11,6 +11,10 @@ const Container = styled.div`
   background-size: cover;
 `
 
+const BrandContainer = styled.div`
+  cursor: pointer;
+`
+
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -25,9 +29,9 @@ const Header = () => {
       >
         <Box>
           <Link href="/">
-            <div>
+            <BrandContainer>
               <Brand />
-            </div>
+            </BrandContainer>
           </Link>
         </Box>
 

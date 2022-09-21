@@ -1,5 +1,5 @@
-import React, { FC, ReactNode } from "react"
 import { Heading as ChakraHeading } from "@chakra-ui/react"
+import React, { FC, ReactNode } from "react"
 
 interface HeadingProps {
   children: ReactNode

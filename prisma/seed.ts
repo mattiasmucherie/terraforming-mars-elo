@@ -28,11 +28,13 @@ const corporationData = [
   { name: "Vitor" },
 ]
 async function main() {
+  // eslint-disable-next-line no-console
   console.log(`Start seeding ...`)
   await prisma.user.createMany({ data: userData })
   await prisma.corporation.createMany({
     data: corporationData,
   })
+  // eslint-disable-next-line no-console
   console.log(`Seeding finished.`)
 }
 

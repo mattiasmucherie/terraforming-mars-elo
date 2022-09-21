@@ -1,9 +1,10 @@
-import { NextPage } from "next"
-import { ChangeEvent, FormEventHandler, useCallback, useState } from "react"
-import axios from "axios"
-import { useRouter } from "next/router"
-import { withLayout } from "../components"
 import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react"
+import axios from "axios"
+import { NextPage } from "next"
+import { useRouter } from "next/router"
+import { ChangeEvent, FormEventHandler, useCallback, useState } from "react"
+
+import { withLayout } from "../components"
 
 const NewPlayer: NextPage = () => {
   const [name, setName] = useState("")

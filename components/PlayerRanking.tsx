@@ -13,8 +13,9 @@ import {
 import { User } from "@prisma/client"
 import Link from "next/link"
 import { FC } from "react"
-import { FullWidthContainer } from "./Layout"
 import styled from "styled-components"
+
+import { FullWidthContainer } from "./Layout"
 import NextAvatar from "./NextAvatar"
 
 const Row = styled(Tr)`

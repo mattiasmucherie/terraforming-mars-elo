@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react"
 import { Corporation, MatchRanking } from "@prisma/client"
 import { FC } from "react"
+
 import { FullWidthContainer } from "./Layout"
 
 interface CorporationTableProps {

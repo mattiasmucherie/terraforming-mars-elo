@@ -1,11 +1,12 @@
-import React, { FC, ReactNode } from "react"
 import { Box, Flex, IconButton } from "@chakra-ui/react"
-import Header from "./Header"
-import Footer from "./Footer"
-import Heading from "./Heading"
-import styled from "styled-components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { isEmpty } from "ramda"
+import React, { FC, ReactNode } from "react"
+import styled from "styled-components"
+
+import Footer from "./Footer"
+import Header from "./Header"
+import Heading from "./Heading"
 
 const PageHeader = styled(Flex)``
 

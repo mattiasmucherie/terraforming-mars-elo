@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import prisma from "../../../lib/prisma"
 import { object, string, ValidationError } from "yup"
+
+import prisma from "../../../lib/prisma"
 import { supabase } from "../../../lib/supabase"
 
 export default async function handler(

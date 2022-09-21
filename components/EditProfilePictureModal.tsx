@@ -12,10 +12,10 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react"
-import React, { FC, useState } from "react"
 import { User } from "@prisma/client"
 import axios from "axios"
 import { useRouter } from "next/router"
+import React, { FC, useState } from "react"
 
 interface EditUsernameModalProps {
   user: User

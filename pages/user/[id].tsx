@@ -1,14 +1,15 @@
+import { Text } from "@chakra-ui/react"
+import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { string, ValidationError } from "yup"
-import { Corporation, Match, MatchRanking, User } from "@prisma/client"
-import { Text } from "@chakra-ui/react"
-import prisma from "../../lib/prisma"
+
 import {
   FullWidthContainer,
   UserMatchHistory,
   UserStat,
   withLayout,
 } from "../../components"
+import prisma from "../../lib/prisma"
 
 type UserPageProps = {
   user:

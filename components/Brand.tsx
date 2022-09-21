@@ -1,7 +1,7 @@
 import { Heading } from "@chakra-ui/react"
+import Link from "next/link"
 import React, { FC } from "react"
 import styled from "styled-components"
-import Link from "next/link"
 
 const Container = styled(Heading)`
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);

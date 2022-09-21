@@ -1,12 +1,4 @@
-import {
-  Stat,
-  StatArrow,
-  StatHelpText,
-  StatLabel,
-  StatNumber,
-} from "@chakra-ui/stat"
-import { Corporation, Match, MatchRanking, User } from "@prisma/client"
-import React, { FC } from "react"
+import { ChevronDownIcon } from "@chakra-ui/icons"
 import {
   Avatar,
   Box,
@@ -19,12 +11,21 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react"
-import { ChevronDownIcon } from "@chakra-ui/icons"
-import EditUsernameModal from "./EditUsernameModal"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  Stat,
+  StatArrow,
+  StatHelpText,
+  StatLabel,
+  StatNumber,
+} from "@chakra-ui/stat"
 import { faGear } from "@fortawesome/free-solid-svg-icons"
-import EditProfilePictureModal from "./EditProfilePictureModal"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Corporation, Match, MatchRanking, User } from "@prisma/client"
+import React, { FC } from "react"
 import styled from "styled-components"
+
+import EditProfilePictureModal from "./EditProfilePictureModal"
+import EditUsernameModal from "./EditUsernameModal"
 import NextAvatar from "./NextAvatar"
 
 const IconContainer = styled.div`

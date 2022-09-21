@@ -1,6 +1,7 @@
-import { nanoid } from "nanoid"
 import { decode } from "base64-arraybuffer"
+import { nanoid } from "nanoid"
 import { NextApiRequest, NextApiResponse } from "next"
+
 import { supabase } from "../../lib/supabase"
 
 export const config = {

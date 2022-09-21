@@ -9,12 +9,13 @@ import {
   StatLabel,
   StatNumber,
 } from "@chakra-ui/react"
+import { faStar } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { User } from "@prisma/client"
 import React, { FC } from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faStar } from "@fortawesome/free-solid-svg-icons"
 import { useTheme } from "styled-components"
 import styled from "styled-components"
+
 import NextAvatar from "./NextAvatar"
 
 const Container = styled(Box)`

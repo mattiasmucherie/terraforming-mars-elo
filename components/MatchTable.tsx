@@ -1,5 +1,3 @@
-import { Corporation, Match, MatchRanking, User } from "@prisma/client"
-import { FC } from "react"
 import {
   Avatar,
   Box,
@@ -16,7 +14,10 @@ import {
   Tr,
 } from "@chakra-ui/react"
 import { StatArrow } from "@chakra-ui/stat"
+import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import Link from "next/dist/client/link"
+import { FC } from "react"
+
 import { FullWidthContainer } from "./Layout"
 import NextAvatar from "./NextAvatar"
 

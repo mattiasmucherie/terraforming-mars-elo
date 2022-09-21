@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from "@chakra-ui/react"
 import React from "react"
 import styled from "styled-components"
+
 import BrandSymbol from "../BrandSymbol"
 
 const Container = styled(Flex)`

@@ -1,10 +1,11 @@
-import { Corporation, Match, MatchRanking, User } from "@prisma/client"
-import { FC, useCallback, useMemo } from "react"
 import { Avatar, AvatarGroup, Box } from "@chakra-ui/react"
+import { Badge, Flex, Stack, Stat, StatArrow } from "@chakra-ui/react"
+import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import Link from "next/dist/client/link"
-import { Flex, Badge, Stack, Stat, StatArrow } from "@chakra-ui/react"
-import Moment from "react-moment"
 import { find, propEq } from "ramda"
+import { FC, useCallback, useMemo } from "react"
+import Moment from "react-moment"
+
 import NextAvatar from "./NextAvatar"
 
 interface ListOfMatchesProps {

@@ -53,6 +53,8 @@ const RankingChart: FC<{
       backgroundColor: colors[i],
       borderColor: colors[i],
       tension: 0.2,
+      pointRadius: 3,
+      pointHoverRadius: 5,
     })),
   }
 

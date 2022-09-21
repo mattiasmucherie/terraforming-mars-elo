@@ -47,23 +47,23 @@ const MatchTable: FC<MatchTableProps> = ({ match }) => {
               return (
                 <Tr key={mr.id}>
                   <Td>
-                    {/*<ChakraLink as={Link} href={`/user/${mr.userId}`}>*/}
-                    <Flex
-                      alignItems="center"
-                      sx={{ cursor: "pointer" }}
-                      gap={3}
-                    >
-                      <Flex flexShrink={0} alignItems="center">
-                        <NextAvatar
-                          width="32px"
-                          height="32px"
-                          alt={mr.user.name}
-                          src={mr.user.image || ""}
-                        />
+                    <ChakraLink as={Link} href={`/user/${mr.userId}`}>
+                      <Flex
+                        alignItems="center"
+                        sx={{ cursor: "pointer" }}
+                        gap={3}
+                      >
+                        <Flex flexShrink={0} alignItems="center">
+                          <NextAvatar
+                            width="32px"
+                            height="32px"
+                            alt={mr.user.name}
+                            src={mr.user.image || ""}
+                          />
+                        </Flex>
+                        <Text>{mr.user.name}</Text>
                       </Flex>
-                      <Text>{mr.user.name}</Text>
-                    </Flex>
-                    {/*</ChakraLink>*/}
+                    </ChakraLink>
                   </Td>
                   <Td>
                     <Stat>

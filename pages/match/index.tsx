@@ -3,6 +3,7 @@ import prisma from "../../lib/prisma"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
 import { ListOfMatches, withLayout } from "../../components"
+import { faFaceGrinTongueWink, faPlus } from "@fortawesome/free-solid-svg-icons"
 
 interface MatchesPageProps {
   matches:
@@ -17,7 +18,17 @@ const MatchesPage: NextPage<MatchesPageProps> = ({ matches, corporations }) => {
   return <ListOfMatches matches={matches} corporations={corporations} />
 }
 
-export default withLayout(MatchesPage, { heading: "Matches" })
+export default withLayout(MatchesPage, (props, { router }) => ({
+  heading: "Matches",
+  actions: [
+    {
+      ariaLabel: "Register match",
+      onClick: () => router.push("/new-match"),
+      icon: faPlus,
+      colorScheme: "green",
+    },
+  ],
+}))
 
 export const getStaticProps: GetStaticProps = async () => {
   try {

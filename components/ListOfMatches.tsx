@@ -1,9 +1,9 @@
-import { Avatar, AvatarGroup, Box } from "@chakra-ui/react"
+import { Box } from "@chakra-ui/react"
 import { Badge, Flex, Stack, Stat, StatArrow } from "@chakra-ui/react"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import Link from "next/dist/client/link"
 import { find, propEq } from "ramda"
-import { FC, useCallback, useMemo } from "react"
+import { FC, useCallback } from "react"
 import Moment from "react-moment"
 
 import NextAvatar from "./NextAvatar"
@@ -15,7 +15,7 @@ interface ListOfMatchesProps {
 
 const ListOfMatches: FC<ListOfMatchesProps> = ({ matches, corporations }) => {
   const getCorp = useCallback(
-    (corpId: any) => find(propEq("id", corpId), corporations),
+    (corpId: string | null) => find(propEq("id", corpId), corporations),
     [corporations]
   )
 

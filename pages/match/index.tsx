@@ -1,5 +1,5 @@
 import { Text } from "@chakra-ui/react"
-import { faFaceGrinTongueWink, faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { GetStaticProps, NextPage } from "next"
 

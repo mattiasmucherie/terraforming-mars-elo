@@ -1,6 +1,4 @@
 import {
-  Avatar,
-  Box,
   Flex,
   Link as ChakraLink,
   Stat,

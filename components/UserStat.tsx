@@ -1,16 +1,5 @@
 import { ChevronDownIcon } from "@chakra-ui/icons"
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react"
+import { Box, Button, Flex, Menu, MenuButton, MenuList } from "@chakra-ui/react"
 import {
   Stat,
   StatArrow,

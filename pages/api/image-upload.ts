@@ -17,7 +17,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    let { image } = req.body as { image: string }
+    const { image } = req.body as { image: string }
 
     if (!image) {
       return res.status(500).json({ message: "No image provided" })

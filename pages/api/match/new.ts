@@ -1,11 +1,9 @@
-import { toKeyAlias } from "@babel/types"
 import type { NextApiRequest, NextApiResponse } from "next"
 import { array, number, object, string, ValidationError } from "yup"
 
 import prisma from "../../../lib/prisma"
 import { elo } from "../../../utils/elo"
 import { getErrorMessage } from "../../../utils/errorMessages"
-import increment = toKeyAlias.increment
 
 export default async function handler(
   req: NextApiRequest,

@@ -22,7 +22,7 @@ const Actions = styled(Flex)`
 
 type LayoutProps = {
   children: ReactNode
-  heading?: string | Function
+  heading?: string | (() => JSX.Element)
   actions?: Array<any>
 }
 

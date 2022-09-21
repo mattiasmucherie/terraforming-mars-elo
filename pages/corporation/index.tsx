@@ -1,6 +1,6 @@
 import { Text } from "@chakra-ui/react"
 import { Corporation, MatchRanking } from "@prisma/client"
-import { GetServerSideProps, GetStaticProps, NextPage } from "next"
+import { GetStaticProps, NextPage } from "next"
 
 import { withLayout } from "../../components"
 import CorporationTable from "../../components/CorporationTable"

@@ -24,7 +24,7 @@ import { StatArrow } from "@chakra-ui/stat"
 import { Corporation, User } from "@prisma/client"
 import axios from "axios"
 import { useRouter } from "next/router"
-import { ChangeEvent, FC, useCallback, useMemo, useState } from "react"
+import { ChangeEvent, FC, useMemo, useState } from "react"
 import styled from "styled-components"
 
 import { elo } from "../utils/elo"

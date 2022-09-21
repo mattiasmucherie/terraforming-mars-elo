@@ -43,6 +43,7 @@ const RankingChart: FC<{
     return user.MatchRanking.map((mr) => ({
       x: matches.findIndex((m) => mr.matchId === m.id) + 1,
       y: Math.round(mr.newRank),
+      standing: mr.standing,
     }))
   }
   const data: ChartData<"line", { x: number; y: number }[], unknown> = {
@@ -51,6 +52,7 @@ const RankingChart: FC<{
       data: formatData(u),
       backgroundColor: colors[i],
       borderColor: colors[i],
+      tension: 0.2,
     })),
   }
 

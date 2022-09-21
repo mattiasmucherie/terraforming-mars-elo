@@ -1,37 +1,33 @@
 import React from "react"
-import styled from "styled-components"
 import Link from "next/link"
+import Image from "next/image"
 import { useDisclosure, Box, Button } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
 import NavDrawer from "./NavDrawer"
 import Brand from "../Brand"
 
-const Container = styled.div`
-  background-image: url("/images/mars-with-tiles.jpeg");
-  background-size: cover;
-`
-
-const BrandContainer = styled.div`
-  cursor: pointer;
-`
-
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <Container>
+    <div>
       <Box
         px="4"
         py="4"
         display="flex"
         alignItems="center"
         justifyContent="space-between"
+        position="relative"
       >
-        <Box>
+        <Image
+          alt="Header"
+          src="/images/mars-with-tiles.jpeg"
+          layout="fill"
+          objectFit="cover"
+        />
+        <Box zIndex={2} cursor="pointer">
           <Link href="/">
-            <BrandContainer>
-              <Brand />
-            </BrandContainer>
+            <Brand />
           </Link>
         </Box>
 
@@ -41,7 +37,7 @@ const Header = () => {
       </Box>
 
       <NavDrawer isOpen={isOpen} onClose={onClose} />
-    </Container>
+    </div>
   )
 }
 

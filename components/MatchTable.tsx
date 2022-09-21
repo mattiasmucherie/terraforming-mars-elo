@@ -2,6 +2,7 @@ import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { FC } from "react"
 import {
   Avatar,
+  Box,
   Flex,
   Link as ChakraLink,
   Stat,
@@ -17,6 +18,7 @@ import {
 import { StatArrow } from "@chakra-ui/stat"
 import Link from "next/dist/client/link"
 import { FullWidthContainer } from "./Layout"
+import NextAvatar from "./NextAvatar"
 
 interface MatchTableProps {
   match: Match & {
@@ -45,17 +47,23 @@ const MatchTable: FC<MatchTableProps> = ({ match }) => {
               return (
                 <Tr key={mr.id}>
                   <Td>
-                    <ChakraLink as={Link} href={`/user/${mr.userId}`}>
-                      <Flex alignItems="center" sx={{ cursor: "pointer" }}>
-                        <Avatar
-                          size="sm"
-                          mr="3"
-                          name={mr.user.name}
-                          src={mr.user.image || undefined}
+                    {/*<ChakraLink as={Link} href={`/user/${mr.userId}`}>*/}
+                    <Flex
+                      alignItems="center"
+                      sx={{ cursor: "pointer" }}
+                      gap={3}
+                    >
+                      <Flex flexShrink={0} alignItems="center">
+                        <NextAvatar
+                          width="32px"
+                          height="32px"
+                          alt={mr.user.name}
+                          src={mr.user.image || ""}
                         />
-                        <Text>{mr.user.name}</Text>
                       </Flex>
-                    </ChakraLink>
+                      <Text>{mr.user.name}</Text>
+                    </Flex>
+                    {/*</ChakraLink>*/}
                   </Td>
                   <Td>
                     <Stat>

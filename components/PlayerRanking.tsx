@@ -53,12 +53,14 @@ const PlayerRanking: FC<PlayerRankingProps> = ({
                   <Row>
                     <Td>
                       <Flex alignItems="center" gap={3}>
-                        <NextAvatar
-                          alt={u.name}
-                          src={u.image || ""}
-                          width="32px"
-                          height="32px"
-                        />
+                        <Flex flexShrink={0} alignItems="center">
+                          <NextAvatar
+                            alt={u.name}
+                            src={u.image || ""}
+                            width="32px"
+                            height="32px"
+                          />
+                        </Flex>
                         <Text>{u.name}</Text>
                       </Flex>
                     </Td>

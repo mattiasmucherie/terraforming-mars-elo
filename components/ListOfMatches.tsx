@@ -5,6 +5,7 @@ import Link from "next/dist/client/link"
 import { Flex, Badge, Stack, Stat, StatArrow } from "@chakra-ui/react"
 import Moment from "react-moment"
 import { find, propEq } from "ramda"
+import NextAvatar from "./NextAvatar"
 
 interface ListOfMatchesProps {
   matches: (Match & { matchRankings: (MatchRanking & { user: User })[] })[]
@@ -32,15 +33,16 @@ const ListOfMatches: FC<ListOfMatchesProps> = ({ matches, corporations }) => {
               <Flex justifyContent="space-between">
                 <Stack>
                   {m.matchRankings.map((mr) => (
-                    <Flex key={mr.id} alignItems="center">
-                      <Avatar
-                        size="xs"
-                        name={mr.user.name}
-                        src={mr.user.image || undefined}
-                        mr="2"
-                      />
-
-                      <Badge mr="2">{getCorp(mr.corporationId)?.name}</Badge>
+                    <Flex key={mr.id} alignItems="center" gap={2}>
+                      <Flex flexShrink={0} alignItems="center">
+                        <NextAvatar
+                          width="24px"
+                          height="24px"
+                          alt={mr.user.name}
+                          src={mr.user.image || ""}
+                        />
+                      </Flex>
+                      <Badge>{getCorp(mr.corporationId)?.name}</Badge>
 
                       <Stat>
                         <StatArrow

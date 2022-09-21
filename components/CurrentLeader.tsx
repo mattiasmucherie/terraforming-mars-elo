@@ -51,7 +51,7 @@ const CurrentLeader: FC<{ user: User }> = ({ user }) => {
             </StatGroup>
           </Box>
 
-          <Box m={2}>
+          <Box m={2} flexShrink={0}>
             <NextAvatar
               width="48px"
               height="48px"

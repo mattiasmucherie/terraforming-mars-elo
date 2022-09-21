@@ -11,6 +11,7 @@ import {
   Avatar,
   Box,
   Button,
+  Flex,
   Menu,
   MenuButton,
   MenuItem,
@@ -24,6 +25,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGear } from "@fortawesome/free-solid-svg-icons"
 import EditProfilePictureModal from "./EditProfilePictureModal"
 import styled from "styled-components"
+import NextAvatar from "./NextAvatar"
 
 const IconContainer = styled.div`
   width: 14px;
@@ -44,22 +46,17 @@ const UserStat: FC<UserStatProps> = ({ user }) => {
     : undefined
   return (
     <>
-      <Box
-        px="2"
-        pb="4"
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <Wrap align="center">
-          <WrapItem p="2">
-            <Avatar
-              size="lg"
-              name={user.name}
-              src={user.image ?? undefined}
-            ></Avatar>
-          </WrapItem>
-          <WrapItem>
+      <Flex px="2" pb="4" alignItems="center" justifyContent="space-between">
+        <Flex align="center" gap={2}>
+          <Box p="2" flexShrink={0}>
+            <NextAvatar
+              width="64px"
+              height="64px"
+              alt={user.name}
+              src={user.image ?? ""}
+            ></NextAvatar>
+          </Box>
+          <Box>
             <Stat>
               <StatLabel>{user.name}</StatLabel>
               <StatNumber>{Math.round(user.rank)}</StatNumber>
@@ -74,8 +71,8 @@ const UserStat: FC<UserStatProps> = ({ user }) => {
                 )}
               </StatHelpText>
             </Stat>
-          </WrapItem>
-        </Wrap>
+          </Box>
+        </Flex>
         <Menu>
           <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
             <IconContainer>
@@ -87,7 +84,7 @@ const UserStat: FC<UserStatProps> = ({ user }) => {
             <EditProfilePictureModal user={user} />
           </MenuList>
         </Menu>
-      </Box>
+      </Flex>
     </>
   )
 }

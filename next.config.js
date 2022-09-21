@@ -5,7 +5,12 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  images: { domains: ["ekhaqsvkyqszwbsovncd.supabase.co"] },
+  images: {
+    domains: [
+      "ekhaqsvkyqszwbsovncd.supabase.in",
+      "ekhaqsvkyqszwbsovncd.supabase.co",
+    ],
+  },
   async rewrites() {
     return [
       {

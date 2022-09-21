@@ -1,6 +1,4 @@
 import {
-  Avatar,
-  AvatarBadge,
   Badge,
   Box,
   Divider,
@@ -17,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faStar } from "@fortawesome/free-solid-svg-icons"
 import { useTheme } from "styled-components"
 import styled from "styled-components"
+import NextAvatar from "./NextAvatar"
 
 const Container = styled(Box)`
   cursor: pointer;
@@ -52,11 +51,38 @@ const CurrentLeader: FC<{ user: User }> = ({ user }) => {
             </StatGroup>
           </Box>
 
-          <Avatar ml="5" mr="1" mt="2" size="md" src={user.image || undefined}>
-            <AvatarBadge boxSize="1.20em" bg={theme.colors.supernovaOrange}>
-              <FontAwesomeIcon icon={faStar} color="white" fontSize="0.45em" />
-            </AvatarBadge>
-          </Avatar>
+          <Box m={2}>
+            <NextAvatar
+              width="48px"
+              height="48px"
+              src={user.image || ""}
+              alt={user.name}
+            ></NextAvatar>
+            <Box sx={{ position: "relative" }}>
+              <Box
+                sx={{
+                  position: "absolute",
+                  transform: "translateX(25%)",
+                  bottom: 0,
+                  right: 0,
+                  height: "24px",
+                  width: "24px",
+                  background: theme.colors.supernovaOrange,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "50%",
+                  border: "0.2em solid white",
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faStar}
+                  color="white"
+                  fontSize="0.55em"
+                />
+              </Box>
+            </Box>
+          </Box>
         </Flex>
       </Box>
     </Container>

@@ -15,6 +15,7 @@ import Link from "next/link"
 import { FC } from "react"
 import { FullWidthContainer } from "./Layout"
 import styled from "styled-components"
+import NextAvatar from "./NextAvatar"
 
 const Row = styled(Tr)`
   cursor: pointer;
@@ -51,12 +52,12 @@ const PlayerRanking: FC<PlayerRankingProps> = ({
                 <Link href={`/user/${u.id}`} key={u.name}>
                   <Row>
                     <Td>
-                      <Flex alignItems="center">
-                        <Avatar
-                          size="sm"
-                          mr="3"
-                          name={u.name}
-                          src={u.image || undefined}
+                      <Flex alignItems="center" gap={3}>
+                        <NextAvatar
+                          alt={u.name}
+                          src={u.image || ""}
+                          width="32px"
+                          height="32px"
                         />
                         <Text>{u.name}</Text>
                       </Flex>

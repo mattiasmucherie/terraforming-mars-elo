@@ -1,6 +1,7 @@
 import { Heading } from "@chakra-ui/react"
-import React, { forwardRef, ForwardRefRenderFunction } from "react"
+import React, { FC } from "react"
 import styled from "styled-components"
+import Link from "next/link"
 
 const Container = styled(Heading)`
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
@@ -11,12 +12,14 @@ const Container = styled(Heading)`
   }
 `
 
-const Brand: ForwardRefRenderFunction<{}> = ({}, ref) => {
+const Brand: FC = () => {
   return (
-    <Container ref={ref} size="lg" color="white">
-      TerraRanking
-    </Container>
+    <Link href="/">
+      <Container size="lg" color="white">
+        TerraRanking
+      </Container>
+    </Link>
   )
 }
 
-export default forwardRef(Brand)
+export default Brand

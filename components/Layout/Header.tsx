@@ -1,5 +1,4 @@
 import React from "react"
-import Link from "next/link"
 import Image from "next/image"
 import { useDisclosure, Box, Button } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
@@ -26,9 +25,7 @@ const Header = () => {
           objectFit="cover"
         />
         <Box zIndex={2} cursor="pointer">
-          <Link href="/">
-            <Brand />
-          </Link>
+          <Brand />
         </Box>
 
         <Button variant="square" colorScheme="WhiteAlpha" onClick={onOpen}>

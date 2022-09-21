@@ -28,7 +28,12 @@ const Header = () => {
           <Brand />
         </Box>
 
-        <Button variant="square" colorScheme="WhiteAlpha" onClick={onOpen}>
+        <Button
+          variant="square"
+          colorScheme="WhiteAlpha"
+          onClick={onOpen}
+          name="Menu button"
+        >
           <HamburgerIcon color="white" fontSize={22} />
         </Button>
       </Box>

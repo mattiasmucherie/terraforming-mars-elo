@@ -1,5 +1,6 @@
-import React, { FC } from "react"
 import NextNProgress from "nextjs-progressbar"
+import React, { FC } from "react"
+
 import { theme } from "../styles"
 
 const RouterProgressBar: FC = () => {

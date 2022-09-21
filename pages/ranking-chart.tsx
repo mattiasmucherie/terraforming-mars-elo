@@ -1,8 +1,9 @@
-import { withLayout } from "../components"
-import prisma from "../lib/prisma"
 import { Match, MatchRanking, User } from "@prisma/client"
 import { NextPage } from "next"
+
+import { withLayout } from "../components"
 import RankingChart from "../components/RankingChart"
+import prisma from "../lib/prisma"
 
 interface PlayerRankingProps {
   users: (User & { MatchRanking: MatchRanking[] })[]

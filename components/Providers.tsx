@@ -1,7 +1,8 @@
+import { ChakraProvider } from "@chakra-ui/react"
 import React, { FC, ReactNode } from "react"
 import { ThemeProvider } from "styled-components"
-import { ChakraProvider } from "@chakra-ui/react"
-import { theme, chakraTheme } from "../styles"
+
+import { chakraTheme, theme } from "../styles"
 
 interface ProvidersProps {
   children: ReactNode

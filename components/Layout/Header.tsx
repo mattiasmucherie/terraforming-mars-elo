@@ -1,9 +1,10 @@
-import React from "react"
-import Image from "next/image"
-import { useDisclosure, Box, Button } from "@chakra-ui/react"
 import { HamburgerIcon } from "@chakra-ui/icons"
-import NavDrawer from "./NavDrawer"
+import { Box, Button, useDisclosure } from "@chakra-ui/react"
+import Image from "next/image"
+import React from "react"
+
 import Brand from "../Brand"
+import NavDrawer from "./NavDrawer"
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

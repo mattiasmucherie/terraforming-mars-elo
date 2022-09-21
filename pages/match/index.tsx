@@ -1,9 +1,10 @@
-import { GetStaticProps, NextPage } from "next"
-import prisma from "../../lib/prisma"
-import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { Corporation, Match, MatchRanking, User } from "@prisma/client"
+import { GetStaticProps, NextPage } from "next"
+
 import { ListOfMatches, withLayout } from "../../components"
-import { faFaceGrinTongueWink, faPlus } from "@fortawesome/free-solid-svg-icons"
+import prisma from "../../lib/prisma"
 
 interface MatchesPageProps {
   matches:

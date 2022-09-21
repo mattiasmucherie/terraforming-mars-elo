@@ -1,3 +1,5 @@
+import { ChevronDownIcon } from "@chakra-ui/icons"
+import { Box, Button, Flex, Menu, MenuButton, MenuList } from "@chakra-ui/react"
 import {
   Stat,
   StatArrow,
@@ -5,26 +7,14 @@ import {
   StatLabel,
   StatNumber,
 } from "@chakra-ui/stat"
+import { faGear } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import React, { FC } from "react"
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react"
-import { ChevronDownIcon } from "@chakra-ui/icons"
-import EditUsernameModal from "./EditUsernameModal"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faGear } from "@fortawesome/free-solid-svg-icons"
-import EditProfilePictureModal from "./EditProfilePictureModal"
 import styled from "styled-components"
+
+import EditProfilePictureModal from "./EditProfilePictureModal"
+import EditUsernameModal from "./EditUsernameModal"
 import NextAvatar from "./NextAvatar"
 
 const IconContainer = styled.div`

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 import { createClient } from "@supabase/supabase-js"
 
 export const supabase =

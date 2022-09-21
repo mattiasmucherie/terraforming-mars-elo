@@ -1,11 +1,12 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next"
-import { string, ValidationError } from "yup"
-import prisma from "../../lib/prisma"
-import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
-import { MatchTable, withLayout } from "../../components"
+import { Corporation, Match, MatchRanking, User } from "@prisma/client"
+import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import Moment from "react-moment"
+import { string, ValidationError } from "yup"
+
+import { MatchTable, withLayout } from "../../components"
 import { Heading } from "../../components/Layout"
+import prisma from "../../lib/prisma"
 
 interface MatchProps {
   match:

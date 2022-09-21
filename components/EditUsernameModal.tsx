@@ -16,9 +16,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import { User } from "@prisma/client"
-import { FC, useState } from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
+import { FC, useState } from "react"
 
 interface EditUsernameModalProps {
   user: User

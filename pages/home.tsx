@@ -1,18 +1,19 @@
+import { Box, Button, Center } from "@chakra-ui/react"
 import { Match, MatchRanking, User } from "@prisma/client"
 import type { NextPage } from "next"
-import prisma from "../lib/prisma"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { drop } from "ramda"
+import { useCallback, useMemo } from "react"
+
 import {
-  withLayout,
-  PlayerRanking,
   CurrentLeader,
   PageSection,
+  PlayerRanking,
   RankingChart,
+  withLayout,
 } from "../components"
-import { Box, Button, Center } from "@chakra-ui/react"
-import { useCallback, useMemo } from "react"
-import { drop } from "ramda"
-import { useRouter } from "next/router"
-import Link from "next/link"
+import prisma from "../lib/prisma"
 
 interface HomeProps {
   users: (User & { MatchRanking: MatchRanking[] })[]

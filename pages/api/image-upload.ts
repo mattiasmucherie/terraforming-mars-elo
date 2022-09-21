@@ -1,6 +1,7 @@
-import { nanoid } from "nanoid"
 import { decode } from "base64-arraybuffer"
+import { nanoid } from "nanoid"
 import { NextApiRequest, NextApiResponse } from "next"
+
 import { supabase } from "../../lib/supabase"
 
 export const config = {
@@ -16,7 +17,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    let { image } = req.body as { image: string }
+    const { image } = req.body as { image: string }
 
     if (!image) {
       return res.status(500).json({ message: "No image provided" })

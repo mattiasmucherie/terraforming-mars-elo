@@ -1,4 +1,3 @@
-import { Box } from "@chakra-ui/react"
 import React, { FC, ReactNode } from "react"
 import styled from "styled-components"
 

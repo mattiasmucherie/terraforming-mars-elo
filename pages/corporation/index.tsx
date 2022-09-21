@@ -1,9 +1,10 @@
-import { GetServerSideProps, GetStaticProps, NextPage } from "next"
-import prisma from "../../lib/prisma"
-import CorporationTable from "../../components/CorporationTable"
-import { Corporation, MatchRanking } from "@prisma/client"
 import { Text } from "@chakra-ui/react"
+import { Corporation, MatchRanking } from "@prisma/client"
+import { GetStaticProps, NextPage } from "next"
+
 import { withLayout } from "../../components"
+import CorporationTable from "../../components/CorporationTable"
+import prisma from "../../lib/prisma"
 
 interface CorporationPage {
   corporations: (Corporation & { matchRanking: MatchRanking[] })[]

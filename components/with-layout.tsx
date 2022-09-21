@@ -1,9 +1,14 @@
 import { useRouter } from "next/router"
-import React, { ComponentType, ReactNode, useMemo } from "react"
+import React, { ComponentType, useMemo } from "react"
+
 import { Layout } from "./Layout"
 
-type LayoutProps = { heading?: string | Function; actions?: Array<any> }
+type LayoutProps = {
+  heading?: string | (() => JSX.Element)
+  actions?: Array<any>
+}
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const withLayout = <T extends {}>(
   Component: ComponentType<T>,
   layoutConfig?: LayoutProps | ((p: T, api: any) => LayoutProps)

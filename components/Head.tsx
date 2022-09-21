@@ -1,6 +1,6 @@
-import React, { FC } from "react"
-import NextScript from "next/script"
 import NextHead from "next/head"
+import NextScript from "next/script"
+import React, { FC } from "react"
 
 const Head: FC = () => {
   return (

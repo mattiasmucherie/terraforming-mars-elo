@@ -1,5 +1,4 @@
-import { Line } from "react-chartjs-2"
-import { Config } from "../lib/chartConfig"
+import { Flex } from "@chakra-ui/react"
 import { Match, MatchRanking, User } from "@prisma/client"
 import {
   CategoryScale,
@@ -13,7 +12,9 @@ import {
   Tooltip,
 } from "chart.js"
 import { FC } from "react"
-import { Flex } from "@chakra-ui/react"
+import { Line } from "react-chartjs-2"
+
+import { Config } from "../lib/chartConfig"
 
 Chart.register(
   CategoryScale,

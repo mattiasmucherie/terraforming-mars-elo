@@ -1,7 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from "next"
-import prisma from "../../../lib/prisma"
-import { string, ValidationError } from "yup"
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime"
+import type { NextApiRequest, NextApiResponse } from "next"
+import { string, ValidationError } from "yup"
+
+import prisma from "../../../lib/prisma"
 
 export default async function handler(
   req: NextApiRequest,

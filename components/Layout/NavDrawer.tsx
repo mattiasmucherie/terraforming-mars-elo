@@ -1,4 +1,3 @@
-import React, { FC, useCallback, useMemo } from "react"
 import {
   Box,
   CloseButton,
@@ -10,19 +9,20 @@ import {
   Heading,
   VStack,
 } from "@chakra-ui/react"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import styled from "styled-components"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCalendar, faCalendarPlus } from "@fortawesome/free-regular-svg-icons"
 import {
   faBuilding,
+  faChartLine,
+  faHouse,
   faListOl,
   faUserPlus,
-  faChartLine,
   IconDefinition,
-  faHouse,
 } from "@fortawesome/free-solid-svg-icons"
-import { faCalendar, faCalendarPlus } from "@fortawesome/free-regular-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import React, { FC, useCallback, useMemo } from "react"
+import styled from "styled-components"
 
 const Item = styled(Box)`
   font-size: 18px;

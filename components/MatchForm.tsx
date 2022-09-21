@@ -1,32 +1,33 @@
-import { Corporation, User } from "@prisma/client"
-import { ChangeEvent, FC, useCallback, useMemo, useState } from "react"
-import styled from "styled-components"
-import { useRouter } from "next/router"
-import axios from "axios"
+import { DeleteIcon } from "@chakra-ui/icons"
 import {
   Box,
   Button,
   Center,
   Divider,
   IconButton,
-  List,
-  ListItem,
-  NumberInputField,
-  NumberInput,
-  OrderedList,
-  Select,
-  Text,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   InputGroup,
   InputLeftAddon,
+  List,
+  ListItem,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  OrderedList,
+  Select,
   Spinner,
   Stat,
+  Text,
 } from "@chakra-ui/react"
-import { DeleteIcon } from "@chakra-ui/icons"
-import { elo } from "../utils/elo"
 import { StatArrow } from "@chakra-ui/stat"
+import { Corporation, User } from "@prisma/client"
+import axios from "axios"
+import { useRouter } from "next/router"
+import { ChangeEvent, FC, useMemo, useState } from "react"
+import styled from "styled-components"
+
+import { elo } from "../utils/elo"
 
 const Container = styled.div`
   display: flex;

@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import { object, string, ValidationError } from "yup"
 
 import prisma from "../../../lib/prisma"
-import { revalidate } from "../revalidate"
+// import { revalidate } from "../revalidate"
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,18 +21,18 @@ export default async function handler(
         data: { name: bodyObject.newName },
         include: { matches: true },
       })
-      const arrayOfMatches = user.matches.map((m) => `/match/${m.id}`)
-      await revalidate(
-        [
-          `/user/${user.id}`,
-          `/ranking-chart`,
-          `/player-ranking`,
-          "/match",
-          `/`,
-          ...arrayOfMatches,
-        ],
-        res
-      )
+      // const arrayOfMatches = user.matches.map((m) => `/match/${m.id}`)
+      // await revalidate(
+      //   [
+      //     `/user/${user.id}`,
+      //     `/ranking-chart`,
+      //     `/player-ranking`,
+      //     "/match",
+      //     `/`,
+      //     ...arrayOfMatches,
+      //   ],
+      //   res
+      // )
       return res.status(200).json({ name: user.name })
     } catch (e) {
       if (e instanceof ValidationError) {

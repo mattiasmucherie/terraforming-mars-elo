@@ -41,7 +41,7 @@ export default async function handler(
       if (e instanceof PrismaClientKnownRequestError) {
         return res.status(400).json({ message: `Username is taken` })
       }
-      return res.status(500).json({ message: "Something went wrong" })
+      return res.status(500).json({ message: "Something went wrong", error: e })
     }
   } else {
     res.setHeader("Allow", "POST")

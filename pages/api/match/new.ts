@@ -83,7 +83,7 @@ export default async function handler(
       const pagesToRevalidate = [
         ...users.map((u) => `/user/${u.id}`),
         `/ranking-chart`,
-        `player-ranking`,
+        `/player-ranking`,
         `/match`,
         `/`,
         `/corporation`,

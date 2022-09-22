@@ -36,7 +36,7 @@ export default async function handler(
         [
           `/user/${user.id}`,
           `/ranking-chart`,
-          `player-ranking`,
+          `/player-ranking`,
           "/match",
           `/`,
           ...arrayOfMatches,

@@ -3,6 +3,7 @@ import { object, string, ValidationError } from "yup"
 
 import prisma from "../../../lib/prisma"
 import { supabase } from "../../../lib/supabase"
+import { revalidate } from "../revalidate"
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,7 +29,20 @@ export default async function handler(
       const user = await prisma.user.update({
         where: { id: bodyObject.id },
         data: { image: bodyObject.imageUrl },
+        include: { matches: true },
       })
+      const arrayOfMatches = user.matches.map((m) => `/match/${m.id}`)
+      await revalidate(
+        [
+          `/user/${user.id}`,
+          `/ranking-chart`,
+          `/player-ranking`,
+          "/match",
+          `/`,
+          ...arrayOfMatches,
+        ],
+        res
+      )
       return res.status(200).json({ name: user.name })
     } catch (e) {
       if (e instanceof ValidationError) {

@@ -4,6 +4,7 @@ import { array, number, object, string, ValidationError } from "yup"
 import prisma from "../../../lib/prisma"
 import { elo } from "../../../utils/elo"
 import { getErrorMessage } from "../../../utils/errorMessages"
+import { revalidate } from "../revalidate"
 
 export default async function handler(
   req: NextApiRequest,
@@ -79,8 +80,16 @@ export default async function handler(
           })
         })
       )
-
-      // 95d2bfae-f4d2-41af-9e80-e9233d4d46d1
+      const pagesToRevalidate = [
+        ...users.map((u) => `/user/${u.id}`),
+        `/ranking-chart`,
+        `/player-ranking`,
+        `/match`,
+        `/`,
+        `/corporation`,
+        `/new-match`,
+      ]
+      await revalidate(pagesToRevalidate, res)
       res.status(200).json({ message: "Match was created!" })
     } catch (e) {
       if (e instanceof ValidationError) {

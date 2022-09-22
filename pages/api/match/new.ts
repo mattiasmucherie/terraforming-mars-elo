@@ -87,7 +87,7 @@ export default async function handler(
         `/match`,
         `/`,
         `/corporation`,
-        `new-match`,
+        `/new-match`,
       ]
       await revalidate(pagesToRevalidate, res)
       res.status(200).json({ message: "Match was created!" })

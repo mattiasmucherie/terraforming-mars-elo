@@ -1,7 +1,8 @@
-import { Text } from "@chakra-ui/react"
+import { Spinner, Text } from "@chakra-ui/react"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
-import { GetStaticPaths, GetStaticProps, NextPage } from "next"
-import { string, ValidationError } from "yup"
+import { NextPage } from "next"
+import { useRouter } from "next/router"
+import useSWR from "swr"
 
 import {
   FullWidthContainer,
@@ -9,7 +10,7 @@ import {
   UserStat,
   withLayout,
 } from "../../components"
-import prisma from "../../lib/prisma"
+import { fetcher } from "../../lib/fetcher"
 
 type UserPageProps = {
   user:
@@ -21,8 +22,16 @@ type UserPageProps = {
     | null
 }
 
-const UserPage: NextPage<UserPageProps> = ({ user }) => {
+const UserPage: NextPage<UserPageProps> = () => {
+  const router = useRouter()
+  const { id } = router.query
+
+  const { data: user, error } = useSWR(id ? `/api/users/${id}` : null, fetcher)
+
   if (!user) {
+    return <Spinner />
+  }
+  if (error) {
     return <Text>Could not get user info</Text>
   }
 
@@ -35,43 +44,3 @@ const UserPage: NextPage<UserPageProps> = ({ user }) => {
 }
 
 export default withLayout(UserPage, { heading: "Player" })
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const users = await prisma.user.findMany({ select: { id: true } })
-
-  return { paths: users.map((u) => ({ params: { id: u.id } })), fallback: true }
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const idSchema = string().uuid().required()
-  try {
-    const id = await idSchema.validate(context.params?.id)
-    const user = await prisma.user.findUnique({
-      where: { id },
-      include: {
-        matches: {
-          include: {
-            matchRankings: {
-              where: { userId: id },
-              include: { corporation: true },
-            },
-          },
-          orderBy: { createdAt: "desc" },
-        },
-      },
-    })
-
-    return { props: { user: JSON.parse(JSON.stringify(user)) }, revalidate: 10 }
-  } catch (e) {
-    if (e instanceof ValidationError) {
-      return {
-        redirect: {
-          destination: "/",
-          permanent: false,
-        },
-      }
-    }
-    console.error(e)
-  }
-  return { props: {} }
-}

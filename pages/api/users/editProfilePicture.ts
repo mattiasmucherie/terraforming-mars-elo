@@ -33,7 +33,7 @@ export default async function handler(
       })
       const arrayOfMatches = user.matches.map((m) => `/match/${m.id}`)
       await revalidate(
-        [`/ranking-chart`, `/player-ranking`, "/match", `/`, ...arrayOfMatches],
+        [`/ranking-chart`, `/player-ranking`, "/match", ...arrayOfMatches],
         res
       )
       return res.status(200).json({ name: user.name })

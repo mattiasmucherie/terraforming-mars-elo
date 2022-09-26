@@ -7,7 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const matches = await prisma.match.findMany({
-    include: { matchRankings: { include: { user: true } } },
+    orderBy: { createdAt: "asc" },
   })
   res.status(200).json(matches)
 }

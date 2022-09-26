@@ -1,11 +1,15 @@
 import { Text } from "@chakra-ui/react"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
+import { useRouter } from "next/router"
 import Moment from "react-moment"
-import { string, ValidationError } from "yup"
+import useSWR from "swr"
+import { ValidationError } from "yup"
 
 import { MatchTable, withLayout } from "../../components"
 import { Heading } from "../../components/Layout"
+import { getOneMatch } from "../../lib/apiHelpers/getOneMatch"
+import { getFetcher } from "../../lib/getFetcher"
 import prisma from "../../lib/prisma"
 
 interface MatchProps {
@@ -18,7 +22,16 @@ interface MatchProps {
       })
     | null
 }
-const MatchPage: NextPage<MatchProps> = ({ match }) => {
+const MatchPage: NextPage<MatchProps> = ({ match: matchData }) => {
+  const router = useRouter()
+  const { id } = router.query
+  const { data: match } = useSWR<MatchProps["match"]>(
+    id ? `/api/match/${id}` : null,
+    getFetcher,
+    {
+      fallbackData: matchData,
+    }
+  )
   if (!match) {
     return <Text>Could not load match data</Text>
   }
@@ -43,16 +56,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const idSchema = string().uuid().required()
   try {
-    const id = await idSchema.validate(context.params?.id)
-    const match = await prisma.match.findUnique({
-      where: { id },
-      include: {
-        matchRankings: { include: { corporation: true, user: true } },
-      },
-    })
-
+    const match = await getOneMatch(context.params?.id as string)
     return {
       props: { match: JSON.parse(JSON.stringify(match)) },
       revalidate: 10,

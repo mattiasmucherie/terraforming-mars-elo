@@ -31,11 +31,7 @@ export default async function handler(
         data: { image: bodyObject.imageUrl },
         include: { matches: true },
       })
-      const arrayOfMatches = user.matches.map((m) => `/match/${m.id}`)
-      await revalidate(
-        [`/ranking-chart`, `/player-ranking`, "/match", ...arrayOfMatches],
-        res
-      )
+      await revalidate([`/ranking-chart`, `/player-ranking`], res)
       return res.status(200).json({ name: user.name })
     } catch (e) {
       if (e instanceof ValidationError) {

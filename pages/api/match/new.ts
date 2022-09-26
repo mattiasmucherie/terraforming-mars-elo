@@ -83,7 +83,6 @@ export default async function handler(
       const pagesToRevalidate = [
         `/ranking-chart`,
         `/player-ranking`,
-        `/match`,
         `/new-match`,
       ]
       await revalidate(pagesToRevalidate, res)

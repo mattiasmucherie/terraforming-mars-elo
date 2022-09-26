@@ -1,16 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 
-import prisma from "../../../lib/prisma"
+import { getMatches } from "../../../lib/apiHelpers/getMatches"
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const matches = await prisma.match.findMany({
-    include: {
-      matchRankings: { include: { user: true, corporation: true } },
-    },
-    orderBy: { createdAt: "desc" },
-  })
+  const matches = await getMatches()
   res.status(200).json(matches)
 }

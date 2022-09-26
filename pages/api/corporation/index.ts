@@ -1,7 +1,6 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next"
 
-import prisma from "../../../lib/prisma"
+import { getCorporations } from "../../../lib/apiHelpers/getCorporations"
 import { getErrorMessage } from "../../../utils/errorMessages"
 
 export default async function handler(
@@ -10,7 +9,7 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      const corporation = await prisma.corporation.findMany({})
+      const corporation = await getCorporations()
       res.status(200).json(corporation)
     } catch (e) {
       console.error(e)

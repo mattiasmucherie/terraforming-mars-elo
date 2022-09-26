@@ -1,6 +1,8 @@
 import { Text } from "@chakra-ui/react"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
+import { useRouter } from "next/router"
+import useSWR from "swr"
 import { string, ValidationError } from "yup"
 
 import {
@@ -9,6 +11,8 @@ import {
   UserStat,
   withLayout,
 } from "../../components"
+import { getOneUser } from "../../lib/apiHelpers/getOneUser"
+import { getFetcher } from "../../lib/getFetcher"
 import prisma from "../../lib/prisma"
 
 type UserPageProps = {
@@ -21,11 +25,15 @@ type UserPageProps = {
     | null
 }
 
-const UserPage: NextPage<UserPageProps> = ({ user }) => {
+const UserPage: NextPage<UserPageProps> = ({ user: userData }) => {
+  const router = useRouter()
+  const { id } = router.query
+  const { data: user } = useSWR(id ? `/api/users/${id}` : null, getFetcher, {
+    fallbackData: userData,
+  })
   if (!user) {
     return <Text>Could not get user info</Text>
   }
-
   return (
     <FullWidthContainer>
       <UserStat user={user} />
@@ -43,23 +51,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const idSchema = string().uuid().required()
   try {
+    const idSchema = string().uuid().required()
     const id = await idSchema.validate(context.params?.id)
-    const user = await prisma.user.findUnique({
-      where: { id },
-      include: {
-        matches: {
-          include: {
-            matchRankings: {
-              where: { userId: id },
-              include: { corporation: true },
-            },
-          },
-          orderBy: { createdAt: "desc" },
-        },
-      },
-    })
+    const user = await getOneUser(id)
 
     return { props: { user: JSON.parse(JSON.stringify(user)) }, revalidate: 10 }
   } catch (e) {

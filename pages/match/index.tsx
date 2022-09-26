@@ -7,16 +7,18 @@ import { ListOfMatches, withLayout } from "../../components"
 import prisma from "../../lib/prisma"
 
 interface MatchesPageProps {
-  matches:
-    | (Match & { matchRankings: (MatchRanking & { user: User })[] })[]
-    | undefined
-  corporations: Corporation[]
+  matches: (Match & {
+    matchRankings: (MatchRanking & {
+      user: User
+      corporation: Corporation | null
+    })[]
+  })[]
 }
-const MatchesPage: NextPage<MatchesPageProps> = ({ matches, corporations }) => {
+const MatchesPage: NextPage<MatchesPageProps> = ({ matches }) => {
   if (!matches || !matches.length) {
     return <Text>Could not find any matches</Text>
   }
-  return <ListOfMatches matches={matches} corporations={corporations} />
+  return <ListOfMatches matches={matches} />
 }
 
 export default withLayout(MatchesPage, (props, { router }) => ({
@@ -33,19 +35,16 @@ export default withLayout(MatchesPage, (props, { router }) => ({
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const [matches, corporations] = await Promise.all([
-      prisma.match.findMany({
-        include: { matchRankings: { include: { user: true } } },
-        orderBy: { createdAt: "desc" },
-      }),
-      prisma.corporation.findMany({
-        include: { matchRanking: true },
-      }),
-    ])
+    const matches = await prisma.match.findMany({
+      include: {
+        matchRankings: { include: { user: true, corporation: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    })
+
     return {
       props: {
         matches: JSON.parse(JSON.stringify(matches)),
-        corporations: JSON.parse(JSON.stringify(corporations)),
       },
       revalidate: 10,
     }

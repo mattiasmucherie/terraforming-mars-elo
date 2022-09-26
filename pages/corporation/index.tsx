@@ -1,15 +1,24 @@
 import { Text } from "@chakra-ui/react"
 import { Corporation, MatchRanking } from "@prisma/client"
 import { GetStaticProps, NextPage } from "next"
+import useSWR from "swr"
 
 import { withLayout } from "../../components"
 import CorporationTable from "../../components/CorporationTable"
-import prisma from "../../lib/prisma"
+import { getCorporations } from "../../lib/apiHelpers/getCorporations"
+import { getFetcher } from "../../lib/getFetcher"
 
-interface CorporationPage {
+interface CorporationPageProps {
   corporations: (Corporation & { matchRanking: MatchRanking[] })[]
 }
-const CorporationPage: NextPage<CorporationPage> = ({ corporations }) => {
+const CorporationPage: NextPage<CorporationPageProps> = ({
+  corporations: corporationsData,
+}) => {
+  const { data: corporations } = useSWR<CorporationPageProps["corporations"]>(
+    "/api/corporation",
+    getFetcher,
+    { fallbackData: corporationsData }
+  )
   if (!corporations || !corporations.length) {
     return <Text> Could not load any corporations</Text>
   }
@@ -22,17 +31,7 @@ export default withLayout(CorporationPage, {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const corporations = await prisma.corporation.findMany({
-      include: { matchRanking: true },
-    })
-    corporations.sort((cA, cB) => {
-      if (cA.matchRanking.length && cB.matchRanking.length) {
-        return (
-          cB.wins / cB.matchRanking.length - cA.wins / cA.matchRanking.length
-        )
-      }
-      return cB.matchRanking.length - cA.matchRanking.length
-    })
+    const corporations = await getCorporations()
     return {
       props: { corporations: JSON.parse(JSON.stringify(corporations)) },
       revalidate: 10,

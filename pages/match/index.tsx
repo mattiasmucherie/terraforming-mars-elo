@@ -2,9 +2,11 @@ import { Text } from "@chakra-ui/react"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import { GetStaticProps, NextPage } from "next"
+import useSWR from "swr"
 
 import { ListOfMatches, withLayout } from "../../components"
-import prisma from "../../lib/prisma"
+import { getMatches } from "../../lib/apiHelpers/getMatches"
+import { getFetcher } from "../../lib/getFetcher"
 
 interface MatchesPageProps {
   matches: (Match & {
@@ -14,7 +16,14 @@ interface MatchesPageProps {
     })[]
   })[]
 }
-const MatchesPage: NextPage<MatchesPageProps> = ({ matches }) => {
+const MatchesPage: NextPage<MatchesPageProps> = ({ matches: matchesData }) => {
+  const { data: matches } = useSWR<MatchesPageProps["matches"]>(
+    "/api/match",
+    getFetcher,
+    {
+      fallbackData: matchesData,
+    }
+  )
   if (!matches || !matches.length) {
     return <Text>Could not find any matches</Text>
   }
@@ -35,12 +44,7 @@ export default withLayout(MatchesPage, (props, { router }) => ({
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const matches = await prisma.match.findMany({
-      include: {
-        matchRankings: { include: { user: true, corporation: true } },
-      },
-      orderBy: { createdAt: "desc" },
-    })
+    const matches = await getMatches()
 
     return {
       props: {

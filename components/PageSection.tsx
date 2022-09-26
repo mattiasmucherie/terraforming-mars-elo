@@ -1,12 +1,17 @@
-import { Box, Heading } from "@chakra-ui/react"
+import { Box, Button, Center, Heading } from "@chakra-ui/react"
 import React, { FC, ReactNode } from "react"
 
 interface PageSectionProps {
   heading: string
   children: ReactNode
+  onShowMore?: () => void
 }
 
-const PageSection: FC<PageSectionProps> = ({ heading, children }) => {
+const PageSection: FC<PageSectionProps> = ({
+  heading,
+  onShowMore,
+  children,
+}) => {
   return (
     <Box pb="6">
       <Heading fontSize="16px" mb={3}>
@@ -14,6 +19,19 @@ const PageSection: FC<PageSectionProps> = ({ heading, children }) => {
       </Heading>
 
       {children}
+
+      {onShowMore && (
+        <Center mt="3">
+          <Button
+            onClick={onShowMore}
+            colorScheme="gray"
+            size="sm"
+            variant="ghost"
+          >
+            Show more
+          </Button>
+        </Center>
+      )}
     </Box>
   )
 }

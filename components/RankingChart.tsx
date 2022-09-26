@@ -11,10 +11,12 @@ import {
   Title,
   Tooltip,
 } from "chart.js"
+import { compose, findIndex } from "ramda"
 import { FC } from "react"
 import { Line } from "react-chartjs-2"
 
 import { Config } from "../lib/chartConfig"
+import { sortMatches } from "../utils"
 
 Chart.register(
   CategoryScale,
@@ -42,7 +44,10 @@ const RankingChart: FC<{
 }> = ({ users, matches }) => {
   const formatData = (user: User & { MatchRanking: MatchRanking[] }) => {
     return user.MatchRanking.map((mr) => ({
-      x: matches.findIndex((m) => mr.matchId === m.id) + 1,
+      x: compose(
+        findIndex((m: Match) => mr.matchId === m.id),
+        sortMatches
+      )(matches),
       y: Math.round(mr.newRank),
       standing: mr.standing,
     }))

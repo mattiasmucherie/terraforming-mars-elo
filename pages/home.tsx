@@ -1,14 +1,15 @@
-import { Box, Button, Center } from "@chakra-ui/react"
-import { Match, MatchRanking, User } from "@prisma/client"
+import { Box } from "@chakra-ui/react"
+import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import type { NextPage } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { drop } from "ramda"
+import { drop, take } from "ramda"
 import { useCallback, useMemo } from "react"
 import useSWR from "swr"
 
 import {
   CurrentLeader,
+  ListOfMatches,
   PageSection,
   PlayerRanking,
   RankingChart,
@@ -19,37 +20,41 @@ import prisma from "../lib/prisma"
 
 interface HomeProps {
   users: (User & { MatchRanking: MatchRanking[] })[]
-  matches: Match[]
+  matches:
+    | (Match & { matchRankings: (MatchRanking & { user: User })[] })[]
+    | undefined
+  corporations: Corporation[]
 }
 
 const HomePage: NextPage<HomeProps> = ({
   users: usersData,
-  matches: matchesData,
+  matches: matches,
+  corporations,
 }) => {
   const { data: users } = useSWR<HomeProps["users"]>("/api/users", getFetcher, {
     fallbackData: usersData,
   })
-  const { data: matches } = useSWR<HomeProps["matches"]>(
-    "/api/match",
-    getFetcher,
-    {
-      fallbackData: matchesData,
-    }
-  )
   const leader = useMemo(() => users![0], [users])
   const usersExceptLeader = useMemo(() => drop(1, users!), [users])
   const router = useRouter()
+  const latestMatches = useMemo(() => take(2, matches), [matches])
 
-  const handleShowMoreButtonClick = useCallback(
+  const navigateToPlayerRanking = useCallback(
     () => router.push("/player-ranking"),
     [router]
   )
 
+  const navigateToMatches = useCallback(() => router.push("/match"), [router])
+
   if (!users || !matches) return <div>No users or matches found</div>
+
+  if (!matches[0]?.matchRankings) {
+    return <p>No Match rankings</p>
+  }
 
   return (
     <>
-      <PageSection heading="Top list">
+      <PageSection heading="Top list" onShowMore={navigateToPlayerRanking}>
         <Box mb="4">
           <Link href={`/user/${leader.id}`}>
             <CurrentLeader user={leader} />
@@ -57,17 +62,10 @@ const HomePage: NextPage<HomeProps> = ({
         </Box>
 
         <PlayerRanking users={usersExceptLeader} isWithoutLeader />
+      </PageSection>
 
-        <Center mt="3">
-          <Button
-            onClick={handleShowMoreButtonClick}
-            colorScheme="gray"
-            size="sm"
-            variant="ghost"
-          >
-            Show more
-          </Button>
-        </Center>
+      <PageSection heading="Latest games" onShowMore={navigateToMatches}>
+        <ListOfMatches matches={latestMatches} corporations={corporations} />
       </PageSection>
 
       <PageSection heading="Score history">
@@ -80,17 +78,26 @@ const HomePage: NextPage<HomeProps> = ({
 export default withLayout(HomePage)
 
 export async function getStaticProps() {
-  const users = await prisma.user.findMany({
-    orderBy: { rank: "desc" },
-    include: { MatchRanking: true },
-  })
-  const userPlayed = users.filter((u) => u.MatchRanking.length)
-  const matches = await prisma.match.findMany({
-    orderBy: { createdAt: "asc" },
-  })
+  const [matches, corporations, users] = await Promise.all([
+    prisma.match.findMany({
+      include: { matchRankings: { include: { user: true } } },
+      orderBy: { createdAt: "desc" },
+    }),
+    prisma.corporation.findMany({
+      include: { matchRanking: true },
+    }),
+    prisma.user.findMany({
+      orderBy: { rank: "desc" },
+      include: { MatchRanking: true },
+    }),
+  ])
+
+  const usersPlayed = users.filter((u) => u.MatchRanking.length)
+
   return {
     props: {
-      users: JSON.parse(JSON.stringify(userPlayed)),
+      corporations: JSON.parse(JSON.stringify(corporations)),
+      users: JSON.parse(JSON.stringify(usersPlayed)),
       matches: JSON.parse(JSON.stringify(matches)),
     },
     revalidate: 10,

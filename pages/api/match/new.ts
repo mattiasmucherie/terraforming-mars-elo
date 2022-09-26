@@ -84,7 +84,6 @@ export default async function handler(
         `/ranking-chart`,
         `/player-ranking`,
         `/match`,
-        `/`,
         `/corporation`,
         `/new-match`,
       ]

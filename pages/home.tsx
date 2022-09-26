@@ -20,9 +20,7 @@ import prisma from "../lib/prisma"
 
 interface HomeProps {
   users: (User & { MatchRanking: MatchRanking[] })[]
-  matches:
-    | (Match & { matchRankings: (MatchRanking & { user: User })[] })[]
-    | undefined
+  matches: (Match & { matchRankings: (MatchRanking & { user: User })[] })[]
   corporations: Corporation[]
 }
 

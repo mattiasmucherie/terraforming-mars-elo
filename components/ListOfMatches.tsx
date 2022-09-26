@@ -2,23 +2,21 @@ import { Box } from "@chakra-ui/react"
 import { Badge, Flex, Stack, Stat, StatArrow } from "@chakra-ui/react"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import Link from "next/dist/client/link"
-import { find, propEq } from "ramda"
 import { FC, useCallback } from "react"
 import Moment from "react-moment"
 
 import NextAvatar from "./NextAvatar"
 
 interface ListOfMatchesProps {
-  matches: (Match & { matchRankings: (MatchRanking & { user: User })[] })[]
-  corporations: Corporation[]
+  matches: (Match & {
+    matchRankings: (MatchRanking & {
+      user: User
+      corporation?: Corporation | null
+    })[]
+  })[]
 }
 
-const ListOfMatches: FC<ListOfMatchesProps> = ({ matches, corporations }) => {
-  const getCorp = useCallback(
-    (corpId: string | null) => find(propEq("id", corpId), corporations),
-    [corporations]
-  )
-
+const ListOfMatches: FC<ListOfMatchesProps> = ({ matches }) => {
   const getRankDiff = useCallback(
     (matchRanking: MatchRanking) =>
       Math.round(matchRanking.newRank - matchRanking.prevRank),
@@ -43,7 +41,7 @@ const ListOfMatches: FC<ListOfMatchesProps> = ({ matches, corporations }) => {
                           src={mr.user.image || ""}
                         />
                       </Flex>
-                      <Badge>{getCorp(mr.corporationId)?.name}</Badge>
+                      <Badge>{mr.corporation?.name}</Badge>
 
                       <Stat>
                         <StatArrow

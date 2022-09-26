@@ -20,14 +20,17 @@ import prisma from "../lib/prisma"
 
 interface HomeProps {
   users: (User & { MatchRanking: MatchRanking[] })[]
-  matches: (Match & { matchRankings: (MatchRanking & { user: User })[] })[]
-  corporations: Corporation[]
+  matches: (Match & {
+    matchRankings: (MatchRanking & {
+      user: User
+      corporation: Corporation | null
+    })[]
+  })[]
 }
 
 const HomePage: NextPage<HomeProps> = ({
   users: usersData,
   matches: matches,
-  corporations,
 }) => {
   const { data: users } = useSWR<HomeProps["users"]>("/api/users", getFetcher, {
     fallbackData: usersData,
@@ -63,7 +66,7 @@ const HomePage: NextPage<HomeProps> = ({
       </PageSection>
 
       <PageSection heading="Latest games" onShowMore={navigateToMatches}>
-        <ListOfMatches matches={latestMatches} corporations={corporations} />
+        <ListOfMatches matches={latestMatches} />
       </PageSection>
 
       <PageSection heading="Score history">
@@ -76,13 +79,12 @@ const HomePage: NextPage<HomeProps> = ({
 export default withLayout(HomePage)
 
 export async function getStaticProps() {
-  const [matches, corporations, users] = await Promise.all([
+  const [matches, users] = await Promise.all([
     prisma.match.findMany({
-      include: { matchRankings: { include: { user: true } } },
+      include: {
+        matchRankings: { include: { user: true, corporation: true } },
+      },
       orderBy: { createdAt: "desc" },
-    }),
-    prisma.corporation.findMany({
-      include: { matchRanking: true },
     }),
     prisma.user.findMany({
       orderBy: { rank: "desc" },
@@ -94,7 +96,6 @@ export async function getStaticProps() {
 
   return {
     props: {
-      corporations: JSON.parse(JSON.stringify(corporations)),
       users: JSON.parse(JSON.stringify(usersPlayed)),
       matches: JSON.parse(JSON.stringify(matches)),
     },

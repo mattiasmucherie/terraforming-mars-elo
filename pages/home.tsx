@@ -30,15 +30,23 @@ interface HomeProps {
 
 const HomePage: NextPage<HomeProps> = ({
   users: usersData,
-  matches: matches,
+  matches: matchesData,
 }) => {
   const { data: users } = useSWR<HomeProps["users"]>("/api/users", getFetcher, {
     fallbackData: usersData,
   })
+  const { data: matches } = useSWR<HomeProps["matches"]>(
+    "/api/match",
+    getFetcher,
+    {
+      fallbackData: matchesData,
+    }
+  )
+
   const leader = useMemo(() => users![0], [users])
   const usersExceptLeader = useMemo(() => drop(1, users!), [users])
   const router = useRouter()
-  const latestMatches = useMemo(() => take(2, matches), [matches])
+  const latestMatches = useMemo(() => take(2, matches!), [matches])
 
   const navigateToPlayerRanking = useCallback(
     () => router.push("/player-ranking"),

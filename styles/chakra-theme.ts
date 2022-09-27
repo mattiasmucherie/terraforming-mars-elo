@@ -1,5 +1,6 @@
-import theme from "./theme"
 import { extendTheme } from "@chakra-ui/react"
+
+import theme from "./theme"
 
 const chakraTheme = extendTheme({
   fonts: {

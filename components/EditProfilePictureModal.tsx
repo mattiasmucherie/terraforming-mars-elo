@@ -14,8 +14,8 @@ import {
 } from "@chakra-ui/react"
 import { User } from "@prisma/client"
 import axios from "axios"
-import { useRouter } from "next/router"
 import React, { FC, useState } from "react"
+import { useSWRConfig } from "swr"
 
 interface EditUsernameModalProps {
   user: User
@@ -25,8 +25,7 @@ const EditProfilePictureModal: FC<EditUsernameModalProps> = ({ user }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [imageUrl, setImageUrl] = useState("")
   const [loading, setLoading] = useState(false)
-
-  const router = useRouter()
+  const { mutate } = useSWRConfig()
 
   const uploadImage = async (res: string | ArrayBuffer | null) => {
     if (res) {
@@ -68,7 +67,8 @@ const EditProfilePictureModal: FC<EditUsernameModalProps> = ({ user }) => {
         imageUrl,
         id: user.id,
       })
-      router.reload()
+      await mutate(`/api/users/${user.id}`)
+      onClose()
     } catch (e) {
       console.error()
     } finally {

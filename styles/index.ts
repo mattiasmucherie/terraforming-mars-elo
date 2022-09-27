@@ -1,4 +1,4 @@
-import theme from "./theme"
 import chakraTheme from "./chakra-theme"
+import theme from "./theme"
 
-export { theme, chakraTheme }
+export { chakraTheme, theme }

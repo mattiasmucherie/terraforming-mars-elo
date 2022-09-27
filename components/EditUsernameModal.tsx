@@ -17,8 +17,8 @@ import {
 } from "@chakra-ui/react"
 import { User } from "@prisma/client"
 import axios from "axios"
-import { useRouter } from "next/router"
 import { FC, useState } from "react"
+import { useSWRConfig } from "swr"
 
 interface EditUsernameModalProps {
   user: User
@@ -27,13 +27,14 @@ const EditUsernameModal: FC<EditUsernameModalProps> = ({ user }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [loading, setLoading] = useState(false)
   const [newName, setNewName] = useState("")
-  const router = useRouter()
+  const { mutate } = useSWRConfig()
 
   const handleSubmit = async () => {
     try {
       setLoading(true)
       await axios.post("/api/users/editUsername", { newName, id: user.id })
-      router.reload()
+      await mutate(`/api/users/${user.id}`)
+      onClose()
     } catch (e) {
       console.error()
     } finally {
@@ -62,6 +63,7 @@ const EditUsernameModal: FC<EditUsernameModalProps> = ({ user }) => {
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="Enter new username"
+                type="text"
               />
             </Box>
           </ModalBody>

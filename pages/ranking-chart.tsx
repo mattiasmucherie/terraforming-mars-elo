@@ -1,8 +1,11 @@
 import { Match, MatchRanking, User } from "@prisma/client"
 import { NextPage } from "next"
+import useSWR from "swr"
 
 import { withLayout } from "../components"
 import RankingChart from "../components/RankingChart"
+import { getMatches } from "../lib/apiHelpers/getMatches"
+import { getFetcher } from "../lib/getFetcher"
 import prisma from "../lib/prisma"
 
 interface PlayerRankingProps {
@@ -10,8 +13,21 @@ interface PlayerRankingProps {
   matches: Match[]
 }
 
-const RankingChartPage: NextPage<PlayerRankingProps> = ({ users, matches }) => {
-  if (!users && !matches) return <div>No Users found</div>
+const RankingChartPage: NextPage<PlayerRankingProps> = ({
+  users: usersData,
+  matches: matchesData,
+}) => {
+  const { data: users } = useSWR<PlayerRankingProps["users"]>(
+    "/api/users",
+    getFetcher,
+    { fallbackData: usersData }
+  )
+  const { data: matches } = useSWR<PlayerRankingProps["matches"]>(
+    "/api/match",
+    getFetcher,
+    { fallbackData: matchesData }
+  )
+  if (!users || !matches) return <div>No users or matches found</div>
 
   return <RankingChart users={users} matches={matches}></RankingChart>
 }
@@ -24,9 +40,7 @@ export async function getStaticProps() {
     include: { MatchRanking: true },
   })
   const userPlayed = users.filter((u) => u.MatchRanking.length)
-  const matches = await prisma.match.findMany({
-    orderBy: { createdAt: "asc" },
-  })
+  const matches = await getMatches()
   return {
     props: {
       users: JSON.parse(JSON.stringify(userPlayed)),

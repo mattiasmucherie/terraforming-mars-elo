@@ -3,7 +3,6 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import { object, string, ValidationError } from "yup"
 
 import prisma from "../../../lib/prisma"
-import { revalidate } from "../revalidate"
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,7 +20,6 @@ export default async function handler(
         data: { name: bodyObject.newName },
         include: { matches: true },
       })
-      await revalidate([`/ranking-chart`, `/player-ranking`], res)
       return res.status(200).json({ name: user.name })
     } catch (e) {
       if (e instanceof ValidationError) {

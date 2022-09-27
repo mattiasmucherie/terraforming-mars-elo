@@ -4,7 +4,6 @@ import { array, number, object, string, ValidationError } from "yup"
 import prisma from "../../../lib/prisma"
 import { elo } from "../../../utils/elo"
 import { getErrorMessage } from "../../../utils/errorMessages"
-import { revalidate } from "../revalidate"
 
 export default async function handler(
   req: NextApiRequest,
@@ -80,8 +79,6 @@ export default async function handler(
           })
         })
       )
-      const pagesToRevalidate = [`/ranking-chart`, `/player-ranking`]
-      await revalidate(pagesToRevalidate, res)
       res.status(200).json({ message: "Match was created!" })
     } catch (e) {
       if (e instanceof ValidationError) {

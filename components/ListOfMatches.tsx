@@ -1,9 +1,9 @@
 import { Box } from "@chakra-ui/react"
 import { Badge, Flex, Stack, Stat, StatArrow } from "@chakra-ui/react"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
+import format from "date-fns/format"
 import Link from "next/dist/client/link"
 import { FC, useCallback } from "react"
-import Moment from "react-moment"
 
 import NextAvatar from "./NextAvatar"
 
@@ -53,7 +53,7 @@ const ListOfMatches: FC<ListOfMatchesProps> = ({ matches }) => {
                   ))}
                 </Stack>
 
-                <Moment date={m.createdAt} format="D MMM" />
+                <time>{format(new Date(m.createdAt), "dd MMM")}</time>
               </Flex>
             </Box>
           </Link>

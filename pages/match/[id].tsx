@@ -1,8 +1,8 @@
 import { Text } from "@chakra-ui/react"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
+import format from "date-fns/format"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { useRouter } from "next/router"
-import Moment from "react-moment"
 import useSWR from "swr"
 import { ValidationError } from "yup"
 
@@ -41,7 +41,7 @@ const MatchPage: NextPage<MatchProps> = ({ match: matchData }) => {
 export default withLayout(MatchPage, (props) => ({
   heading: () => (
     <Heading>
-      Match - <Moment date={props.match?.createdAt} format="D MMM, YYYY" />
+      Match - {format(new Date(props.match?.createdAt || 0), "dd MMM, yyyy")}
     </Heading>
   ),
 }))

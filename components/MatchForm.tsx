@@ -24,7 +24,7 @@ import { StatArrow } from "@chakra-ui/stat"
 import { Corporation, User } from "@prisma/client"
 import axios from "axios"
 import { useRouter } from "next/router"
-import { ChangeEvent, FC, useMemo, useState } from "react"
+import { ChangeEvent, FC, useEffect, useMemo, useState } from "react"
 import styled from "styled-components"
 
 import { elo } from "../utils/elo"
@@ -55,6 +55,12 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
     () => elo(rankingOfPlayers.map((p) => p.rank)),
     [rankingOfPlayers]
   )
+
+  // Not very good UX but let's rebuild this whole component soon...
+  useEffect(() => {
+    setListOfPlayers(users)
+    setRankingOfPlayers([])
+  }, [users])
 
   const handleCorpChange = (
     e: ChangeEvent<HTMLSelectElement>,

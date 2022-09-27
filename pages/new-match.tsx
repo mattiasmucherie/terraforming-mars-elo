@@ -1,14 +1,27 @@
 import { Corporation, User } from "@prisma/client"
 import { NextPage } from "next"
+import useSWR from "swr"
 
 import { MatchForm, withLayout } from "../components"
+import { getFetcher } from "../lib/getFetcher"
 import prisma from "../lib/prisma"
 
 interface NewMatchProps {
   users: User[]
   corporations: Corporation[]
 }
-const NewMatch: NextPage<NewMatchProps> = ({ users, corporations }) => {
+const NewMatch: NextPage<NewMatchProps> = ({
+  users: usersData,
+  corporations,
+}) => {
+  const { data: users } = useSWR<NewMatchProps["users"]>(
+    "/api/users",
+    getFetcher,
+    {
+      fallbackData: usersData,
+    }
+  )
+
   if (!users || !users.length) {
     return <p>You have to have users first before registering a match</p>
   }
@@ -21,7 +34,10 @@ const NewMatch: NextPage<NewMatchProps> = ({ users, corporations }) => {
 export default withLayout(NewMatch, { heading: "Register match" })
 
 export async function getStaticProps() {
-  const users = await prisma.user.findMany({})
+  const users = await prisma.user.findMany({
+    orderBy: { rank: "desc" },
+    include: { MatchRanking: true },
+  })
   const corporations = await prisma.corporation.findMany({
     orderBy: { name: "asc" },
   })

@@ -80,11 +80,7 @@ export default async function handler(
           })
         })
       )
-      const pagesToRevalidate = [
-        `/ranking-chart`,
-        `/player-ranking`,
-        `/new-match`,
-      ]
+      const pagesToRevalidate = [`/ranking-chart`, `/player-ranking`]
       await revalidate(pagesToRevalidate, res)
       res.status(200).json({ message: "Match was created!" })
     } catch (e) {

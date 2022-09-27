@@ -201,7 +201,10 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
           ))}
         </OrderedList>
       </ListContainer>
-      <Button onClick={handleSubmit} disabled={loading}>
+      <Button
+        onClick={handleSubmit}
+        disabled={loading || rankingOfPlayers.length < 3}
+      >
         {loading ? <Spinner /> : "Submit New Match"}
       </Button>
     </Container>

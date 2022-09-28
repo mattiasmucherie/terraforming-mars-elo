@@ -2,7 +2,8 @@ import { Corporation, User } from "@prisma/client"
 import { NextPage } from "next"
 import useSWR from "swr"
 
-import { MatchForm, withLayout } from "../components"
+import { withLayout } from "../components"
+import MatchForm from "../components/MultiStep/MatchForm"
 import { getFetcher } from "../lib/getFetcher"
 import prisma from "../lib/prisma"
 

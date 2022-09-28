@@ -3,6 +3,7 @@ import Head from "./Head"
 import { FullWidthContainer } from "./Layout"
 import ListOfMatches from "./ListOfMatches"
 import MatchForm from "./MatchForm"
+import MatchRegistrationForm from "./MatchRegistrationForm"
 import MatchTable from "./MatchTable"
 import PageSection from "./PageSection"
 import PlayerRanking from "./PlayerRanking"
@@ -19,6 +20,7 @@ export {
   Head,
   ListOfMatches,
   MatchForm,
+  MatchRegistrationForm,
   MatchTable,
   PageSection,
   PlayerRanking,

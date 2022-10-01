@@ -11,6 +11,7 @@ import {
 import { Formik, FormikProps } from "formik"
 import { Dispatch, FC, SetStateAction, useContext } from "react"
 
+import { placementText } from "../../utils/placementText"
 import { RatedPlayer } from "./MatchForm"
 import { MFCtx } from "./MatchFormContext"
 import Select from "./Select"
@@ -68,7 +69,7 @@ const Card: FC<{
         {(props: FormikProps<RatedPlayer>) => (
           <form onSubmit={props.handleSubmit}>
             <VStack spacing={4}>
-              <Heading size="sm">Placement {index + 1}</Heading>
+              <Heading size="sm">{placementText(index + 1)}</Heading>
               <FormControl
                 isInvalid={!!(props.touched.name && props.errors.name)}
               >
@@ -110,7 +111,7 @@ const Card: FC<{
                 <Button disabled={pageToShow - 1 < 0} onClick={prevPlayer}>
                   Previous Player
                 </Button>
-                <Button type="submit">
+                <Button type="submit" disabled={pageToShow > 3}>
                   {ratedPlayers[index]?.name ? "Next player" : "Add Player"}
                 </Button>
               </ButtonGroup>

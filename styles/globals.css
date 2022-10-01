@@ -14,3 +14,9 @@ div#__next,
 div#__next > div {
   height: 100%;
 }
+
+@counter-style winners-list {
+  system: fixed ;
+  symbols: "\1F947" "\1F948"  "\1F949" "\1F644" '\1F926';
+  suffix: " ";
+}

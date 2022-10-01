@@ -1,9 +1,10 @@
-import { Box, Button, Divider, ListItem, OrderedList } from "@chakra-ui/react"
+import { Box, Divider } from "@chakra-ui/react"
 import { Corporation, User } from "@prisma/client"
 import { FC, useState } from "react"
 
 import Card from "./Card"
 import { MFCtx } from "./MatchFormContext"
+import Overview from "./Overview"
 
 interface MatchFormProps {
   users: User[]
@@ -25,7 +26,9 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
       prevState[index] = p
       return prevState
     })
-    setPageToShow((prevState) => prevState + 1)
+    if (index < 4) {
+      setPageToShow((prevState) => prevState + 1)
+    }
   }
 
   const prevPlayer = () => {
@@ -35,31 +38,26 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
   return (
     <MFCtx.Provider value={{ users, corporations }}>
       <Box hidden={showOverview}>
-        {users.map((u, i) => (
-          <Card
-            setRatedPlayers={handleAddPlayer}
-            ratedPlayers={ratedPlayers}
-            pageToShow={pageToShow}
-            prevPlayer={prevPlayer}
-            key={u.id}
-            index={i}
-            readyToSubmit={setShowOverview}
-          />
-        ))}
+        {Array(5)
+          .fill(" ")
+          .map((_, i) => (
+            <Card
+              setRatedPlayers={handleAddPlayer}
+              ratedPlayers={ratedPlayers}
+              pageToShow={pageToShow}
+              prevPlayer={prevPlayer}
+              key={i}
+              index={i}
+              readyToSubmit={setShowOverview}
+            />
+          ))}
         <Divider my={4} />
       </Box>
-      <Box>
-        <Button hidden={!showOverview} onClick={() => setShowOverview(false)}>
-          Edit players
-        </Button>
-        <OrderedList>
-          {ratedPlayers.map((r) => (
-            <ListItem key={r.name}>
-              {r.name} {r.corporation} {r.victoryPoints}
-            </ListItem>
-          ))}
-        </OrderedList>
-      </Box>
+      <Overview
+        setShowOverview={setShowOverview}
+        showOverview={showOverview}
+        ratedPlayers={ratedPlayers}
+      />
     </MFCtx.Provider>
   )
 }

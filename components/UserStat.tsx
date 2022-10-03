@@ -1,5 +1,14 @@
 import { ChevronDownIcon } from "@chakra-ui/icons"
-import { Box, Button, Flex, Menu, MenuButton, MenuList } from "@chakra-ui/react"
+import {
+  Box,
+  Button,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuList,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react"
 import {
   Stat,
   StatArrow,
@@ -13,6 +22,8 @@ import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import React, { FC } from "react"
 import styled from "styled-components"
 
+import { getCorporationStat } from "../utils/getCorporationStat"
+import { getFavoriteCorporation } from "../utils/getFavoriteCorporation"
 import EditProfilePictureModal from "./EditProfilePictureModal"
 import EditUsernameModal from "./EditUsernameModal"
 import NextAvatar from "./NextAvatar"
@@ -31,13 +42,12 @@ interface UserStatProps {
 }
 
 const UserStat: FC<UserStatProps> = ({ user }) => {
-  const statArrow = user.matches.length
-    ? user.rank - user.matches[0].matchRankings[0].prevRank
-    : undefined
+  const mostPlayed = getFavoriteCorporation(user)
+  const [best, worst] = getCorporationStat(user)
   return (
     <>
-      <Flex px="2" pb="4" alignItems="center" justifyContent="space-between">
-        <Flex align="center" gap={2}>
+      <Flex px="2" pb="4" alignItems="start" justifyContent="space-between">
+        <Flex align="start" gap={2}>
           <Box p="2" flexShrink={0}>
             <NextAvatar
               width="64px"
@@ -51,14 +61,29 @@ const UserStat: FC<UserStatProps> = ({ user }) => {
               <StatLabel>{user.name}</StatLabel>
               <StatNumber>{Math.round(user.rank)}</StatNumber>
               <StatHelpText>
-                {typeof statArrow === "number" ? (
-                  <>
-                    <StatArrow type={statArrow > 0 ? "increase" : "decrease"} />
-                    last match {Math.round(statArrow)}
-                  </>
-                ) : (
-                  "This player has never played a match"
-                )}
+                <SimpleGrid>
+                  <Box>
+                    <Text as="b">Favorite corp:</Text> {mostPlayed}
+                  </Box>
+                  {best && (
+                    <Box>
+                      <Text as="b">Best corp:</Text> {best.name}{" "}
+                      <StatArrow
+                        type={best.average > 0 ? "increase" : "decrease"}
+                      />
+                      {best.average}
+                    </Box>
+                  )}
+                  {worst && (
+                    <Box>
+                      <Text as="b">Worst corp:</Text> {worst.name}{" "}
+                      <StatArrow
+                        type={worst.average > 0 ? "increase" : "decrease"}
+                      />
+                      {worst.average}
+                    </Box>
+                  )}
+                </SimpleGrid>
               </StatHelpText>
             </Stat>
           </Box>

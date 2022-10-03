@@ -50,7 +50,7 @@ const RankingChart: FC<{
       )(matches),
       y: Math.round(mr.newRank),
       standing: mr.standing,
-    }))
+    })).sort((a, b) => a.x - b.x)
   }
   const data: ChartData<"line", { x: number; y: number }[], unknown> = {
     datasets: users.map((u, i) => ({

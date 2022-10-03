@@ -10,6 +10,5 @@ export default async function handler(
     orderBy: { rank: "desc" },
     include: { MatchRanking: true },
   })
-  const userPlayed = users.filter((u) => u.MatchRanking.length)
-  res.status(200).json(userPlayed)
+  res.status(200).json(users)
 }

@@ -1,4 +1,4 @@
-import { User } from "@prisma/client"
+import { MatchRanking, User } from "@prisma/client"
 import type { NextPage } from "next"
 import useSWR from "swr"
 
@@ -7,7 +7,7 @@ import { getFetcher } from "../lib/getFetcher"
 import prisma from "../lib/prisma"
 
 interface PlayerRankingProps {
-  users: User[]
+  users: (User & { MatchRanking: MatchRanking[] })[]
 }
 
 const PlayerRankingPage: NextPage<PlayerRankingProps> = ({
@@ -20,10 +20,11 @@ const PlayerRankingPage: NextPage<PlayerRankingProps> = ({
       fallbackData: usersData,
     }
   )
-  if (!users) {
+  const userPlayedGame = users && users.filter((u) => u.MatchRanking.length)
+  if (!userPlayedGame) {
     return <div>Could not retrieve users...</div>
   }
-  return <PlayerRanking users={users} />
+  return <PlayerRanking users={userPlayedGame} />
 }
 
 export default withLayout(PlayerRankingPage, {
@@ -35,9 +36,9 @@ export async function getStaticProps() {
     orderBy: { rank: "desc" },
     include: { MatchRanking: true },
   })
-  const userPlayed = users.filter((u) => u.MatchRanking.length)
+
   return {
-    props: { users: JSON.parse(JSON.stringify(userPlayed)) },
+    props: { users: JSON.parse(JSON.stringify(users)) },
     revalidate: 10,
   }
 }

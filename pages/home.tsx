@@ -42,9 +42,12 @@ const HomePage: NextPage<HomeProps> = ({
       fallbackData: matchesData,
     }
   )
-
-  const leader = useMemo(() => users![0], [users])
-  const usersExceptLeader = useMemo(() => drop(1, users!), [users])
+  const usersPlayedGame = users && users.filter((u) => u.MatchRanking.length)
+  const leader = useMemo(() => usersPlayedGame![0], [usersPlayedGame])
+  const usersExceptLeader = useMemo(
+    () => drop(1, usersPlayedGame!),
+    [usersPlayedGame]
+  )
   const router = useRouter()
   const latestMatches = useMemo(() => take(2, matches!), [matches])
 
@@ -55,7 +58,7 @@ const HomePage: NextPage<HomeProps> = ({
 
   const navigateToMatches = useCallback(() => router.push("/match"), [router])
 
-  if (!users || !matches) return <div>No users or matches found</div>
+  if (!usersPlayedGame || !matches) return <div>No users or matches found</div>
 
   if (!matches[0]?.matchRankings) {
     return <p>No Match rankings</p>
@@ -78,7 +81,7 @@ const HomePage: NextPage<HomeProps> = ({
       </PageSection>
 
       <PageSection heading="Score history">
-        <RankingChart users={users} matches={matches} />
+        <RankingChart users={usersPlayedGame} matches={matches} />
       </PageSection>
     </>
   )
@@ -100,11 +103,9 @@ export async function getStaticProps() {
     }),
   ])
 
-  const usersPlayed = users.filter((u) => u.MatchRanking.length)
-
   return {
     props: {
-      users: JSON.parse(JSON.stringify(usersPlayed)),
+      users: JSON.parse(JSON.stringify(users)),
       matches: JSON.parse(JSON.stringify(matches)),
     },
     revalidate: 10,

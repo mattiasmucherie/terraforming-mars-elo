@@ -28,6 +28,8 @@ const MatchForm: FC<MatchFormProps> = ({ users, corporations }) => {
     })
     if (index < 4) {
       setPageToShow((prevState) => prevState + 1)
+    } else {
+      setShowOverview(true)
     }
   }
 

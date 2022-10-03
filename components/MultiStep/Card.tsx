@@ -109,14 +109,19 @@ const Card: FC<{
               </FormControl>
               <ButtonGroup spacing={4}>
                 <Button disabled={pageToShow - 1 < 0} onClick={prevPlayer}>
-                  Previous Player
+                  Previous
                 </Button>
-                <Button type="submit" disabled={pageToShow > 3}>
+                <Button type="submit" disabled={pageToShow > 4}>
                   {ratedPlayers[index]?.name ? "Next player" : "Add Player"}
                 </Button>
               </ButtonGroup>
               <Button
-                onClick={() => readyToSubmit(true)}
+                onClick={() => {
+                  if (props.values.name) {
+                    setRatedPlayers(props.values, index)
+                  }
+                  readyToSubmit(true)
+                }}
                 disabled={ratedPlayers.length < 3}
               >
                 Ready to submit

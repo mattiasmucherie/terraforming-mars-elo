@@ -19,11 +19,20 @@ interface MatchFormProps {
 }
 
 const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
-  const [selectedPlayers, setSelectedPlayers] = useState<User[]>([])
   const [tabIndex, setTabIndex] = useState<number>(0)
   const [isPlayerTabValid, setIsPlayerTabValid] = useState<boolean>(false)
+  const [isStatsTabValid, setIsStatsTabValid] = useState<boolean>(false)
+  const isPlayerAndStatsTabValid = useMemo(
+    () => isPlayerTabValid && isStatsTabValid,
+    [isPlayerTabValid, isStatsTabValid]
+  )
 
-  const handleTabChange = (index: number) => setTabIndex(index)
+  const [selectedPlayers, setSelectedPlayers] = useState<User[]>([])
+  const [stats, setStats] = useState()
+
+  const handleTabChanged = (index: number) => setTabIndex(index)
+
+  const handleStatsChanged = (stats: any) => setStats(stats)
 
   return (
     <Container>
@@ -32,12 +41,12 @@ const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
           isFitted
           colorScheme="black"
           index={tabIndex}
-          onChange={handleTabChange}
+          onChange={handleTabChanged}
         >
           <TabList>
             <Tab>Players</Tab>
             <Tab isDisabled={!isPlayerTabValid}>Stats</Tab>
-            <Tab isDisabled={!isPlayerTabValid}>Review</Tab>
+            <Tab isDisabled={!isPlayerAndStatsTabValid}>Review</Tab>
           </TabList>
 
           <TabPanels>
@@ -50,18 +59,25 @@ const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
 
               <NextButton
                 isDisabled={!isPlayerTabValid}
-                onClick={() => handleTabChange(1)}
+                onClick={() => handleTabChanged(1)}
               />
             </TabPanel>
 
             <TabPanel>
-              <StatsTab players={selectedPlayers} corporations={corporations} />
-
-              <NextButton onClick={() => handleTabChange(2)} />
+              <StatsTab
+                players={selectedPlayers}
+                corporations={corporations}
+                onIsValidChanged={setIsStatsTabValid}
+                onStatsChanged={handleStatsChanged}
+              />
+              <NextButton
+                isDisabled={!isPlayerAndStatsTabValid}
+                onClick={() => handleTabChanged(2)}
+              />
             </TabPanel>
 
             <TabPanel>
-              <p>Review</p>
+              <pre>{JSON.stringify(stats, null, 2)}</pre>
             </TabPanel>
           </TabPanels>
         </Tabs>

@@ -13,7 +13,15 @@ import {
   Select,
 } from "@chakra-ui/react"
 import { Corporation, User } from "@prisma/client"
-import React, { FC } from "react"
+import { assoc, find, propEq } from "ramda"
+import React, {
+  ChangeEvent,
+  ChangeEventHandler,
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+} from "react"
 import styled from "styled-components"
 
 import NextAvatar from "../../NextAvatar"
@@ -22,25 +30,58 @@ const Name = styled.div`
   margin-left: 8px;
 `
 
-interface PlayerProps {
-  player: User
-  position?: number
-  corporations: Corporation[]
+interface FormData {
+  name: string
+  corporation: Corporation
+  victoryPoints: number
 }
 
-const Player: FC<PlayerProps> = ({ player, corporations, position }) => {
+interface PlayerProps {
+  player: User
+  corporations: Corporation[]
+  onChange: (formData: FormData) => void
+}
+
+const Player: FC<PlayerProps> = ({ player, corporations, onChange }) => {
   const { name, image } = player
+  const [formData, setFormData] = useState<any>({
+    name: "",
+    corporation: "",
+    victoryPoints: "",
+  })
+
+  useEffect(() => {
+    if (!formData.name) {
+      return
+    }
+
+    onChange(formData)
+  }, [onChange, formData])
+
+  useEffect(() => {
+    const updateFn = assoc("name", player.name)
+    setFormData(updateFn)
+  }, [player])
+
+  const handleCorporationChanged = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      const corp = find(propEq("id", e.target.value), corporations)
+      setFormData(assoc("corporation", corp))
+    },
+    [corporations]
+  )
+
+  const handleVictoryPointChanged = useCallback((value: string) => {
+    const vp = parseInt(value) || ""
+    setFormData(assoc("victoryPoints", vp))
+  }, [])
 
   return (
-    <Box borderRadius={8} border="1px" borderColor="gray.100" p={3} mb={2}>
-      <Flex alignItems="center" justifyContent="space-between">
-        <Flex alignItems="center">
-          <NextAvatar alt={name} src={image || ""} width="32px" height="32px" />
+    <Box borderRadius={8} border="1px" borderColor="gray.100" p={3}>
+      <Flex alignItems="center">
+        <NextAvatar alt={name} src={image || ""} width="32px" height="32px" />
 
-          <Name>{name}</Name>
-        </Flex>
-
-        {position || "?"}
+        <Name>{name}</Name>
       </Flex>
 
       <Divider my="3" />
@@ -48,34 +89,30 @@ const Player: FC<PlayerProps> = ({ player, corporations, position }) => {
       <Flex alignItems="center" justifyContent="space-between">
         <Select
           placeholder="Select corp"
-          width="48%"
-          // onChange={(e) => handleCorpChange(e, p)}
+          width="64%"
+          onChange={handleCorporationChanged}
         >
           {corporations.map((c) => (
-            <option key={c.id} value={c.name}>
+            <option key={c.id} value={c.id}>
               {c.name}
             </option>
           ))}
         </Select>
 
-        <InputGroup width="48%">
+        <InputGroup width="32%">
           <InputLeftAddon>VP</InputLeftAddon>
           <NumberInput
-            defaultValue={20}
+            value={formData.victoryPoints}
             min={20}
             max={200}
             allowMouseWheel
-            //   onChange={(e) => handleNumberInputChange(e, p)}
-            placeholder="Victory points"
+            onChange={handleVictoryPointChanged}
           >
             <NumberInputField
+              pr={2}
               borderTopLeftRadius={0}
               borderBottomLeftRadius={0}
             />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
           </NumberInput>
         </InputGroup>
       </Flex>

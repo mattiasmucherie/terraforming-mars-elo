@@ -21,10 +21,7 @@ interface MatchFormProps {
 const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
   const [selectedPlayers, setSelectedPlayers] = useState<User[]>([])
   const [tabIndex, setTabIndex] = useState<number>(0)
-  const isPlayerSelectionValid = useMemo(
-    () => selectedPlayers.length >= 2 && selectedPlayers.length <= 5,
-    [selectedPlayers]
-  )
+  const [isPlayerTabValid, setIsPlayerTabValid] = useState<boolean>(false)
 
   const handleTabChange = (index: number) => setTabIndex(index)
 
@@ -39,19 +36,20 @@ const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
         >
           <TabList>
             <Tab>Players</Tab>
-            <Tab isDisabled={!isPlayerSelectionValid}>Stats</Tab>
-            <Tab isDisabled={!isPlayerSelectionValid}>Review</Tab>
+            <Tab isDisabled={!isPlayerTabValid}>Stats</Tab>
+            <Tab isDisabled={!isPlayerTabValid}>Review</Tab>
           </TabList>
 
           <TabPanels>
             <TabPanel>
               <PlayersTab
-                users={users}
+                players={users}
                 onSelectedPlayersChanged={setSelectedPlayers}
+                onIsValidChanged={setIsPlayerTabValid}
               />
 
               <NextButton
-                isDisabled={!isPlayerSelectionValid}
+                isDisabled={!isPlayerTabValid}
                 onClick={() => handleTabChange(1)}
               />
             </TabPanel>

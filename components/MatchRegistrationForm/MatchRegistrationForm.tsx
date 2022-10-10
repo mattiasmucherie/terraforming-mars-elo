@@ -6,6 +6,7 @@ import styled from "styled-components"
 import { FullWidthContainer } from "../Layout"
 import NextButton from "./NextButton"
 import PlayersTab from "./PlayersTab"
+import ReviewTab from "./ReviewTab"
 import StatsTab from "./StatsTab"
 
 const Container = styled.div`
@@ -77,7 +78,7 @@ const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
             </TabPanel>
 
             <TabPanel>
-              <pre>{JSON.stringify(stats, null, 2)}</pre>
+              <ReviewTab stats={stats} />
             </TabPanel>
           </TabPanels>
         </Tabs>

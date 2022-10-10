@@ -4,8 +4,8 @@ import { append, includes, propEq, reject } from "ramda"
 import React, { FC, useCallback, useEffect, useState } from "react"
 import styled from "styled-components"
 
-import NextAvatar from "../NextAvatar"
-import Radio from "../Radio"
+import NextAvatar from "./NextAvatar"
+import Radio from "./Radio"
 
 const Name = styled.div`
   margin-left: 8px;

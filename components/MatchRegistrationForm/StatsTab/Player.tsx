@@ -2,26 +2,15 @@ import {
   Box,
   Divider,
   Flex,
-  IconButton,
   InputGroup,
   InputLeftAddon,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
-  NumberInputStepper,
   Select,
 } from "@chakra-ui/react"
 import { Corporation, User } from "@prisma/client"
 import { assoc, find, propEq } from "ramda"
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  FC,
-  useCallback,
-  useEffect,
-  useState,
-} from "react"
+import React, { ChangeEvent, FC, useCallback, useEffect, useState } from "react"
 import styled from "styled-components"
 
 import NextAvatar from "../../NextAvatar"
@@ -51,17 +40,8 @@ const Player: FC<PlayerProps> = ({ player, corporations, onChange }) => {
   })
 
   useEffect(() => {
-    if (!formData.name) {
-      return
-    }
-
-    onChange(formData)
-  }, [onChange, formData])
-
-  useEffect(() => {
-    const updateFn = assoc("name", player.name)
-    setFormData(updateFn)
-  }, [player])
+    onChange({ player, ...formData })
+  }, [onChange, player, formData])
 
   const handleCorporationChanged = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {

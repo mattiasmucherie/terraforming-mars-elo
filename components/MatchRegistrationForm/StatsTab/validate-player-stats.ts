@@ -1,4 +1,8 @@
 const validatePlayerStats = (playerStats: any) => {
+  if (!playerStats.player) {
+    return false
+  }
+
   if (!playerStats.victoryPoints) {
     return false
   }

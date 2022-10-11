@@ -1,20 +1,48 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { Button } from "@chakra-ui/react"
-import React, { FC } from "react"
+import axios from "axios"
+import { useRouter } from "next/router"
+import { applySpec, map, path, prop } from "ramda"
+import React, { FC, useCallback, useState } from "react"
 
 interface SubmitButtonProps {
-  onClick: () => void
-  isLoading: boolean
+  stats: any
 }
 
-const SubmitButton: FC<SubmitButtonProps> = ({ onClick, isLoading }) => {
+const SubmitButton: FC<SubmitButtonProps> = ({ stats }) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+
+  const handleSubmit = useCallback(async () => {
+    setIsLoading(true)
+
+    try {
+      const data = map(
+        applySpec({
+          victoryPoints: prop("victoryPoints"),
+          corporationId: path(["corporation", "id"]),
+          name: path(["player", "name"]),
+        }),
+        stats
+      )
+      await new Promise((res) => setTimeout(res, 1000))
+      //   await axios.post("/api/match/new", data)
+      //   router.push("/")
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [router, stats])
+
   return (
     <Button
       colorScheme="green"
       w="100%"
-      mt={4}
+      mt={6}
       rightIcon={<ArrowForwardIcon />}
-      {...{ onClick, isLoading }}
+      onClick={handleSubmit}
+      isLoading={isLoading}
     >
       Register match
     </Button>

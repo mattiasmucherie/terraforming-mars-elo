@@ -1,6 +1,6 @@
 import { Stack } from "@chakra-ui/react"
 import { Corporation, User } from "@prisma/client"
-import { assoc, map } from "ramda"
+import { assoc, map, pick, pluck, values } from "ramda"
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react"
 
 import Player from "./Player"
@@ -19,8 +19,14 @@ const StatsTab: FC<StatsTabProps> = ({
   onIsValidChanged,
   onStatsChanged,
 }) => {
-  const [stats, setStats] = useState({})
-  const isValid = useMemo(() => validateStats(stats), [stats])
+  const [statsMap, setStatsMap] = useState({})
+  const stats = useMemo(() => values(statsMap), [statsMap])
+  const isValid = useMemo(() => validateStats(statsMap), [statsMap])
+
+  useEffect(() => {
+    const playerIds = pluck<any, any>("id", players)
+    setStatsMap(pick(playerIds))
+  }, [players])
 
   useEffect(() => {
     onStatsChanged(stats)
@@ -31,7 +37,7 @@ const StatsTab: FC<StatsTabProps> = ({
   }, [onIsValidChanged, isValid])
 
   const handlePlayerStatsChanged = useCallback((playerStats: any) => {
-    setStats(assoc(playerStats.name, playerStats))
+    setStatsMap(assoc(playerStats.player.id, playerStats))
   }, [])
 
   return (

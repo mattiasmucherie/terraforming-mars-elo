@@ -1,41 +1,28 @@
-import axios from "axios"
-import { useRouter } from "next/router"
-import { pick, values } from "ramda"
-import React, { FC, useCallback, useState } from "react"
+import { Stack } from "@chakra-ui/react"
+import { addIndex, compose, defaultTo, descend, map, prop, sort } from "ramda"
+import React, { FC } from "react"
 
+import Player from "./Player"
 import SubmitButton from "./SubmitButton"
 
 interface ReviewTabProps {
   stats: any
 }
 
+const renderPlayers = compose<any, any, any, any>(
+  addIndex(map)((ps: any, index: number) => (
+    <Player stats={ps} position={index + 1} key={ps.player.id} />
+  )),
+  sort<any>(descend(prop("victoryPoints"))),
+  defaultTo([])
+)
+
 const ReviewTab: FC<ReviewTabProps> = ({ stats }) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
-
-  const handleSubmit = useCallback(async () => {
-    setIsLoading(true)
-
-    try {
-      const data = values(stats).map((ps: any) => ({
-        ...pick(["name", "victoryPoints"], ps),
-        corporationId: ps.corporation.id,
-      }))
-      await new Promise((res) => setTimeout(res, 1000))
-      //   await axios.post("/api/match/new", data)
-      //   router.push("/")
-    } catch (e) {
-      console.error(e)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [router, stats])
-
   return (
     <>
-      <pre>{JSON.stringify(stats, null, 2)}</pre>
+      <Stack spacing={3}>{renderPlayers(stats)}</Stack>
 
-      <SubmitButton onClick={handleSubmit} isLoading={isLoading} />
+      <SubmitButton stats={stats} />
     </>
   )
 }

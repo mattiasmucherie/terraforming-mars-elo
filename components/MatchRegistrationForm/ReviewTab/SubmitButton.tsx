@@ -26,8 +26,8 @@ const SubmitButton: FC<SubmitButtonProps> = ({ stats }) => {
         stats
       )
       await new Promise((res) => setTimeout(res, 1000))
-      //   await axios.post("/api/match/new", data)
-      //   router.push("/")
+      await axios.post("/api/match/new", data)
+      router.push("/")
     } catch (e) {
       console.error(e)
     } finally {

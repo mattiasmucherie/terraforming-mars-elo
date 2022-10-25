@@ -4,7 +4,6 @@ import {
   Divider,
   Flex,
   Modal,
-  ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,

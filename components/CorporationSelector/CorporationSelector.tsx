@@ -1,6 +1,8 @@
 import {
   Box,
+  CloseButton,
   Divider,
+  Flex,
   Modal,
   ModalCloseButton,
   ModalContent,
@@ -44,9 +46,11 @@ const CorporationSelector: FC<CorporationSelectorProps> = ({
       <ModalOverlay />
 
       <ModalContent background="whisperGray.100">
-        <ModalHeader background="white">
-          Select corporation
-          <ModalCloseButton />
+        <ModalHeader background="white" pr={4}>
+          <Flex alignItems="center" justifyContent="space-between">
+            Select corporation
+            <CloseButton onClick={onClose} />
+          </Flex>
         </ModalHeader>
 
         <Divider />

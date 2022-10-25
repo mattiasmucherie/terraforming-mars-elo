@@ -4,6 +4,7 @@ import { isEmpty } from "ramda"
 import React, { FC, ReactNode } from "react"
 import styled from "styled-components"
 
+import PageContainer from "../PageContainer"
 import Footer from "./Footer"
 import Header from "./Header"
 import Heading from "./Heading"
@@ -41,32 +42,34 @@ const Layout: FC<LayoutProps> = ({ children, heading, actions = [] }) => {
         pb={6}
         flex={1}
       >
-        <PageHeader
-          mb={pageHeaderMarginBottom}
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          {typeof heading === "string" && (
-            <StyledHeading>{heading}</StyledHeading>
-          )}
+        <PageContainer flexDirection="column">
+          <PageHeader
+            mb={pageHeaderMarginBottom}
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            {typeof heading === "string" && (
+              <StyledHeading>{heading}</StyledHeading>
+            )}
 
-          {typeof heading === "function" && heading()}
+            {typeof heading === "function" && heading()}
 
-          <Actions>
-            {actions?.map((a) => (
-              <IconButton
-                aria-label={a.ariaLabel}
-                size="sm"
-                icon={<FontAwesomeIcon icon={a.icon} size="1x" />}
-                onClick={a.onClick}
-                key={a.ariaLabel}
-                colorScheme={a.colorScheme}
-              />
-            ))}
-          </Actions>
-        </PageHeader>
+            <Actions>
+              {actions?.map((a) => (
+                <IconButton
+                  aria-label={a.ariaLabel}
+                  size="sm"
+                  icon={<FontAwesomeIcon icon={a.icon} size="1x" />}
+                  onClick={a.onClick}
+                  key={a.ariaLabel}
+                  colorScheme={a.colorScheme}
+                />
+              ))}
+            </Actions>
+          </PageHeader>
 
-        {children}
+          {children}
+        </PageContainer>
       </Box>
 
       <Footer />

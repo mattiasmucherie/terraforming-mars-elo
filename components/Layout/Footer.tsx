@@ -3,11 +3,10 @@ import React from "react"
 import styled from "styled-components"
 
 import BrandSymbol from "../BrandSymbol"
+import PageContainer from "../PageContainer"
 
 const Container = styled(Flex)`
   background: ${(p) => p.theme.colors.plantationGreen};
-  justify-content: space-between;
-  align-items: center;
 `
 
 const Tagline = styled(Text)`
@@ -19,12 +18,14 @@ const Tagline = styled(Text)`
 const Footer = () => {
   return (
     <Container p="4">
-      <BrandSymbol />
+      <PageContainer justifyContent="space-between" alignItems="center">
+        <BrandSymbol />
 
-      <Tagline color="white" textAlign="right">
-        Winning one game was a big step. <br />
-        Ranking #1 will give you a new world.
-      </Tagline>
+        <Tagline color="white" textAlign="right">
+          Winning one game was a big step. <br />
+          Ranking #1 will give you a new world.
+        </Tagline>
+      </PageContainer>
     </Container>
   )
 }

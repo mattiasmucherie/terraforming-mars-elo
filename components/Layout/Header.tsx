@@ -4,6 +4,7 @@ import Image from "next/image"
 import React from "react"
 
 import Brand from "../Brand"
+import PageContainer from "../PageContainer"
 import NavDrawer from "./NavDrawer"
 
 const Header = () => {
@@ -11,32 +12,28 @@ const Header = () => {
 
   return (
     <div>
-      <Box
-        px="4"
-        py="4"
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        position="relative"
-      >
+      <Box px="4" py="4" position="relative">
         <Image
           alt="Header"
           src="/images/mars-with-tiles.jpeg"
           layout="fill"
           objectFit="cover"
         />
-        <Box zIndex={2} cursor="pointer">
-          <Brand />
-        </Box>
 
-        <Button
-          variant="square"
-          colorScheme="WhiteAlpha"
-          onClick={onOpen}
-          name="Menu button"
-        >
-          <HamburgerIcon color="white" fontSize={22} />
-        </Button>
+        <PageContainer alignItems="center" justifyContent="space-between">
+          <Box zIndex={2} cursor="pointer">
+            <Brand />
+          </Box>
+
+          <Button
+            variant="square"
+            colorScheme="WhiteAlpha"
+            onClick={onOpen}
+            name="Menu button"
+          >
+            <HamburgerIcon color="white" fontSize={22} />
+          </Button>
+        </PageContainer>
       </Box>
 
       <NavDrawer isOpen={isOpen} onClose={onClose} />

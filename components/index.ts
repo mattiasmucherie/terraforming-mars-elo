@@ -6,6 +6,7 @@ import { FullWidthContainer } from "./Layout"
 import ListOfMatches from "./ListOfMatches"
 import MatchRegistrationForm from "./MatchRegistrationForm"
 import MatchTable from "./MatchTable"
+import PageContainer from "./PageContainer"
 import PageSection from "./PageSection"
 import PlayerRanking from "./PlayerRanking"
 import Providers from "./Providers"
@@ -24,6 +25,7 @@ export {
   ListOfMatches,
   MatchRegistrationForm,
   MatchTable,
+  PageContainer,
   PageSection,
   PlayerRanking,
   Providers,

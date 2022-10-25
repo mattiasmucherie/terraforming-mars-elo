@@ -1,14 +1,11 @@
-import { Box } from "@chakra-ui/react"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import type { NextPage } from "next"
-import Link from "next/link"
 import { useRouter } from "next/router"
-import { drop, take } from "ramda"
+import { take } from "ramda"
 import { useCallback, useMemo } from "react"
 import useSWR from "swr"
 
 import {
-  CurrentLeader,
   ListOfMatches,
   PageSection,
   PlayerRanking,
@@ -43,11 +40,6 @@ const HomePage: NextPage<HomeProps> = ({
     }
   )
   const usersPlayedGame = users && users.filter((u) => u.MatchRanking.length)
-  const leader = useMemo(() => usersPlayedGame![0], [usersPlayedGame])
-  const usersExceptLeader = useMemo(
-    () => drop(1, usersPlayedGame!),
-    [usersPlayedGame]
-  )
   const router = useRouter()
   const latestMatches = useMemo(() => take(2, matches!), [matches])
 
@@ -67,13 +59,7 @@ const HomePage: NextPage<HomeProps> = ({
   return (
     <>
       <PageSection heading="Top list" onShowMore={navigateToPlayerRanking}>
-        <Box mb="4">
-          <Link href={`/user/${leader.id}`}>
-            <CurrentLeader user={leader} />
-          </Link>
-        </Box>
-
-        <PlayerRanking users={usersExceptLeader} isWithoutLeader />
+        <PlayerRanking users={usersPlayedGame} />
       </PageSection>
 
       <PageSection heading="Latest games" onShowMore={navigateToMatches}>

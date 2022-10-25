@@ -1,6 +1,5 @@
 import CoporationLogo from "./CorporationLogo"
 import CorporationSelector from "./CorporationSelector"
-import CurrentLeader from "./CurrentLeader"
 import Head from "./Head"
 import { FullWidthContainer } from "./Layout"
 import ListOfMatches from "./ListOfMatches"
@@ -19,7 +18,6 @@ import withLayout from "./with-layout"
 export {
   CoporationLogo,
   CorporationSelector,
-  CurrentLeader,
   FullWidthContainer,
   Head,
   ListOfMatches,

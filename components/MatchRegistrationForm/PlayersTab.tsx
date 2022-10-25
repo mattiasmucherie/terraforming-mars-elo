@@ -1,3 +1,4 @@
+import { Flex } from "@chakra-ui/react"
 import { User } from "@prisma/client"
 import React, { FC, useEffect, useMemo, useState } from "react"
 
@@ -29,10 +30,12 @@ const PlayersTab: FC<PlayersTabProps> = ({
   }, [onIsValidChanged, isValid])
 
   return (
-    <PlayerSelector
-      players={players}
-      onSelectedPlayersChanged={setSelectedPlayers}
-    />
+    <Flex flexGrow={1} flexDirection="column">
+      <PlayerSelector
+        players={players}
+        onSelectedPlayersChanged={setSelectedPlayers}
+      />
+    </Flex>
   )
 }
 

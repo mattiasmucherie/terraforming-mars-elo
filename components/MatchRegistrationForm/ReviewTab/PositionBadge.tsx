@@ -1,5 +1,5 @@
 import { Tag } from "@chakra-ui/react"
-import { always, cond, equals } from "ramda"
+import { always, cond, equals, T } from "ramda"
 import React, { FC, useMemo } from "react"
 
 interface PositionBadgeProps {
@@ -7,7 +7,7 @@ interface PositionBadgeProps {
 }
 
 const PositionBadge: FC<PositionBadgeProps> = ({ position }) => {
-  const { colorScheme, label } = useMemo(
+  const { colorScheme, label }: any = useMemo(
     () =>
       cond([
         [
@@ -45,9 +45,14 @@ const PositionBadge: FC<PositionBadgeProps> = ({ position }) => {
             label: "5th",
           }),
         ],
+        [T, always({})],
       ])(position),
     [position]
   )
+
+  if (!label) {
+    return null
+  }
 
   return (
     <Tag size="lg" colorScheme={colorScheme}>

@@ -1,23 +1,22 @@
 import {
   Box,
+  Button,
   Divider,
   Flex,
   InputGroup,
   InputLeftAddon,
   NumberInput,
   NumberInputField,
-  Select,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react"
 import { Corporation, User } from "@prisma/client"
-import { assoc, find, propEq } from "ramda"
-import React, { ChangeEvent, FC, useCallback, useEffect, useState } from "react"
-import styled from "styled-components"
+import { assoc } from "ramda"
+import React, { FC, useCallback, useEffect, useState } from "react"
 
+import CorporationLogo from "../../CorporationLogo"
+import CorporationSelector from "../../CorporationSelector"
 import NextAvatar from "../../NextAvatar"
-
-const Name = styled.div`
-  margin-left: 8px;
-`
 
 interface FormData {
   name: string
@@ -38,17 +37,19 @@ const Player: FC<PlayerProps> = ({ player, corporations, onChange }) => {
     corporation: "",
     victoryPoints: "",
   })
+  const {
+    isOpen: isCorpSelectorOpen,
+    onOpen: openCopSelector,
+    onClose: closeCorpSelector,
+  } = useDisclosure()
 
   useEffect(() => {
     onChange({ player, ...formData })
   }, [onChange, player, formData])
 
   const handleCorporationChanged = useCallback(
-    (e: ChangeEvent<HTMLSelectElement>) => {
-      const corp = find(propEq("id", e.target.value), corporations)
-      setFormData(assoc("corporation", corp))
-    },
-    [corporations]
+    (corp: Corporation) => setFormData(assoc("corporation", corp)),
+    []
   )
 
   const handleVictoryPointChanged = useCallback((value: string) => {
@@ -59,25 +60,34 @@ const Player: FC<PlayerProps> = ({ player, corporations, onChange }) => {
   return (
     <Box borderRadius={8} border="1px" borderColor="gray.100" p={3}>
       <Flex alignItems="center">
-        <NextAvatar alt={name} src={image || ""} width="32px" height="32px" />
+        <NextAvatar alt={name} src={image || ""} width="38px" height="38px" />
 
-        <Name>{name}</Name>
+        <Text fontSize={18} ml={3}>
+          {name}
+        </Text>
       </Flex>
 
       <Divider my="3" />
 
       <Flex alignItems="center" justifyContent="space-between">
-        <Select
-          placeholder="Select corp"
-          width="64%"
-          onChange={handleCorporationChanged}
-        >
-          {corporations.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-        </Select>
+        {!formData.corporation && (
+          <Button onClick={openCopSelector}>Select corporation</Button>
+        )}
+
+        {formData.corporation && (
+          <CorporationLogo
+            id={formData.corporation.id}
+            onClick={openCopSelector}
+            size={30}
+          />
+        )}
+
+        <CorporationSelector
+          isOpen={isCorpSelectorOpen}
+          corporations={corporations}
+          onSelect={handleCorporationChanged}
+          onClose={closeCorpSelector}
+        />
 
         <InputGroup width="32%">
           <InputLeftAddon>VP</InputLeftAddon>

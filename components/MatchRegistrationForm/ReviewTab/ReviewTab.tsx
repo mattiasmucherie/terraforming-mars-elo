@@ -1,4 +1,4 @@
-import { Stack } from "@chakra-ui/react"
+import { Flex, Stack } from "@chakra-ui/react"
 import { addIndex, compose, defaultTo, descend, map, prop, sort } from "ramda"
 import React, { FC } from "react"
 
@@ -19,11 +19,13 @@ const renderPlayers = compose<any, any, any, any>(
 
 const ReviewTab: FC<ReviewTabProps> = ({ stats }) => {
   return (
-    <>
-      <Stack spacing={3}>{renderPlayers(stats)}</Stack>
+    <Flex flexGrow={1} flexDirection="column">
+      <Stack spacing={3} flexGrow={1}>
+        {renderPlayers(stats)}
+      </Stack>
 
       <SubmitButton stats={stats} />
-    </>
+    </Flex>
   )
 }
 

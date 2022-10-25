@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
+import { Tab, TabList, TabPanels, Tabs } from "@chakra-ui/react"
 import { Corporation, User } from "@prisma/client"
 import { FC, useMemo, useState } from "react"
 import styled from "styled-components"
@@ -8,10 +8,12 @@ import NextButton from "./NextButton"
 import PlayersTab from "./PlayersTab"
 import ReviewTab from "./ReviewTab"
 import StatsTab from "./StatsTab"
+import TabPanel from "./TabPanel"
 
 const Container = styled.div`
   display: flex;
   flex-flow: column;
+  flex-grow: 1;
 `
 
 interface MatchFormProps {
@@ -43,6 +45,9 @@ const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
           colorScheme="black"
           index={tabIndex}
           onChange={handleTabChanged}
+          display="flex"
+          flexDirection="column"
+          flexGrow={1}
         >
           <TabList>
             <Tab>Players</Tab>
@@ -50,7 +55,7 @@ const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
             <Tab isDisabled={!isPlayerAndStatsTabValid}>Review</Tab>
           </TabList>
 
-          <TabPanels>
+          <TabPanels display="flex" flexGrow={1}>
             <TabPanel>
               <PlayersTab
                 players={users}

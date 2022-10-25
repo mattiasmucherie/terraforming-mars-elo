@@ -41,7 +41,7 @@ const StatsTab: FC<StatsTabProps> = ({
   }, [])
 
   return (
-    <Stack spacing={3}>
+    <Stack spacing={3} flexGrow={1}>
       {map(
         (p) => (
           <Player

@@ -24,3 +24,8 @@
   font-weight: 300;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "Prototype";
+  src: local("Prototype"), url(/fonts/Prototype.ttf) format("truetype");
+}

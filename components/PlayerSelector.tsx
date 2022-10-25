@@ -1,15 +1,10 @@
-import { Flex, Stack } from "@chakra-ui/react"
+import { Flex, Stack, Text } from "@chakra-ui/react"
 import { User } from "@prisma/client"
 import { append, includes, propEq, reject } from "ramda"
 import React, { FC, useCallback, useEffect, useState } from "react"
-import styled from "styled-components"
 
 import NextAvatar from "./NextAvatar"
 import Radio from "./Radio"
-
-const Name = styled.div`
-  margin-left: 8px;
-`
 
 interface PlayerSelectorProps {
   players: User[]
@@ -58,7 +53,9 @@ const PlayerSelector: FC<PlayerSelectorProps> = ({
               height="32px"
             />
 
-            <Name>{u.name}</Name>
+            <Text fontSize="16px" lineHeight={1} ml={3}>
+              {u.name}
+            </Text>
           </Flex>
 
           <Radio isActive={isUserSelected(u)} />

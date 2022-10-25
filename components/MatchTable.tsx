@@ -38,6 +38,7 @@ const MatchTable: FC<MatchTableProps> = ({ match }) => {
               <Th>Name</Th>
               <Th>Elo</Th>
               <Th>Corp</Th>
+              <Th>VP</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -72,7 +73,8 @@ const MatchTable: FC<MatchTableProps> = ({ match }) => {
                       {Math.round(eloChange)}
                     </Stat>
                   </Td>
-                  <Td>{mr.corporation?.name || "?"}</Td>
+                  <Td>{mr.corporation?.name || "-"}</Td>
+                  <Td>{mr.victoryPoints || "-"}</Td>
                 </Tr>
               )
             })}

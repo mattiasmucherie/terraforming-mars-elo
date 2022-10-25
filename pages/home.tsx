@@ -44,7 +44,7 @@ const HomePage: NextPage<HomeProps> = ({
   const usersToDisplay = useMemo(
     () =>
       compose<any, any, any>(
-        filter((u) => u.MatchRanking.length),
+        filter((u: any) => u.MatchRanking.length),
         defaultTo([])
       )(users),
     [users]

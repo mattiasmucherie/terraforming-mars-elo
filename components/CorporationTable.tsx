@@ -1,4 +1,6 @@
 import {
+  Stat,
+  StatArrow,
   Table,
   TableContainer,
   Tbody,
@@ -16,6 +18,13 @@ interface CorporationTableProps {
   corporations: (Corporation & { matchRanking: MatchRanking[] })[]
 }
 const CorporationTable: FC<CorporationTableProps> = ({ corporations }) => {
+  const eloChange = corporations.map((c) => {
+    const sum = c.matchRanking.reduce(
+      (prev, acc) => prev + acc.newRank - acc.prevRank,
+      0
+    )
+    return sum / c.matchRanking.length
+  })
   return (
     <FullWidthContainer>
       <TableContainer>
@@ -25,10 +34,11 @@ const CorporationTable: FC<CorporationTableProps> = ({ corporations }) => {
               <Th>Name</Th>
               <Th>Win rate</Th>
               <Th># matches</Th>
+              <Th>Avg elo</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {corporations.map((c) => {
+            {corporations.map((c, i) => {
               const winRate = c.matchRanking.length
                 ? `${Math.round((c.wins / c.matchRanking.length) * 100)} %`
                 : "-"
@@ -37,6 +47,16 @@ const CorporationTable: FC<CorporationTableProps> = ({ corporations }) => {
                   <Td>{c.name}</Td>
                   <Td>{winRate}</Td>
                   <Td>{c.matchRanking.length}</Td>
+                  <Td>
+                    <Stat>
+                      <StatArrow
+                        type={
+                          Math.round(eloChange[i]) > 0 ? "increase" : "decrease"
+                        }
+                      />
+                      {Math.round(eloChange[i])}
+                    </Stat>
+                  </Td>
                 </Tr>
               )
             })}

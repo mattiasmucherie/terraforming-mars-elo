@@ -2,7 +2,7 @@ import { Corporation, User } from "@prisma/client"
 import { NextPage } from "next"
 import useSWR from "swr"
 
-import { MatchForm, withLayout } from "../components"
+import { MatchRegistrationForm, withLayout } from "../components"
 import { getFetcher } from "../lib/getFetcher"
 import prisma from "../lib/prisma"
 
@@ -28,7 +28,8 @@ const NewMatch: NextPage<NewMatchProps> = ({
   if (!corporations || !corporations.length) {
     return <p>Could not load corporations</p>
   }
-  return <MatchForm users={users} corporations={corporations} />
+
+  return <MatchRegistrationForm users={users} corporations={corporations} />
 }
 
 export default withLayout(NewMatch, { heading: "Register match" })

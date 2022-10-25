@@ -33,7 +33,14 @@ const Layout: FC<LayoutProps> = ({ children, heading, actions = [] }) => {
     <Flex flexDirection="column">
       <Header />
 
-      <Box flexGrow={1} p={4} pb={6}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        flexGrow={1}
+        p={4}
+        pb={6}
+        flex={1}
+      >
         <PageHeader
           mb={pageHeaderMarginBottom}
           justifyContent="space-between"

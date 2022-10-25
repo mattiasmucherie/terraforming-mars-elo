@@ -67,7 +67,7 @@ const HomePage: NextPage<HomeProps> = ({
 
   return (
     <Box mt="1">
-      <PageSection heading="2022/23 Fall Season" onShowMore={navigateToMatches}>
+      <PageSection heading="2022/23 Fall Season">
         <LeagueTable users={users} />
       </PageSection>
 

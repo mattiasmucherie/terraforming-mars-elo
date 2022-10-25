@@ -1,14 +1,15 @@
+import { Box } from "@chakra-ui/react"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import type { NextPage } from "next"
 import { useRouter } from "next/router"
-import { take } from "ramda"
+import { compose, defaultTo, filter, take } from "ramda"
 import { useCallback, useMemo } from "react"
 import useSWR from "swr"
 
 import {
+  EloTopList,
   ListOfMatches,
   PageSection,
-  PlayerRanking,
   RankingChart,
   withLayout,
 } from "../components"
@@ -39,7 +40,14 @@ const HomePage: NextPage<HomeProps> = ({
       fallbackData: matchesData,
     }
   )
-  const usersPlayedGame = users && users.filter((u) => u.MatchRanking.length)
+  const usersToDisplay = useMemo(
+    () =>
+      compose<any, any, any>(
+        filter((u) => u.MatchRanking.length),
+        defaultTo([])
+      )(users),
+    [users]
+  )
   const router = useRouter()
   const latestMatches = useMemo(() => take(2, matches!), [matches])
 
@@ -50,26 +58,26 @@ const HomePage: NextPage<HomeProps> = ({
 
   const navigateToMatches = useCallback(() => router.push("/match"), [router])
 
-  if (!usersPlayedGame || !matches) return <div>No users or matches found</div>
+  if (!usersToDisplay || !matches) return <div>No users or matches found</div>
 
   if (!matches[0]?.matchRankings) {
     return <p>No Match rankings</p>
   }
 
   return (
-    <>
-      <PageSection heading="Top list" onShowMore={navigateToPlayerRanking}>
-        <PlayerRanking users={usersPlayedGame} />
-      </PageSection>
-
+    <Box mt="1">
       <PageSection heading="Latest games" onShowMore={navigateToMatches}>
         <ListOfMatches matches={latestMatches} />
       </PageSection>
 
-      <PageSection heading="Score history">
-        <RankingChart users={usersPlayedGame} matches={matches} />
+      <PageSection heading="Ranking" onShowMore={navigateToPlayerRanking}>
+        <EloTopList users={usersToDisplay} />
       </PageSection>
-    </>
+
+      <PageSection heading="Score history">
+        <RankingChart users={usersToDisplay} matches={matches} />
+      </PageSection>
+    </Box>
   )
 }
 

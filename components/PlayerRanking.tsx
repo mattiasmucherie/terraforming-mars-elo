@@ -21,14 +21,20 @@ const Row = styled(Tr)`
   cursor: pointer;
 `
 
+const SlimTd = styled(Td)`
+  width: 1px;
+  white-space: nowrap;
+`
+
+const SlimTh = styled(Th)`
+  width: 1px;
+  white-space: nowrap;
+`
+
 interface PlayerRankingProps {
   users: User[]
-  isWithoutLeader?: boolean
 }
-const PlayerRanking: FC<PlayerRankingProps> = ({
-  users,
-  isWithoutLeader = false,
-}) => {
+const PlayerRanking: FC<PlayerRankingProps> = ({ users }) => {
   if (!users || users.length === 0) {
     return <div>Looks like there are no users here...</div>
   }
@@ -40,14 +46,14 @@ const PlayerRanking: FC<PlayerRankingProps> = ({
           <Thead>
             <Tr>
               <Th>Player</Th>
-              <Th isNumeric>Score</Th>
-              <Th isNumeric>Rank</Th>
+              <SlimTh>Rank</SlimTh>
+              <SlimTh isNumeric>Score</SlimTh>
             </Tr>
           </Thead>
 
           <Tbody>
             {users.map((u, i) => {
-              const standingIndex = isWithoutLeader ? 2 : 1
+              const standingIndex = 1
               return (
                 <Link href={`/user/${u.id}`} key={u.name}>
                   <Row>
@@ -64,8 +70,8 @@ const PlayerRanking: FC<PlayerRankingProps> = ({
                         <Text>{u.name}</Text>
                       </Flex>
                     </Td>
-                    <Td isNumeric>{Math.round(u.rank)}</Td>
-                    <Td isNumeric>{i + standingIndex}</Td>
+                    <SlimTd>{i + standingIndex}</SlimTd>
+                    <SlimTd isNumeric>{Math.round(u.rank)}</SlimTd>
                   </Row>
                 </Link>
               )

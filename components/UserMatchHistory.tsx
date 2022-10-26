@@ -17,6 +17,10 @@ import Link from "next/dist/client/link"
 import { FC } from "react"
 import styled from "styled-components"
 
+const Row = styled(Tr)`
+  cursor: pointer;
+`
+
 const SlimTd = styled(Td)`
   width: 1px;
   white-space: nowrap;
@@ -61,7 +65,7 @@ const UserMatchHistory: FC<UserMatchHistoryProps> = ({ user }) => {
                 const eloChange = newRank - prevRank
                 return (
                   <ChakraLink key={m.id} as={Link} href={`/match/${m.id}`}>
-                    <Tr>
+                    <Row>
                       <SlimTd>{standing || "?"}</SlimTd>
                       <SlimTd>{victoryPoints}</SlimTd>
                       <SlimTd>
@@ -76,7 +80,7 @@ const UserMatchHistory: FC<UserMatchHistoryProps> = ({ user }) => {
                       <Td>
                         {format(new Date(m.createdAt || 0), "d MMM, yyyy")}
                       </Td>
-                    </Tr>
+                    </Row>
                   </ChakraLink>
                 )
               })}

@@ -10,6 +10,7 @@ import {
   Tr,
 } from "@chakra-ui/react"
 import { User } from "@prisma/client"
+import Link from "next/link"
 import { isEmpty } from "ramda"
 import React, { FC } from "react"
 import styled from "styled-components"
@@ -44,23 +45,25 @@ const LeagueTable: FC<LeagueTableProps> = ({ users }) => {
 
           <Tbody>
             {users.map((u) => (
-              <Row key={u.name}>
-                <Td>
-                  <Flex alignItems="center" gap={3}>
-                    <Flex flexShrink={0} alignItems="center">
-                      <NextAvatar
-                        alt={u.name}
-                        src={u.image || ""}
-                        width="32px"
-                        height="32px"
-                      />
+              <Link href={`/user/${u.id}`} key={u.name}>
+                <Row>
+                  <Td>
+                    <Flex alignItems="center" gap={3}>
+                      <Flex flexShrink={0} alignItems="center">
+                        <NextAvatar
+                          alt={u.name}
+                          src={u.image || ""}
+                          width="32px"
+                          height="32px"
+                        />
+                      </Flex>
+                      <Text>{u.name}</Text>
                     </Flex>
-                    <Text>{u.name}</Text>
-                  </Flex>
-                </Td>
-                <Td isNumeric>{u.position}</Td>
-                <Td isNumeric>{u.points}p</Td>
-              </Row>
+                  </Td>
+                  <Td isNumeric>{u.position}</Td>
+                  <Td isNumeric>{u.points}p</Td>
+                </Row>
+              </Link>
             ))}
           </Tbody>
         </Table>

@@ -16,6 +16,7 @@ import {
 import LeagueTable from "../components/LeagueTable"
 import { getFetcher } from "../lib/getFetcher"
 import prisma from "../lib/prisma"
+import { getUsersInTournament } from "./api/tournament"
 
 interface HomeProps {
   users: (User & { MatchRanking: MatchRanking[] })[]
@@ -25,11 +26,13 @@ interface HomeProps {
       corporation: Corporation | null
     })[]
   })[]
+  tournamentUsers: (User & { points: number; position: number })[]
 }
 
 const HomePage: NextPage<HomeProps> = ({
   users: usersData,
   matches: matchesData,
+  tournamentUsers: tournamentUsersData,
 }) => {
   const { data: users } = useSWR<HomeProps["users"]>("/api/users", getFetcher, {
     fallbackData: usersData,
@@ -41,6 +44,12 @@ const HomePage: NextPage<HomeProps> = ({
       fallbackData: matchesData,
     }
   )
+  const { data: tournamentUsers } = useSWR<HomeProps["tournamentUsers"]>(
+    "/api/tournament",
+    getFetcher,
+    { fallbackData: tournamentUsersData }
+  )
+
   const usersToDisplay = useMemo(
     () =>
       compose<any, any, any>(
@@ -59,7 +68,8 @@ const HomePage: NextPage<HomeProps> = ({
 
   const navigateToMatches = useCallback(() => router.push("/match"), [router])
 
-  if (!usersToDisplay || !matches) return <div>No users or matches found</div>
+  if (!usersToDisplay || !matches || !tournamentUsers)
+    return <div>No users or matches found</div>
 
   if (!matches[0]?.matchRankings) {
     return <p>No Match rankings</p>
@@ -67,8 +77,8 @@ const HomePage: NextPage<HomeProps> = ({
 
   return (
     <Box mt="1">
-      <PageSection heading="2022/23 Fall Season">
-        <LeagueTable users={users} />
+      <PageSection heading="2022/23 Fall Season 🎃">
+        <LeagueTable users={tournamentUsers} />
       </PageSection>
 
       <PageSection heading="Latest games" onShowMore={navigateToMatches}>
@@ -101,11 +111,13 @@ export async function getStaticProps() {
       include: { MatchRanking: true },
     }),
   ])
+  const tournamentUsers = await getUsersInTournament(1666425758000)
 
   return {
     props: {
       users: JSON.parse(JSON.stringify(users)),
       matches: JSON.parse(JSON.stringify(matches)),
+      tournamentUsers: JSON.parse(JSON.stringify(tournamentUsers)),
     },
     revalidate: 10,
   }

@@ -9,57 +9,24 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react"
-import { MatchRanking, User } from "@prisma/client"
-import {
-  addIndex,
-  compose,
-  defaultTo,
-  descend,
-  evolve,
-  isEmpty,
-  map,
-  pick,
-  prop,
-  sort,
-} from "ramda"
-import React, { FC, useMemo } from "react"
+import { User } from "@prisma/client"
+import { isEmpty } from "ramda"
+import React, { FC } from "react"
 import styled from "styled-components"
 
 import { FullWidthContainer } from "./Layout"
 import NextAvatar from "./NextAvatar"
-import useGoogleSheet from "./use-google-sheet"
-
-const sheetUrl =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEWz-dtk6ytQhZDZqJ4Ny516v5WZvSToSxLfD0CTKZIkuxmrzxAcJ472bqLMmwGftR33T09-PneHF9/pub?output=csv"
-
-const sortByPoints = sort(descend(prop("points") as any) as any)
 
 const Row = styled(Tr)`
   cursor: pointer;
 `
 
 interface LeagueTableProps {
-  users: User[] | (User & { MatchRanking: MatchRanking[] })[] | undefined
+  users: (User & { points: number; position: number })[]
 }
 
 const LeagueTable: FC<LeagueTableProps> = ({ users }) => {
-  const leagueData = useGoogleSheet(sheetUrl)
-  const rows = useMemo(
-    () =>
-      compose<any, any, any, any, any>(
-        addIndex(map)((r: any, index: number) => ({
-          ...pick(["name", "points"], r),
-          position: index + 1,
-          image: users?.find((u) => u.name === r.name)?.image,
-        })),
-        sortByPoints,
-        map(evolve({ points: parseInt })),
-        defaultTo([])
-      )(leagueData),
-    [leagueData, users]
-  )
-
-  if (isEmpty(rows)) {
+  if (isEmpty(users)) {
     return null
   }
 
@@ -76,23 +43,23 @@ const LeagueTable: FC<LeagueTableProps> = ({ users }) => {
           </Thead>
 
           <Tbody>
-            {rows.map((r: any) => (
-              <Row key={r.name}>
+            {users.map((u) => (
+              <Row key={u.name}>
                 <Td>
                   <Flex alignItems="center" gap={3}>
                     <Flex flexShrink={0} alignItems="center">
                       <NextAvatar
-                        alt={r.name}
-                        src={r.image || ""}
+                        alt={u.name}
+                        src={u.image || ""}
                         width="32px"
                         height="32px"
                       />
                     </Flex>
-                    <Text>{r.name}</Text>
+                    <Text>{u.name}</Text>
                   </Flex>
                 </Td>
-                <Td isNumeric>{r.position}</Td>
-                <Td isNumeric>{r.points}p</Td>
+                <Td isNumeric>{u.position}</Td>
+                <Td isNumeric>{u.points}p</Td>
               </Row>
             ))}
           </Tbody>

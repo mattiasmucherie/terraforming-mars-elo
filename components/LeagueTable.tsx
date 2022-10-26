@@ -22,6 +22,11 @@ const Row = styled(Tr)`
   cursor: pointer;
 `
 
+const Cell = styled(Td)`
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+`
+
 interface LeagueTableProps {
   users: (User & { points: number; position: number })[]
 }
@@ -47,7 +52,7 @@ const LeagueTable: FC<LeagueTableProps> = ({ users }) => {
             {users.map((u) => (
               <Link href={`/user/${u.id}`} key={u.name}>
                 <Row>
-                  <Td>
+                  <Cell>
                     <Flex alignItems="center" gap={3}>
                       <Flex flexShrink={0} alignItems="center">
                         <NextAvatar
@@ -59,9 +64,9 @@ const LeagueTable: FC<LeagueTableProps> = ({ users }) => {
                       </Flex>
                       <Text>{u.name}</Text>
                     </Flex>
-                  </Td>
-                  <Td isNumeric>{u.position}</Td>
-                  <Td isNumeric>{u.points}p</Td>
+                  </Cell>
+                  <Cell isNumeric>{u.position}</Cell>
+                  <Cell isNumeric>{u.points}p</Cell>
                 </Row>
               </Link>
             ))}

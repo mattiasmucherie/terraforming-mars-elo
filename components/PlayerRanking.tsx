@@ -21,12 +21,17 @@ const Row = styled(Tr)`
   cursor: pointer;
 `
 
-const SlimTd = styled(Td)`
+const Cell = styled(Td)`
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+`
+
+const SlimTd = styled(Cell)`
   width: 1px;
   white-space: nowrap;
 `
 
-const SlimTh = styled(Th)`
+const SlimTh = styled(Cell)`
   width: 1px;
   white-space: nowrap;
 `

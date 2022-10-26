@@ -1,4 +1,5 @@
 import {
+  Box,
   Link as ChakraLink,
   Stat,
   Table,
@@ -11,8 +12,20 @@ import {
 } from "@chakra-ui/react"
 import { StatArrow } from "@chakra-ui/stat"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
+import format from "date-fns/format"
 import Link from "next/dist/client/link"
 import { FC } from "react"
+import styled from "styled-components"
+
+const SlimTd = styled(Td)`
+  width: 1px;
+  white-space: nowrap;
+`
+
+const SlimTh = styled(Th)`
+  width: 1px;
+  white-space: nowrap;
+`
 
 interface UserMatchHistoryProps {
   user: User & {
@@ -29,34 +42,42 @@ const UserMatchHistory: FC<UserMatchHistoryProps> = ({ user }) => {
           <Table variant="simple">
             <Thead>
               <Tr>
-                <Th>Date</Th>
-                <Th>#</Th>
-                <Th>Δ Elo</Th>
+                <SlimTh>#</SlimTh>
+                <SlimTh>VP</SlimTh>
+                <SlimTh>Elo</SlimTh>
                 <Th>Corp</Th>
+                <Th>Date</Th>
               </Tr>
             </Thead>
             <Tbody>
               {user.matches.map((m) => {
-                const eloChange =
-                  m.matchRankings[0].newRank - m.matchRankings[0].prevRank
+                const {
+                  newRank,
+                  prevRank,
+                  standing,
+                  corporation,
+                  victoryPoints,
+                } = m.matchRankings[0]
+                const eloChange = newRank - prevRank
                 return (
-                  <Tr key={m.id}>
-                    <Td>
-                      <ChakraLink as={Link} href={`/match/${m.id}`}>
-                        {new Date(m.createdAt).toLocaleDateString("sv-SE")}
-                      </ChakraLink>
-                    </Td>
-                    <Td>{m.matchRankings[0].standing || "?"}</Td>
-                    <Td>
-                      <Stat>
-                        <StatArrow
-                          type={eloChange > 0 ? "increase" : "decrease"}
-                        />
-                        {Math.round(eloChange)}
-                      </Stat>
-                    </Td>
-                    <Td>{m.matchRankings[0].corporation?.name || "?"}</Td>
-                  </Tr>
+                  <ChakraLink key={m.id} as={Link} href={`/match/${m.id}`}>
+                    <Tr>
+                      <SlimTd>{standing || "?"}</SlimTd>
+                      <SlimTd>{victoryPoints}</SlimTd>
+                      <SlimTd>
+                        <Stat>
+                          <StatArrow
+                            type={eloChange > 0 ? "increase" : "decrease"}
+                          />
+                          {Math.round(eloChange)}
+                        </Stat>
+                      </SlimTd>
+                      <Td>{corporation?.name}</Td>
+                      <Td>
+                        {format(new Date(m.createdAt || 0), "d MMM, yyyy")}
+                      </Td>
+                    </Tr>
+                  </ChakraLink>
                 )
               })}
             </Tbody>

@@ -31,7 +31,7 @@ const SlimTd = styled(Cell)`
   white-space: nowrap;
 `
 
-const SlimTh = styled(Cell)`
+const SlimTh = styled(Th)`
   width: 1px;
   white-space: nowrap;
 `

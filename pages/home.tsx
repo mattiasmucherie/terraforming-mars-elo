@@ -81,7 +81,7 @@ const HomePage: NextPage<HomeProps> = ({
         <LeagueTable users={tournamentUsers} />
       </PageSection>
 
-      <PageSection heading="Latest games" onShowMore={navigateToMatches}>
+      <PageSection heading="Latest matches" onShowMore={navigateToMatches}>
         <ListOfMatches matches={latestMatches} />
       </PageSection>
 

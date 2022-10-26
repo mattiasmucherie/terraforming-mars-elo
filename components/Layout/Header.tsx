@@ -18,6 +18,7 @@ const Header = () => {
           src="/images/mars-with-tiles.jpeg"
           layout="fill"
           objectFit="cover"
+          priority
         />
 
         <PageContainer alignItems="center" justifyContent="space-between">

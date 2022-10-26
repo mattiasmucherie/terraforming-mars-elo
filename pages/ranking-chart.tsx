@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react"
 import { Match, MatchRanking, User } from "@prisma/client"
 import { NextPage } from "next"
 import useSWR from "swr"
@@ -29,7 +30,11 @@ const RankingChartPage: NextPage<PlayerRankingProps> = ({
   )
   if (!users || !matches) return <div>No users or matches found</div>
 
-  return <RankingChart users={users} matches={matches}></RankingChart>
+  return (
+    <Box>
+      <RankingChart users={users} matches={matches} />
+    </Box>
+  )
 }
 
 export default withLayout(RankingChartPage, { heading: "Score history" })

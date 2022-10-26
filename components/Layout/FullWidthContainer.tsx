@@ -1,11 +1,20 @@
+import { useTheme } from "@chakra-ui/react"
 import React, { FC, ReactNode } from "react"
 import styled from "styled-components"
+
+interface Props {
+  chakraTheme: { breakpoints: { md: string } }
+}
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 -16px;
   flex-grow: 1;
+
+  @media screen and (min-width: ${(p: Props) => p.chakraTheme.breakpoints.md}) {
+    margin: 0;
+  }
 `
 
 interface FullWidthContainerProps {
@@ -13,7 +22,8 @@ interface FullWidthContainerProps {
 }
 
 const FullWidthContainer: FC<FullWidthContainerProps> = ({ children }) => {
-  return <Container>{children}</Container>
+  const chakraTheme = useTheme() as any
+  return <Container chakraTheme={chakraTheme}>{children}</Container>
 }
 
 export default FullWidthContainer

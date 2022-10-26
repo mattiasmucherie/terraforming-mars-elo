@@ -38,7 +38,7 @@ const LeagueTable: FC<LeagueTableProps> = ({ users }) => {
           <Thead>
             <Tr>
               <Th>Player</Th>
-              <Th isNumeric>Position</Th>
+              <Th isNumeric>#</Th>
               <Th isNumeric>Points</Th>
             </Tr>
           </Thead>

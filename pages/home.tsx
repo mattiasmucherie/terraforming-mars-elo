@@ -89,7 +89,7 @@ const HomePage: NextPage<HomeProps> = ({
         <EloTopList users={usersToDisplay} />
       </PageSection>
 
-      <PageSection heading="Score history">
+      <PageSection>
         <RankingChart users={usersToDisplay} matches={matches} />
       </PageSection>
     </Box>

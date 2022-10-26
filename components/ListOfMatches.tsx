@@ -63,7 +63,7 @@ const ListOfMatches: FC<ListOfMatchesProps> = ({ matches }) => {
                         />
                       </Flex>
 
-                      <CorporationLogo id={mr.corporation?.id} size={25} />
+                      <CorporationLogo id={mr.corporation?.id} size={24} />
                     </Flex>
 
                     <Box>

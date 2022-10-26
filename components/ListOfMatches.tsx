@@ -1,10 +1,11 @@
-import { Box } from "@chakra-ui/react"
-import { Badge, Flex, Stack, Stat, StatArrow } from "@chakra-ui/react"
+import { Box, Text } from "@chakra-ui/react"
+import { Flex, Stack, Stat, StatArrow } from "@chakra-ui/react"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import format from "date-fns/format"
 import Link from "next/dist/client/link"
 import { FC, useCallback } from "react"
 
+import CorporationLogo from "./CorporationLogo"
 import NextAvatar from "./NextAvatar"
 
 interface ListOfMatchesProps {
@@ -28,33 +29,54 @@ const ListOfMatches: FC<ListOfMatchesProps> = ({ matches }) => {
       {matches.map((m) => {
         return (
           <Link href={`/match/${m.id}`} key={m.id}>
-            <Box borderWidth="1px" borderRadius="lg" mb="3" p="4">
-              <Flex justifyContent="space-between">
-                <Stack>
-                  {m.matchRankings.map((mr) => (
-                    <Flex key={mr.id} alignItems="center" gap={2}>
-                      <Flex flexShrink={0} alignItems="center">
+            <Box
+              display="flex"
+              flexDirection="column"
+              borderWidth="1px"
+              borderRadius="lg"
+              mb="3"
+              p="4"
+              pb="5"
+              pt="3"
+            >
+              <Text mb={4} fontWeight="bold">
+                Match{" - "}
+                <time>
+                  {format(new Date(m.createdAt || 0), "dd MMM, yyyy")}
+                </time>
+              </Text>
+
+              <Stack spacing={3}>
+                {m.matchRankings.map((mr) => (
+                  <Flex
+                    key={mr.id}
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <Flex flexShrink={0} alignItems="center" mr={3}>
+                      <Flex flexShrink={0} alignItems="center" mr={3}>
                         <NextAvatar
-                          width="24px"
-                          height="24px"
+                          width="28px"
+                          height="28px"
                           alt={mr.user.name}
                           src={mr.user.image || ""}
                         />
                       </Flex>
-                      <Badge>{mr.corporation?.name}</Badge>
 
+                      <CorporationLogo id={mr.corporation?.id} size={25} />
+                    </Flex>
+
+                    <Box>
                       <Stat>
                         <StatArrow
                           type={getRankDiff(mr) > 0 ? "increase" : "decrease"}
                         />
                         {getRankDiff(mr)}
                       </Stat>
-                    </Flex>
-                  ))}
-                </Stack>
-
-                <time>{format(new Date(m.createdAt), "dd MMM")}</time>
-              </Flex>
+                    </Box>
+                  </Flex>
+                ))}
+              </Stack>
             </Box>
           </Link>
         )

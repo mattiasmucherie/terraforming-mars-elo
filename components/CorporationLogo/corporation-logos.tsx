@@ -265,6 +265,8 @@ const corporationLogs: any = {
         color: "white",
         lineHeight: `${size * 0.55}px`,
         background: "#32004d",
+        position: "relative",
+        top: `-${size * 0.08}px`,
         paddingTop: `${size * 0.215}px`,
         paddingBottom: `${size * 0.215}px`,
         paddingLeft: `${size * 0.545}px`,

@@ -15,13 +15,14 @@ export default async function handler(
         .of(
           object({
             name: string().required(),
-            corporationId: string().uuid(),
-            victoryPoints: number(),
+            corporationId: string().uuid().required(),
+            victoryPoints: number().required(),
           })
         )
         .min(2, "We need at least two players")
         .required()
       const names = await namesSchema.validate(req.body)
+      names.sort((a, b) => b.victoryPoints - a.victoryPoints)
 
       // Get users of the inputted users
       const arrayOfName = names.map((n) => ({ name: n.name }))

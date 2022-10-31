@@ -45,7 +45,7 @@ export default async function handler(
         throw new Error("Unable to upload image to storage")
       }
 
-      const url = `${(process.env.SUPABASE_URL as string).replace(
+      const url = `${(process.env.NEXT_PUBLIC_SUPABASE_URL as string).replace(
         ".co",
         ".in"
       )}/storage/v1/object/public/${data.Key}`

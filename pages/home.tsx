@@ -14,6 +14,7 @@ import {
   withLayout,
 } from "../components"
 import LeagueTable from "../components/LeagueTable"
+import { useAuth } from "../lib/auth"
 import { getFetcher } from "../lib/getFetcher"
 import prisma from "../lib/prisma"
 import { getUsersInTournament } from "./api/tournament"

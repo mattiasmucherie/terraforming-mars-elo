@@ -10,7 +10,8 @@
     "pretty": "prettier --write .",
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "prisma:generate": "prisma generate",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build",
+    "e2e": "prisma migrate reset --force && playwright test"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.9",
@@ -42,6 +43,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@playwright/test": "^1.27.1",
     "@types/node": "18.7.15",
     "@types/ramda": "^0.28.15",
     "@types/react": "18.0.18",

@@ -37,11 +37,11 @@ jobs:
         with:
           node-version: "16.x"
       - name: Install dependencies
-        run: yarn install --immutable --immutable-cache --check-cache
+        run: npm ci
       - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
+        run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: yarn e2e
+        run: npm run e2e
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
       - uses: actions/upload-artifact@v2

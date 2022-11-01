@@ -1,5 +1,5 @@
 import { Stack } from "@chakra-ui/react"
-import { Corporation, User } from "@prisma/client"
+import { Corporation, MatchRanking, User } from "@prisma/client"
 import { assoc, map, pick, pluck, values } from "ramda"
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react"
 
@@ -20,7 +20,7 @@ const StatsTab: FC<StatsTabProps> = ({
   onStatsChanged,
 }) => {
   const [statsMap, setStatsMap] = useState({})
-  const stats = useMemo(() => values(statsMap), [statsMap])
+  const stats = useMemo<Array<any>>(() => values(statsMap), [statsMap])
   const isValid = useMemo(() => validateStats(statsMap), [statsMap])
 
   useEffect(() => {
@@ -40,6 +40,23 @@ const StatsTab: FC<StatsTabProps> = ({
     setStatsMap(assoc(playerStats.player.id, playerStats))
   }, [])
 
+  const isTied = useCallback(
+    (player: User) => {
+      const stat = stats.find((s: any) => s.player.id === player.id)
+
+      if (!stat || !stat.victoryPoints) {
+        return false
+      }
+
+      const playersWithSameVpAsPlayer = stats.filter(
+        (p: any) => p.victoryPoints === stat.victoryPoints
+      )
+
+      return playersWithSameVpAsPlayer.length > 1
+    },
+    [stats]
+  )
+
   return (
     <Stack spacing={3} flexGrow={1}>
       {map(
@@ -49,6 +66,7 @@ const StatsTab: FC<StatsTabProps> = ({
             player={p}
             corporations={corporations}
             onChange={handlePlayerStatsChanged}
+            isTied={isTied(p)}
           />
         ),
         players

@@ -14,7 +14,7 @@ export default async function handler(
       const namesSchema = array()
         .of(
           object({
-            name: string().required(),
+            userId: string().uuid().required(),
             corporationId: string().uuid().required(),
             victoryPoints: number().required(),
           })
@@ -25,7 +25,7 @@ export default async function handler(
       names.sort((a, b) => b.victoryPoints - a.victoryPoints)
 
       // Get users of the inputted users
-      const arrayOfName = names.map((n) => ({ name: n.name }))
+      const arrayOfName = names.map((n) => ({ id: n.userId }))
       const users = await prisma.user.findMany({
         where: {
           OR: arrayOfName,
@@ -39,8 +39,8 @@ export default async function handler(
       }
       users.sort(
         (a, b) =>
-          names.findIndex((n) => n.name === a.name) -
-          names.findIndex((n) => n.name === b.name)
+          names.findIndex((n) => n.userId === a.id) -
+          names.findIndex((n) => n.userId === b.id)
       )
       // Calculate their new ranking
       const newRanking = elo(

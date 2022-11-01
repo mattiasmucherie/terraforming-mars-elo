@@ -21,11 +21,10 @@ const SubmitButton: FC<SubmitButtonProps> = ({ stats }) => {
         applySpec({
           victoryPoints: prop("victoryPoints"),
           corporationId: path(["corporation", "id"]),
-          name: path(["player", "name"]),
+          userId: path(["player", "id"]),
         }),
         stats
       )
-      await new Promise((res) => setTimeout(res, 1000))
       await axios.post("/api/match/new", data)
       router.push("/")
     } catch (e) {

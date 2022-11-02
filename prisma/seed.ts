@@ -1,32 +1,28 @@
+import { faker } from "@faker-js/faker"
+
 import prisma from "../lib/prisma"
 import { newMatch } from "../pages/api/match/new"
 
 const userData = [
   {
-    name: "Dummy 1",
+    name: faker.name.firstName(),
     id: "fcefa461-139d-472f-ad61-61dab7db704c",
-    image:
-      "https://ekhaqsvkyqszwbsovncd.supabase.co/storage/v1/object/public/image-terraranking/A%20Van%20gogh%20painting%20of%20an%20astronaut%20swimming%20on%20Mars.png",
+    image: faker.internet.avatar(),
   },
   {
-    name: "Dummy.hasemailasuserhandle@gmail.com",
+    name: faker.name.firstName(),
     id: "d5be84c0-bb1a-4255-ac5d-3a6095760d7a",
-    image:
-      "https://ekhaqsvkyqszwbsovncd.supabase.co/storage/v1/object/public/image-terraranking/A%20Van%20gogh%20painting%20of%20an%20astronaut%20swimming%20on%20Mars.png",
+    image: faker.internet.avatar(),
   },
   {
-    name: "D",
+    name: faker.name.firstName(),
     id: "9c66ffa0-05f9-4ea8-815b-e5c3c39c0299",
-
-    image:
-      "https://ekhaqsvkyqszwbsovncd.supabase.co/storage/v1/object/public/image-terraranking/A%20Van%20gogh%20painting%20of%20an%20astronaut%20swimming%20on%20Mars.png",
+    image: faker.internet.avatar(),
   },
   {
-    name: "Dummy WithAReallyLongName",
+    name: faker.name.firstName(),
     id: "09f83fa6-4aca-42f3-aaa2-727e3bf56957",
-
-    image:
-      "https://ekhaqsvkyqszwbsovncd.supabase.co/storage/v1/object/public/image-terraranking/A%20Van%20gogh%20painting%20of%20an%20astronaut%20swimming%20on%20Mars.png",
+    image: faker.internet.avatar(),
   },
 ]
 const corporationData = [

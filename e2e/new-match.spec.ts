@@ -1,40 +1,28 @@
 import { expect, test } from "@playwright/test"
 test.describe("New Match", () => {
-  test("should create a new match", async ({ page }) => {
+  test("should create a new match and update elo accordingly", async ({
+    page,
+  }) => {
     await page.goto("http://localhost:3000/")
 
-    await page
-      .getByRole("row", { name: "D D 1 1035" })
-      .locator('div:has-text("D")')
-      .click()
-    await expect(page).toHaveURL(
-      "http://localhost:3000/user/9c66ffa0-05f9-4ea8-815b-e5c3c39c0299"
+    const eloTable = await page.locator('[data-test-id="elo-table"]')
+    await expect(eloTable.locator("tr >> nth=1 >> td >> nth=2")).toHaveText(
+      "1035"
+    )
+    await expect(eloTable.locator("tr >> nth=2 >> td >> nth=2")).toHaveText(
+      "1011"
+    )
+    await expect(eloTable.locator("tr >> nth=3 >> td >> nth=2")).toHaveText(
+      "994"
     )
 
-    await expect(
-      page.locator(
-        "xpath=/html/body/div[1]/div/div[2]/div/div[2]/div[1]/div[1]/div[2]/div/dl/dd[1]"
-      )
-    ).toHaveText("1035")
-
     await page.locator('button[name="Menu button"]').click()
-
     await page.getByText("Register match").click()
     await expect(page).toHaveURL("http://localhost:3000/new-match")
-
     await page.locator(".Radio__Container-sc-c2054353-0").first().click()
-
-    await page
-      .locator("div:nth-child(2) > .Radio__Container-sc-c2054353-0")
-      .click()
-
-    await page
-      .locator("div:nth-child(3) > .Radio__Container-sc-c2054353-0")
-      .click()
-
-    await page
-      .locator("div:nth-child(4) > .Radio__Container-sc-c2054353-0")
-      .click()
+    await page.locator(".Radio__Container-sc-c2054353-0 >> nth=1").click()
+    await page.locator(".Radio__Container-sc-c2054353-0 >> nth=2").click()
+    await page.locator(".Radio__Container-sc-c2054353-0 >> nth=3").click()
 
     await page.getByRole("button", { name: "Next" }).click()
 
@@ -100,18 +88,15 @@ test.describe("New Match", () => {
     await page.getByRole("button", { name: "Register match" }).click()
     await expect(page).toHaveURL("http://localhost:3000/")
 
-    await page
-      .getByRole("row", { name: "D D 1 1056" })
-      .locator('div:has-text("D")')
-      .click()
-    await expect(page).toHaveURL(
-      "http://localhost:3000/user/9c66ffa0-05f9-4ea8-815b-e5c3c39c0299"
+    const newEloTable = await page.locator('[data-test-id="elo-table"]')
+    await expect(newEloTable.locator("tr >> nth=1 >> td >> nth=2")).toHaveText(
+      "1056"
     )
-
-    await expect(
-      page.locator(
-        "xpath=/html/body/div[1]/div/div[2]/div/div[2]/div[1]/div[1]/div[2]/div/dl/dd[1]"
-      )
-    ).toHaveText("1056")
+    await expect(newEloTable.locator("tr >> nth=2 >> td >> nth=2")).toHaveText(
+      "1018"
+    )
+    await expect(newEloTable.locator("tr >> nth=3 >> td >> nth=2")).toHaveText(
+      "987"
+    )
   })
 })

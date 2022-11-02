@@ -42,20 +42,23 @@ const CorporationTable: FC<CorporationTableProps> = ({ corporations }) => {
               const winRate = c.matchRanking.length
                 ? `${Math.round((c.wins / c.matchRanking.length) * 100)} %`
                 : "-"
+              const eloChangeCorp = Math.round(eloChange[i])
               return (
                 <Tr key={c.id}>
                   <Td>{c.name}</Td>
                   <Td>{winRate}</Td>
                   <Td>{c.matchRanking.length}</Td>
                   <Td>
-                    <Stat>
-                      <StatArrow
-                        type={
-                          Math.round(eloChange[i]) > 0 ? "increase" : "decrease"
-                        }
-                      />
-                      {Math.round(eloChange[i])}
-                    </Stat>
+                    {eloChangeCorp ? (
+                      <Stat>
+                        <StatArrow
+                          type={eloChange[i] > 0 ? "increase" : "decrease"}
+                        />
+                        {eloChangeCorp}
+                      </Stat>
+                    ) : (
+                      "-"
+                    )}
                   </Td>
                 </Tr>
               )

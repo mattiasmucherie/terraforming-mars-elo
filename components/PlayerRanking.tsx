@@ -47,7 +47,7 @@ const PlayerRanking: FC<PlayerRankingProps> = ({ users }) => {
   return (
     <FullWidthContainer>
       <TableContainer>
-        <Table variant="simple">
+        <Table variant="simple" data-test-id="elo-table">
           <Thead>
             <Tr>
               <Th>Player</Th>

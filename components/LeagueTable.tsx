@@ -39,7 +39,7 @@ const LeagueTable: FC<LeagueTableProps> = ({ users }) => {
   return (
     <FullWidthContainer>
       <TableContainer mb={2}>
-        <Table variant="simple" data-test-id="league-table">
+        <Table variant="simple">
           <Thead>
             <Tr>
               <Th>Player</Th>

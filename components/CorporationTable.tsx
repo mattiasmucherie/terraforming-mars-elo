@@ -1,71 +1,59 @@
-import {
-  Stat,
-  StatArrow,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react"
 import { Corporation, MatchRanking } from "@prisma/client"
+import { createColumnHelper } from "@tanstack/table-core"
 import { FC } from "react"
 
 import { FullWidthContainer } from "./Layout"
+import { DataTable } from "./tables/DataTable"
 
 interface CorporationTableProps {
   corporations: (Corporation & { matchRanking: MatchRanking[] })[]
 }
+
 const CorporationTable: FC<CorporationTableProps> = ({ corporations }) => {
-  const eloChange = corporations.map((c) => {
-    const sum = c.matchRanking.reduce(
-      (prev, acc) => prev + acc.newRank - acc.prevRank,
-      0
-    )
-    return sum / c.matchRanking.length
-  })
+  const columnHelper = createColumnHelper<
+    Corporation & { matchRanking: MatchRanking[] }
+  >()
+  const columns = [
+    columnHelper.accessor("name", {
+      cell: (info) => info.getValue(),
+      header: "Name",
+    }),
+    columnHelper.accessor((row) => row, {
+      cell: (info) => {
+        const c = info.getValue()
+        return c.matchRanking.length
+          ? `${Math.round((c.wins / c.matchRanking.length) * 100)} %`
+          : "-"
+      },
+      header: "Win Rate",
+    }),
+    columnHelper.accessor("matchRanking", {
+      cell: (info) => info.getValue().length,
+      header: "# Matches",
+      meta: {
+        isNumeric: true,
+      },
+    }),
+    columnHelper.accessor(
+      (row) => {
+        const sum = row.matchRanking.reduce(
+          (prev, acc) => prev + acc.newRank - acc.prevRank,
+          0
+        )
+        return Math.round(sum / row.matchRanking.length) || 0
+      },
+      {
+        cell: (info) => info.getValue(),
+        header: "Avg Elo",
+        meta: {
+          isStat: true,
+        },
+      }
+    ),
+  ]
   return (
     <FullWidthContainer>
-      <TableContainer>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Name</Th>
-              <Th>Win rate</Th>
-              <Th># matches</Th>
-              <Th>Avg elo</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {corporations.map((c, i) => {
-              const winRate = c.matchRanking.length
-                ? `${Math.round((c.wins / c.matchRanking.length) * 100)} %`
-                : "-"
-              const eloChangeCorp = Math.round(eloChange[i])
-              return (
-                <Tr key={c.id}>
-                  <Td>{c.name}</Td>
-                  <Td>{winRate}</Td>
-                  <Td>{c.matchRanking.length}</Td>
-                  <Td>
-                    {eloChangeCorp ? (
-                      <Stat>
-                        <StatArrow
-                          type={eloChange[i] > 0 ? "increase" : "decrease"}
-                        />
-                        {eloChangeCorp}
-                      </Stat>
-                    ) : (
-                      "-"
-                    )}
-                  </Td>
-                </Tr>
-              )
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
+      <DataTable columns={columns} data={corporations} />
     </FullWidthContainer>
   )
 }

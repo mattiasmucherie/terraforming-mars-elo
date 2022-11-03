@@ -13,6 +13,7 @@ import {
   RankingChart,
   withLayout,
 } from "../components"
+import LatestWinners from "../components/LatestWinners"
 import LeagueTable from "../components/LeagueTable"
 import { getFetcher } from "../lib/getFetcher"
 import prisma from "../lib/prisma"
@@ -82,12 +83,14 @@ const HomePage: NextPage<HomeProps> = ({
       <PageSection heading="2022/23 Fall Season 🎃">
         <LeagueTable users={tournamentUsers} />
       </PageSection>
-
+      <PageSection heading="Latest Winners">
+        <LatestWinners matches={matches} />
+      </PageSection>
       <PageSection heading="Latest matches" onShowMore={navigateToMatches}>
         <ListOfMatches matches={latestMatches} />
       </PageSection>
 
-      <PageSection heading="Ranking" onShowMore={navigateToPlayerRanking}>
+      <PageSection heading="Elo Ranking" onShowMore={navigateToPlayerRanking}>
         <EloTopList users={usersToDisplay} />
       </PageSection>
 

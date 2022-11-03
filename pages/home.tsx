@@ -113,7 +113,9 @@ export async function getStaticProps() {
       include: { MatchRanking: true },
     }),
   ])
-  const tournamentUsers = await getUsersInTournament(1666425758000)
+  const tournamentUsers = await getUsersInTournament(
+    Math.floor(new Date("2022-10-22").getTime())
+  )
 
   return {
     props: {

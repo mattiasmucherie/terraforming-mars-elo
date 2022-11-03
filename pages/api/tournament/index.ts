@@ -11,6 +11,7 @@ export const getUsersInTournament = async (tourniStartDate: number) => {
   const users = (
     await prisma.user.findMany({
       where: { matches: { some: { createdAt: { gte: startDate } } } },
+      include: { MatchRanking: true },
     })
   ).map((u) => ({
     ...u,

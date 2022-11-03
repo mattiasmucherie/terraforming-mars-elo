@@ -9,7 +9,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react"
-import { User } from "@prisma/client"
+import { MatchRanking, User } from "@prisma/client"
 import Link from "next/link"
 import { isEmpty } from "ramda"
 import React, { FC } from "react"
@@ -28,7 +28,9 @@ const Cell = styled(Td)`
 `
 
 interface LeagueTableProps {
-  users: (User & { points: number; position: number })[]
+  users: (User & { points: number; position: number } & {
+    MatchRanking: MatchRanking[]
+  })[]
 }
 
 const LeagueTable: FC<LeagueTableProps> = ({ users }) => {
@@ -45,6 +47,7 @@ const LeagueTable: FC<LeagueTableProps> = ({ users }) => {
               <Th>Player</Th>
               <Th isNumeric>#</Th>
               <Th isNumeric>Points</Th>
+              <Th>PPG</Th>
             </Tr>
           </Thead>
 
@@ -67,6 +70,9 @@ const LeagueTable: FC<LeagueTableProps> = ({ users }) => {
                   </Cell>
                   <Cell isNumeric>{u.position}</Cell>
                   <Cell isNumeric>{u.points}p</Cell>
+                  <Cell isNumeric>
+                    {(u.points / u.MatchRanking.length).toFixed(1)}
+                  </Cell>
                 </Row>
               </Link>
             ))}

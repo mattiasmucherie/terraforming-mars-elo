@@ -26,7 +26,9 @@ interface HomeProps {
       corporation: Corporation | null
     })[]
   })[]
-  tournamentUsers: (User & { points: number; position: number })[]
+  tournamentUsers: (User & { points: number; position: number } & {
+    MatchRanking: MatchRanking[]
+  })[]
 }
 
 const HomePage: NextPage<HomeProps> = ({

@@ -28,7 +28,7 @@ const renderPlayers = compose<any, any, any, any>(
 const ReviewTab: FC<ReviewTabProps> = ({ stats }) => {
   return (
     <Flex flexGrow={1} flexDirection="column">
-      <Stack spacing={3} flexGrow={1}>
+      <Stack spacing={4} flexGrow={1}>
         {renderPlayers(stats)}
       </Stack>
 

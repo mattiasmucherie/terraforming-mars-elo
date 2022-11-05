@@ -13,6 +13,7 @@ import {
   RankingChart,
   withLayout,
 } from "../components"
+import LatestWinners from "../components/LatestWinners"
 import LeagueTable from "../components/LeagueTable"
 import { getFetcher } from "../lib/getFetcher"
 import prisma from "../lib/prisma"
@@ -26,7 +27,9 @@ interface HomeProps {
       corporation: Corporation | null
     })[]
   })[]
-  tournamentUsers: (User & { points: number; position: number })[]
+  tournamentUsers: (User & { points: number; position: number } & {
+    MatchRanking: MatchRanking[]
+  })[]
 }
 
 const HomePage: NextPage<HomeProps> = ({
@@ -80,12 +83,14 @@ const HomePage: NextPage<HomeProps> = ({
       <PageSection heading="2022/23 Fall Season 🎃">
         <LeagueTable users={tournamentUsers} />
       </PageSection>
-
+      <PageSection heading="Latest Winners">
+        <LatestWinners matches={matches} />
+      </PageSection>
       <PageSection heading="Latest matches" onShowMore={navigateToMatches}>
         <ListOfMatches matches={latestMatches} />
       </PageSection>
 
-      <PageSection heading="Ranking" onShowMore={navigateToPlayerRanking}>
+      <PageSection heading="Elo Ranking" onShowMore={navigateToPlayerRanking}>
         <EloTopList users={usersToDisplay} />
       </PageSection>
 
@@ -111,7 +116,9 @@ export async function getStaticProps() {
       include: { MatchRanking: true },
     }),
   ])
-  const tournamentUsers = await getUsersInTournament(1666425758000)
+  const tournamentUsers = await getUsersInTournament(
+    Math.floor(new Date("2022-10-22").getTime())
+  )
 
   return {
     props: {

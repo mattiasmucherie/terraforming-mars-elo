@@ -10,7 +10,8 @@
     "pretty": "prettier --write .",
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "prisma:generate": "prisma generate",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build",
+    "e2e": "prisma migrate reset --force && playwright test"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.9",
@@ -24,6 +25,7 @@
     "@next/bundle-analyzer": "^12.3.1",
     "@prisma/client": "^4.3.1",
     "@supabase/supabase-js": "^1.35.6",
+    "@tanstack/react-table": "^8.5.22",
     "axios": "^0.27.2",
     "base64-arraybuffer": "^1.0.2",
     "chart.js": "^3.9.1",
@@ -42,6 +44,8 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@playwright/test": "^1.27.1",
     "@types/node": "18.7.15",
     "@types/ramda": "^0.28.15",
     "@types/react": "18.0.18",

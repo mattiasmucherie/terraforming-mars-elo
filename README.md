@@ -28,3 +28,5 @@ yarn prisma migrate reset
 ```
 
 **MAKE SURE THAT THE DATASOURCE OF THE DATABASE IS LOCALHOST!**
+
+DB Password has been reset

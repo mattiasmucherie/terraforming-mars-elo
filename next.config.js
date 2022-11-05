@@ -14,6 +14,7 @@ let nextConfig = {
     domains: [
       "ekhaqsvkyqszwbsovncd.supabase.in",
       "ekhaqsvkyqszwbsovncd.supabase.co",
+      "cloudflare-ipfs.com",
     ],
   },
   async rewrites() {

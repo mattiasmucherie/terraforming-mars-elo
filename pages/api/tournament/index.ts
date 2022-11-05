@@ -11,6 +11,9 @@ export const getUsersInTournament = async (tourniStartDate: number) => {
   const users = (
     await prisma.user.findMany({
       where: { matches: { some: { createdAt: { gte: startDate } } } },
+      include: {
+        MatchRanking: { where: { match: { createdAt: { gte: startDate } } } },
+      },
     })
   ).map((u) => ({
     ...u,
@@ -62,7 +65,9 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      const users = await getUsersInTournament(1666425758000)
+      const users = await getUsersInTournament(
+        Math.floor(new Date("2022-10-22").getTime())
+      )
       res.status(200).json(users)
     } catch (e) {
       if (e instanceof ValidationError) {

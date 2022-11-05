@@ -1,13 +1,20 @@
 const validatePlayerStats = (playerStats: any) => {
-  if (!playerStats.player) {
+  const { player, victoryPoints, corporation, isTied, megaCredits } =
+    playerStats || {}
+
+  if (!player) {
     return false
   }
 
-  if (!playerStats.victoryPoints) {
+  if (!victoryPoints) {
     return false
   }
 
-  if (!playerStats.corporation) {
+  if (!corporation) {
+    return false
+  }
+
+  if (isTied && !megaCredits) {
     return false
   }
 

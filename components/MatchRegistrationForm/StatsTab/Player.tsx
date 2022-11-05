@@ -63,13 +63,15 @@ const Player: FC<PlayerProps> = ({
   )
 
   const handleVictoryPointChanged = useCallback((value: string) => {
-    const vp = parseInt(value) || ""
-    setFormData(assoc("victoryPoints", vp))
+    const vp = parseInt(value)
+    const newValue = isNaN(vp) ? "" : vp
+    setFormData(assoc("victoryPoints", newValue))
   }, [])
 
   const handleMegaCreditChanged = useCallback((value: string) => {
-    const vp = parseInt(value) || ""
-    setFormData(assoc("megaCredits", vp))
+    const mc = parseInt(value)
+    const newValue = isNaN(mc) ? "" : mc
+    setFormData(assoc("megaCredits", newValue))
   }, [])
 
   return (
@@ -127,8 +129,7 @@ const Player: FC<PlayerProps> = ({
               <InputLeftAddon w={14}>M€</InputLeftAddon>
               <NumberInput
                 value={formData.megaCredits}
-                min={20}
-                max={200}
+                min={0}
                 allowMouseWheel
                 onChange={handleMegaCreditChanged}
               >

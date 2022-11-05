@@ -12,7 +12,7 @@ const Container = styled.div`
     rgba(212, 186, 0, 1) 38%,
     rgba(200, 148, 2, 1) 100%
   );
-  border: 1px solid #1a0f00;
+  border: 1px solid #511100;
   box-sizing: border-box;
   color: white;
   text-shadow: 0px 0px 1px rgba(0, 0, 0, 1);

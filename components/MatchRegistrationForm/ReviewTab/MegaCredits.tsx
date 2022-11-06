@@ -20,6 +20,7 @@ const Container = styled.div`
   height: 32px;
   width: 32px;
   font-size: 18px;
+  line-height: 1;
   border-radius: 4px;
   display: flex;
   align-items: center;

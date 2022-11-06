@@ -19,6 +19,7 @@ const SubmitButton: FC<SubmitButtonProps> = ({ stats }) => {
     try {
       const data = map(
         applySpec({
+          megaCredits: prop("megaCredits"),
           victoryPoints: prop("victoryPoints"),
           corporationId: path(["corporation", "id"]),
           userId: path(["player", "id"]),

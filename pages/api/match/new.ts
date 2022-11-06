@@ -6,7 +6,12 @@ import { elo } from "../../../utils/elo"
 import { getErrorMessage } from "../../../utils/errorMessages"
 
 export const newMatch = async (
-  input: { userId: string; corporationId: string; victoryPoints: number }[]
+  input: {
+    userId: string
+    corporationId: string
+    victoryPoints: number
+    megaCredits: number
+  }[]
 ) => {
   const namesSchema = array()
     .of(
@@ -14,12 +19,18 @@ export const newMatch = async (
         userId: string().uuid().required(),
         corporationId: string().uuid().required(),
         victoryPoints: number().required(),
+        megaCredits: number(),
       })
     )
     .min(2, "We need at least two players")
     .required()
   const names = await namesSchema.validate(input)
-  names.sort((a, b) => b.victoryPoints - a.victoryPoints)
+
+  names.sort((a, b) =>
+    a.victoryPoints === b.victoryPoints
+      ? (b.megaCredits || 0) - (a.megaCredits || 0)
+      : b.victoryPoints - a.victoryPoints
+  )
 
   // Get users of the inputted users
   const arrayOfUserId = names.map((n) => ({ id: n.userId }))

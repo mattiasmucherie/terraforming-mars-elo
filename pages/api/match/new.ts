@@ -10,7 +10,7 @@ export const newMatch = async (
     userId: string
     corporationId: string
     victoryPoints: number
-    megaCredits: number
+    megaCredits?: number
   }[]
 ) => {
   const namesSchema = array()

@@ -21,7 +21,7 @@ const renderPlayers = compose<any, any, any, any>(
   addIndex(map)((ps: any, index: number) => (
     <Player stats={ps} position={index + 1} key={ps.player.id} />
   )),
-  sortWith([descend(prop("victoryPoints")), descend(prop("megaCredits"))]),
+  sortWith<any>([descend(prop("victoryPoints")), descend(prop("megaCredits"))]),
   defaultTo([])
 )
 

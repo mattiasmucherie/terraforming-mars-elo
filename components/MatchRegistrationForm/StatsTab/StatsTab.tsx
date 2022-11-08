@@ -1,5 +1,5 @@
 import { Stack } from "@chakra-ui/react"
-import { Corporation, MatchRanking, User } from "@prisma/client"
+import { Corporation, User } from "@prisma/client"
 import { assoc, map, pick, pluck, values } from "ramda"
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react"
 

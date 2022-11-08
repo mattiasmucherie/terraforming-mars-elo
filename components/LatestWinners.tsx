@@ -35,7 +35,7 @@ interface LatestWinnersProps {
   })[]
 }
 const LatestWinners: FC<LatestWinnersProps> = ({ matches }) => {
-  const latestWinnersList = () => {
+  const lw = useMemo(() => {
     const users: {
       userId: string
       name: string
@@ -56,8 +56,7 @@ const LatestWinners: FC<LatestWinnersProps> = ({ matches }) => {
       }
     }
     return users
-  }
-  const lw = useMemo(() => latestWinnersList(), [matches])
+  }, [matches])
   return (
     <FullWidthContainer>
       <TableContainer mb={2}>

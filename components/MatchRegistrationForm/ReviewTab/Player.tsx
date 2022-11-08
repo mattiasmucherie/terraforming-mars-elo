@@ -3,6 +3,7 @@ import React, { FC } from "react"
 
 import CorporationLogo from "../../CorporationLogo"
 import NextAvatar from "../../NextAvatar"
+import MegaCredits from "./MegaCredits"
 import PositionBadge from "./PositionBadge"
 import VictoryPoints from "./VictoryPoints"
 
@@ -12,7 +13,7 @@ interface PlayerProps {
 }
 
 const Player: FC<PlayerProps> = ({ stats, position }) => {
-  const { player, corporation, victoryPoints } = stats
+  const { player, corporation, victoryPoints, megaCredits } = stats
   const { name, image } = player
 
   if (!player || !corporation || !victoryPoints) {
@@ -37,7 +38,11 @@ const Player: FC<PlayerProps> = ({ stats, position }) => {
 
       <Flex alignItems="center" justifyContent="space-between">
         <CorporationLogo id={corporation.id} size={30} />
-        <VictoryPoints>{victoryPoints}</VictoryPoints>
+
+        <Flex alignItems="center">
+          {megaCredits && <MegaCredits>{megaCredits}</MegaCredits>}
+          <VictoryPoints>{victoryPoints}</VictoryPoints>
+        </Flex>
       </Flex>
     </Box>
   )

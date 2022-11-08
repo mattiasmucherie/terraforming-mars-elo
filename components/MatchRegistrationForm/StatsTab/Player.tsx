@@ -28,9 +28,15 @@ interface PlayerProps {
   player: User
   corporations: Corporation[]
   onChange: (formData: FormData) => void
+  isTied?: boolean
 }
 
-const Player: FC<PlayerProps> = ({ player, corporations, onChange }) => {
+const Player: FC<PlayerProps> = ({
+  player,
+  corporations,
+  isTied,
+  onChange,
+}) => {
   const { name, image } = player
   const [formData, setFormData] = useState<any>({
     name: "",
@@ -47,14 +53,25 @@ const Player: FC<PlayerProps> = ({ player, corporations, onChange }) => {
     onChange({ player, ...formData })
   }, [onChange, player, formData])
 
+  useEffect(() => {
+    setFormData(assoc("isTied", isTied))
+  }, [isTied])
+
   const handleCorporationChanged = useCallback(
     (corp: Corporation) => setFormData(assoc("corporation", corp)),
     []
   )
 
   const handleVictoryPointChanged = useCallback((value: string) => {
-    const vp = parseInt(value) || ""
-    setFormData(assoc("victoryPoints", vp))
+    const vp = parseInt(value)
+    const newValue = isNaN(vp) ? "" : vp
+    setFormData(assoc("victoryPoints", newValue))
+  }, [])
+
+  const handleMegaCreditChanged = useCallback((value: string) => {
+    const mc = parseInt(value)
+    const newValue = isNaN(mc) ? "" : mc
+    setFormData(assoc("megaCredits", newValue))
   }, [])
 
   return (
@@ -89,22 +106,42 @@ const Player: FC<PlayerProps> = ({ player, corporations, onChange }) => {
           onClose={closeCorpSelector}
         />
 
-        <InputGroup width="32%">
-          <InputLeftAddon>VP</InputLeftAddon>
-          <NumberInput
-            value={formData.victoryPoints}
-            min={20}
-            max={200}
-            allowMouseWheel
-            onChange={handleVictoryPointChanged}
-          >
-            <NumberInputField
-              pr={2}
-              borderTopLeftRadius={0}
-              borderBottomLeftRadius={0}
-            />
-          </NumberInput>
-        </InputGroup>
+        <Box width="32%">
+          <InputGroup>
+            <InputLeftAddon w={14}>VP</InputLeftAddon>
+            <NumberInput
+              value={formData.victoryPoints}
+              min={20}
+              max={200}
+              allowMouseWheel
+              onChange={handleVictoryPointChanged}
+            >
+              <NumberInputField
+                pr={2}
+                borderTopLeftRadius={0}
+                borderBottomLeftRadius={0}
+              />
+            </NumberInput>
+          </InputGroup>
+
+          {isTied && (
+            <InputGroup mt={2}>
+              <InputLeftAddon w={14}>M€</InputLeftAddon>
+              <NumberInput
+                value={formData.megaCredits}
+                min={0}
+                allowMouseWheel
+                onChange={handleMegaCreditChanged}
+              >
+                <NumberInputField
+                  pr={2}
+                  borderTopLeftRadius={0}
+                  borderBottomLeftRadius={0}
+                />
+              </NumberInput>
+            </InputGroup>
+          )}
+        </Box>
       </Flex>
     </Box>
   )

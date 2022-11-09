@@ -12,7 +12,9 @@ export const getMatches = (): Promise<
 > => {
   return prisma.match.findMany({
     include: {
-      matchRankings: { include: { user: true, corporation: true } },
+      matchRankings: {
+        include: { user: true, corporation: true, tournament: true },
+      },
     },
     orderBy: { createdAt: "desc" },
   })

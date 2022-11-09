@@ -8,10 +8,11 @@ import {
   prop,
   sortWith,
 } from "ramda"
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 
 import Player from "./Player"
 import SubmitButton from "./SubmitButton"
+import TournamentPicker from "./TournamentPicker"
 
 interface ReviewTabProps {
   stats: any
@@ -26,13 +27,14 @@ const renderPlayers = compose<any, any, any, any>(
 )
 
 const ReviewTab: FC<ReviewTabProps> = ({ stats }) => {
+  const [tournamentId, setTournamentId] = useState<string | null>(null)
   return (
     <Flex flexGrow={1} flexDirection="column">
       <Stack spacing={4} flexGrow={1}>
         {renderPlayers(stats)}
+        <TournamentPicker setTournamentId={setTournamentId} />
       </Stack>
-
-      <SubmitButton stats={stats} />
+      <SubmitButton stats={stats} tournamentId={tournamentId} />
     </Flex>
   )
 }

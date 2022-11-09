@@ -11,6 +11,7 @@ export const newMatch = async (
     corporationId: string
     victoryPoints: number
     megaCredits?: number
+    tournamentId?: string | null
   }[]
 ) => {
   const namesSchema = array()
@@ -20,6 +21,7 @@ export const newMatch = async (
         corporationId: string().uuid().required(),
         victoryPoints: number().required(),
         megaCredits: number(),
+        tournamentId: string().nullable(true),
       })
     )
     .min(2, "We need at least two players")
@@ -62,6 +64,7 @@ export const newMatch = async (
             corporationId: names[i].corporationId,
             standing: i + 1,
             victoryPoints: names[i].victoryPoints,
+            tournamentId: names[i].tournamentId,
           })),
         },
       },

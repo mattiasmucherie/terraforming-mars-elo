@@ -1,18 +1,21 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { date, ValidationError } from "yup"
+import { ValidationError } from "yup"
 
 import prisma from "../../../lib/prisma"
 import { getErrorMessage } from "../../../utils/errorMessages"
 
-export const getUsersInTournament = async (tourniStartDate: number) => {
-  const dateSchema = date().required()
-  const startDate = await dateSchema.validate(new Date(tourniStartDate))
-
+export const getUsersInTournament = async () => {
+  const latestTournament = await prisma.tournament.findFirst({
+    where: { endDate: { gte: new Date() }, startDate: { lte: new Date() } },
+  })
+  if (!latestTournament) {
+    return { tournament: latestTournament, usersPosition: [] }
+  }
   const users = (
     await prisma.user.findMany({
-      where: { matches: { some: { createdAt: { gte: startDate } } } },
+      where: { MatchRanking: { some: { tournamentId: latestTournament.id } } },
       include: {
-        MatchRanking: { where: { match: { createdAt: { gte: startDate } } } },
+        MatchRanking: { where: { tournamentId: latestTournament.id } },
       },
     })
   ).map((u) => ({
@@ -22,7 +25,7 @@ export const getUsersInTournament = async (tourniStartDate: number) => {
   }))
 
   const matches = await prisma.match.findMany({
-    where: { createdAt: { gte: startDate } },
+    where: { matchRankings: { some: { tournamentId: latestTournament.id } } },
     include: { matchRankings: true },
   })
 
@@ -57,7 +60,7 @@ export const getUsersInTournament = async (tourniStartDate: number) => {
     return { ...u, position: currentRank }
   })
 
-  return usersPosition
+  return { tournament: latestTournament, usersPosition }
 }
 export default async function handler(
   req: NextApiRequest,
@@ -65,10 +68,8 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      const users = await getUsersInTournament(
-        Math.floor(new Date("2022-10-22").getTime())
-      )
-      res.status(200).json(users)
+      const tournament = await getUsersInTournament()
+      res.status(200).json(tournament)
     } catch (e) {
       if (e instanceof ValidationError) {
         return res.status(400).json({ message: e.message })

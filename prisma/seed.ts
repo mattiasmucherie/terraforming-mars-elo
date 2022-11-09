@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker"
+import { addDays, subDays } from "date-fns"
 
 import prisma from "../lib/prisma"
 import { newMatch } from "../pages/api/match/new"
@@ -57,26 +58,37 @@ async function main() {
   await prisma.corporation.createMany({
     data: corporationData,
   })
+  const tournament = await prisma.tournament.create({
+    data: {
+      name: "Test tournament 🦥",
+      startDate: subDays(new Date(), 10),
+      endDate: addDays(new Date(), 10),
+    },
+  })
   await newMatch([
     {
       userId: userData[0].id,
       corporationId: corporationData[0].id,
       victoryPoints: 59,
+      tournamentId: tournament.id,
     },
     {
       userId: userData[1].id,
       corporationId: corporationData[1].id,
       victoryPoints: 58,
+      tournamentId: tournament.id,
     },
     {
       userId: userData[2].id,
       corporationId: corporationData[2].id,
       victoryPoints: 61,
+      tournamentId: tournament.id,
     },
     {
       userId: userData[3].id,
       corporationId: corporationData[11].id,
       victoryPoints: 59,
+      tournamentId: tournament.id,
     },
   ])
   await newMatch([
@@ -118,16 +130,19 @@ async function main() {
       userId: userData[3].id,
       corporationId: corporationData[3].id,
       victoryPoints: 59,
+      tournamentId: tournament.id,
     },
     {
       userId: userData[2].id,
       corporationId: corporationData[6].id,
       victoryPoints: 58,
+      tournamentId: tournament.id,
     },
     {
       userId: userData[0].id,
       corporationId: corporationData[5].id,
       victoryPoints: 61,
+      tournamentId: tournament.id,
     },
   ])
   // eslint-disable-next-line no-console

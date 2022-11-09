@@ -1,6 +1,12 @@
-import { Box, Text } from "@chakra-ui/react"
+import { Box, Tag, Text } from "@chakra-ui/react"
 import { Flex, Stack, Stat, StatArrow } from "@chakra-ui/react"
-import { Corporation, Match, MatchRanking, User } from "@prisma/client"
+import {
+  Corporation,
+  Match,
+  MatchRanking,
+  Tournament,
+  User,
+} from "@prisma/client"
 import format from "date-fns/format"
 import Link from "next/dist/client/link"
 import { FC, useCallback } from "react"
@@ -13,6 +19,7 @@ interface ListOfMatchesProps {
     matchRankings: (MatchRanking & {
       user: User
       corporation?: Corporation | null
+      tournament?: Tournament | null
     })[]
   })[]
 }
@@ -39,13 +46,24 @@ const ListOfMatches: FC<ListOfMatchesProps> = ({ matches }) => {
               pb="5"
               pt="3"
             >
-              <Text mb={4} fontWeight="bold">
-                Match{" - "}
-                <time>
-                  {format(new Date(m.createdAt || 0), "dd MMM, yyyy")}
-                </time>
-              </Text>
-
+              <Flex
+                gap={4}
+                alignItems="center"
+                justifyContent="space-between"
+                mb={4}
+              >
+                <Text fontWeight="bold">
+                  Match{" - "}
+                  <time>
+                    {format(new Date(m.createdAt || 0), "dd MMM, yyyy")}
+                  </time>
+                </Text>
+                {m.matchRankings[0].tournament && (
+                  <Tag size="sm" borderRadius="full">
+                    {m.matchRankings[0].tournament.name}
+                  </Tag>
+                )}
+              </Flex>
               <Stack spacing={3}>
                 {m.matchRankings.map((mr) => (
                   <Flex

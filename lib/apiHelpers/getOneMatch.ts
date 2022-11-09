@@ -1,4 +1,10 @@
-import { Corporation, Match, MatchRanking, User } from "@prisma/client"
+import {
+  Corporation,
+  Match,
+  MatchRanking,
+  Tournament,
+  User,
+} from "@prisma/client"
 import { string } from "yup"
 
 import prisma from "../prisma"
@@ -10,6 +16,7 @@ export const getOneMatch = async (
       matchRankings: (MatchRanking & {
         user: User
         corporation: Corporation | null
+        tournament: Tournament | null
       })[]
     })
   | null
@@ -19,7 +26,9 @@ export const getOneMatch = async (
   return await prisma.match.findUnique({
     where: { id },
     include: {
-      matchRankings: { include: { corporation: true, user: true } },
+      matchRankings: {
+        include: { corporation: true, user: true, tournament: true },
+      },
     },
   })
 }

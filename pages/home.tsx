@@ -1,5 +1,11 @@
 import { Box } from "@chakra-ui/react"
-import { Corporation, Match, MatchRanking, User } from "@prisma/client"
+import {
+  Corporation,
+  Match,
+  MatchRanking,
+  Tournament,
+  User,
+} from "@prisma/client"
 import type { NextPage } from "next"
 import { useRouter } from "next/router"
 import { compose, defaultTo, filter, take } from "ramda"
@@ -15,9 +21,10 @@ import {
 } from "../components"
 import LatestWinners from "../components/LatestWinners"
 import LeagueTable from "../components/LeagueTable"
+import { getMatches } from "../lib/apiHelpers/getMatches"
 import { getFetcher } from "../lib/getFetcher"
 import prisma from "../lib/prisma"
-import { getUsersInTournament } from "./api/tournament"
+import { getUsersInTournament } from "./api/tournament/users"
 
 interface HomeProps {
   users: (User & { MatchRanking: MatchRanking[] })[]
@@ -25,11 +32,15 @@ interface HomeProps {
     matchRankings: (MatchRanking & {
       user: User
       corporation: Corporation | null
+      tournament: Tournament | null
     })[]
   })[]
-  tournamentUsers: (User & { points: number; position: number } & {
-    MatchRanking: MatchRanking[]
-  })[]
+  tournamentUsers: {
+    tournament: Tournament | null
+    usersPosition: (User & { points: number; position: number } & {
+      MatchRanking: MatchRanking[]
+    })[]
+  }
 }
 
 const HomePage: NextPage<HomeProps> = ({
@@ -47,8 +58,8 @@ const HomePage: NextPage<HomeProps> = ({
       fallbackData: matchesData,
     }
   )
-  const { data: tournamentUsers } = useSWR<HomeProps["tournamentUsers"]>(
-    "/api/tournament",
+  const { data: tournament } = useSWR<HomeProps["tournamentUsers"]>(
+    "/api/tournament/users",
     getFetcher,
     { fallbackData: tournamentUsersData }
   )
@@ -71,18 +82,19 @@ const HomePage: NextPage<HomeProps> = ({
 
   const navigateToMatches = useCallback(() => router.push("/match"), [router])
 
-  if (!usersToDisplay || !matches || !tournamentUsers)
+  if (!usersToDisplay || !matches || !tournament)
     return <div>No users or matches found</div>
 
   if (!matches[0]?.matchRankings) {
     return <p>No Match rankings</p>
   }
-
   return (
     <Box mt="1">
-      <PageSection heading="2022/23 Fall Season 🎃">
-        <LeagueTable users={tournamentUsers} />
-      </PageSection>
+      {tournament?.tournament?.name && (
+        <PageSection heading={tournament.tournament.name}>
+          <LeagueTable users={tournament.usersPosition} />
+        </PageSection>
+      )}
       <PageSection heading="Latest Winners">
         <LatestWinners matches={matches} />
       </PageSection>
@@ -105,20 +117,14 @@ export default withLayout(HomePage)
 
 export async function getStaticProps() {
   const [matches, users] = await Promise.all([
-    prisma.match.findMany({
-      include: {
-        matchRankings: { include: { user: true, corporation: true } },
-      },
-      orderBy: { createdAt: "desc" },
-    }),
+    getMatches(),
     prisma.user.findMany({
       orderBy: { rank: "desc" },
       include: { MatchRanking: true },
     }),
   ])
-  const tournamentUsers = await getUsersInTournament(
-    Math.floor(new Date("2022-10-22").getTime())
-  )
+
+  const tournamentUsers = await getUsersInTournament()
 
   return {
     props: {

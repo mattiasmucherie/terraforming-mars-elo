@@ -1,5 +1,11 @@
-import { Text } from "@chakra-ui/react"
-import { Corporation, Match, MatchRanking, User } from "@prisma/client"
+import { Flex, Stack, Tag, Text } from "@chakra-ui/react"
+import {
+  Corporation,
+  Match,
+  MatchRanking,
+  Tournament,
+  User,
+} from "@prisma/client"
 import format from "date-fns/format"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { useRouter } from "next/router"
@@ -17,6 +23,7 @@ interface MatchProps {
     | (Match & {
         matchRankings: (MatchRanking & {
           corporation: Corporation | null
+          tournament: Tournament | null
           user: User
         })[]
       })
@@ -40,9 +47,21 @@ const MatchPage: NextPage<MatchProps> = ({ match: matchData }) => {
 
 export default withLayout(MatchPage, (props) => ({
   heading: () => (
-    <Heading>
-      Match - {format(new Date(props.match?.createdAt || 0), "dd MMM, yyyy")}
-    </Heading>
+    <>
+      <Stack>
+        <Heading>
+          Match -{" "}
+          {format(new Date(props.match?.createdAt || 0), "dd MMM, yyyy")}
+        </Heading>
+        {props.match?.matchRankings[0]?.tournament && (
+          <Flex>
+            <Tag size="md" borderRadius="full">
+              {props.match.matchRankings[0].tournament.name}
+            </Tag>
+          </Flex>
+        )}
+      </Stack>
+    </>
   ),
 }))
 

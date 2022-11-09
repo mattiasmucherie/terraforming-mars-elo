@@ -39,6 +39,16 @@ model MatchRanking {
   corporationId String?
   standing      Int
   victoryPoints Int?
+  tournament    Tournament?  @relation(fields: [tournamentId], references: [id])
+  tournamentId  String?
+}
+
+model Tournament {
+  id           String         @id @default(uuid())
+  name         String
+  startDate    DateTime       @db.Timestamp(6)
+  endDate      DateTime       @db.Timestamp(6)
+  MatchRanking MatchRanking[]
 }
 
 model Corporation {

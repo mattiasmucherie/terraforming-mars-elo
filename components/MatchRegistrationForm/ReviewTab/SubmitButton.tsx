@@ -2,30 +2,27 @@ import { ArrowForwardIcon } from "@chakra-ui/icons"
 import { Button } from "@chakra-ui/react"
 import axios from "axios"
 import { useRouter } from "next/router"
-import { applySpec, map, path, prop } from "ramda"
 import React, { FC, useCallback, useState } from "react"
 
 interface SubmitButtonProps {
   stats: any
+  tournamentId: string | null
 }
 
-const SubmitButton: FC<SubmitButtonProps> = ({ stats }) => {
+const SubmitButton: FC<SubmitButtonProps> = ({ stats, tournamentId }) => {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   const handleSubmit = useCallback(async () => {
     setIsLoading(true)
-
     try {
-      const data = map(
-        applySpec({
-          megaCredits: prop("megaCredits"),
-          victoryPoints: prop("victoryPoints"),
-          corporationId: path(["corporation", "id"]),
-          userId: path(["player", "id"]),
-        }),
-        stats
-      )
+      const data = stats.map((s: any) => ({
+        megaCredits: s.megaCredits,
+        victoryPoints: s.victoryPoints,
+        userId: s.player.id,
+        corporationId: s.corporation.id,
+        tournamentId,
+      }))
       await axios.post("/api/match/new", data)
       router.push("/")
     } catch (e) {
@@ -33,7 +30,7 @@ const SubmitButton: FC<SubmitButtonProps> = ({ stats }) => {
     } finally {
       setIsLoading(false)
     }
-  }, [router, stats])
+  }, [router, stats, tournamentId])
 
   return (
     <Button

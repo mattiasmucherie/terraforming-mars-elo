@@ -8,6 +8,7 @@ import NextButton from "./NextButton"
 import PlayersTab from "./PlayersTab"
 import ReviewTab from "./ReviewTab"
 import StatsTab from "./StatsTab"
+import { PlayerData } from "./StatsTab/Player"
 import TabPanel from "./TabPanel"
 
 const Container = styled.div`
@@ -22,20 +23,21 @@ interface MatchFormProps {
 }
 
 const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
-  const [tabIndex, setTabIndex] = useState<number>(0)
-  const [isPlayerTabValid, setIsPlayerTabValid] = useState<boolean>(false)
-  const [isStatsTabValid, setIsStatsTabValid] = useState<boolean>(false)
+  const [tabIndex, setTabIndex] = useState(0)
+  const [isPlayerTabValid, setIsPlayerTabValid] = useState(false)
+  const [isStatsTabValid, setIsStatsTabValid] = useState(false)
   const isPlayerAndStatsTabValid = useMemo(
     () => isPlayerTabValid && isStatsTabValid,
     [isPlayerTabValid, isStatsTabValid]
   )
 
   const [selectedPlayers, setSelectedPlayers] = useState<User[]>([])
-  const [stats, setStats] = useState()
+  const [stats, setStats] = useState<({ player: User } & PlayerData)[]>([])
 
   const handleTabChanged = (index: number) => setTabIndex(index)
 
-  const handleStatsChanged = (stats: any) => setStats(stats)
+  const handleStatsChanged = (stats: ({ player: User } & PlayerData)[]) =>
+    setStats(stats)
 
   return (
     <Container>

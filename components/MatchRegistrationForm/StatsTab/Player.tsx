@@ -12,23 +12,24 @@ import {
 } from "@chakra-ui/react"
 import { Corporation, User } from "@prisma/client"
 import { assoc } from "ramda"
-import React, { FC, useCallback, useEffect, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 
 import CorporationLogo from "../../CorporationLogo"
 import CorporationSelector from "../../CorporationSelector"
 import NextAvatar from "../../NextAvatar"
 
-interface FormData {
-  name: string
-  corporation: Corporation
-  victoryPoints: number
+export interface PlayerData {
+  corporation: Corporation | null
+  victoryPoints?: number
+  megaCredits?: number
+  isTied: boolean
 }
 
 interface PlayerProps {
   player: User
   corporations: Corporation[]
-  onChange: (formData: FormData) => void
-  isTied?: boolean
+  onChange: (formData: { player: User } & PlayerData) => void
+  isTied: boolean
 }
 
 const Player: FC<PlayerProps> = ({
@@ -38,10 +39,9 @@ const Player: FC<PlayerProps> = ({
   onChange,
 }) => {
   const { name, image } = player
-  const [formData, setFormData] = useState<any>({
-    name: "",
-    corporation: "",
-    victoryPoints: "",
+  const [formData, setFormData] = useState<PlayerData>({
+    corporation: null,
+    isTied: isTied,
   })
   const {
     isOpen: isCorpSelectorOpen,
@@ -57,22 +57,20 @@ const Player: FC<PlayerProps> = ({
     setFormData(assoc("isTied", isTied))
   }, [isTied])
 
-  const handleCorporationChanged = useCallback(
-    (corp: Corporation) => setFormData(assoc("corporation", corp)),
-    []
-  )
+  const handleCorporationChanged = (corp: Corporation) =>
+    setFormData(assoc("corporation", corp))
 
-  const handleVictoryPointChanged = useCallback((value: string) => {
+  const handleVictoryPointChanged = (value: string) => {
     const vp = parseInt(value)
-    const newValue = isNaN(vp) ? "" : vp
+    const newValue = isNaN(vp) ? 0 : vp
     setFormData(assoc("victoryPoints", newValue))
-  }, [])
+  }
 
-  const handleMegaCreditChanged = useCallback((value: string) => {
+  const handleMegaCreditChanged = (value: string) => {
     const mc = parseInt(value)
-    const newValue = isNaN(mc) ? "" : mc
+    const newValue = isNaN(mc) ? undefined : mc
     setFormData(assoc("megaCredits", newValue))
-  }, [])
+  }
 
   return (
     <Box borderRadius={8} border="1px" borderColor="gray.100" p={3}>

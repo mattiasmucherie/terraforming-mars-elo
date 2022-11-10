@@ -1,14 +1,16 @@
 import { Box, Divider, Flex, Text } from "@chakra-ui/react"
+import { User } from "@prisma/client"
 import React, { FC } from "react"
 
 import CorporationLogo from "../../CorporationLogo"
 import NextAvatar from "../../NextAvatar"
+import { PlayerData } from "../StatsTab/Player"
 import MegaCredits from "./MegaCredits"
 import PositionBadge from "./PositionBadge"
 import VictoryPoints from "./VictoryPoints"
 
 interface PlayerProps {
-  stats: any
+  stats: { player: User } & PlayerData
   position: number
 }
 

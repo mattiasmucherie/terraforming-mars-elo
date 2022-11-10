@@ -1,4 +1,5 @@
 import { Flex, Stack } from "@chakra-ui/react"
+import { User } from "@prisma/client"
 import {
   addIndex,
   compose,
@@ -10,12 +11,13 @@ import {
 } from "ramda"
 import React, { FC, useState } from "react"
 
+import { PlayerData } from "../StatsTab/Player"
 import Player from "./Player"
 import SubmitButton from "./SubmitButton"
 import TournamentPicker from "./TournamentPicker"
 
 interface ReviewTabProps {
-  stats: any
+  stats: ({ player: User } & PlayerData)[]
 }
 
 const renderPlayers = compose<any, any, any, any>(

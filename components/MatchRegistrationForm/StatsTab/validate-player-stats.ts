@@ -1,6 +1,10 @@
-const validatePlayerStats = (playerStats: any) => {
+import { User } from "@prisma/client"
+
+import { PlayerData } from "./Player"
+
+const validatePlayerStats = (playerStats: { player: User } & PlayerData) => {
   const { player, victoryPoints, corporation, isTied, megaCredits } =
-    playerStats || {}
+    playerStats
 
   if (!player) {
     return false
@@ -14,11 +18,7 @@ const validatePlayerStats = (playerStats: any) => {
     return false
   }
 
-  if (isTied && !megaCredits) {
-    return false
-  }
-
-  return true
+  return !(isTied && !megaCredits)
 }
 
 export default validatePlayerStats

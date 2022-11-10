@@ -3,14 +3,14 @@ import { Corporation, User } from "@prisma/client"
 import { assoc, map, pick, pluck, values } from "ramda"
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react"
 
-import Player from "./Player"
+import Player, { PlayerData } from "./Player"
 import validateStats from "./validate-stats"
 
 interface StatsTabProps {
   players: User[]
   corporations: Corporation[]
   onIsValidChanged: (v: boolean) => void
-  onStatsChanged: (stats: object) => void
+  onStatsChanged: (stats: ({ player: User } & PlayerData)[]) => void
 }
 
 const StatsTab: FC<StatsTabProps> = ({
@@ -19,12 +19,14 @@ const StatsTab: FC<StatsTabProps> = ({
   onIsValidChanged,
   onStatsChanged,
 }) => {
-  const [statsMap, setStatsMap] = useState({})
-  const stats = useMemo<Array<any>>(() => values(statsMap), [statsMap])
+  const [statsMap, setStatsMap] = useState<
+    Record<string, { player: User } & PlayerData>
+  >({})
+  const stats = useMemo(() => values(statsMap), [statsMap])
   const isValid = useMemo(() => validateStats(statsMap), [statsMap])
 
   useEffect(() => {
-    const playerIds = pluck<any, any>("id", players)
+    const playerIds = pluck("id", players)
     setStatsMap(pick(playerIds))
   }, [players])
 
@@ -36,20 +38,23 @@ const StatsTab: FC<StatsTabProps> = ({
     onIsValidChanged(isValid)
   }, [onIsValidChanged, isValid])
 
-  const handlePlayerStatsChanged = useCallback((playerStats: any) => {
-    setStatsMap(assoc(playerStats.player.id, playerStats))
-  }, [])
+  const handlePlayerStatsChanged = useCallback(
+    (playerStats: { player: User } & PlayerData) => {
+      setStatsMap(assoc(playerStats.player.id, playerStats))
+    },
+    []
+  )
 
   const isTied = useCallback(
     (player: User) => {
-      const stat = stats.find((s: any) => s.player.id === player.id)
+      const stat = stats.find((s) => s.player.id === player.id)
 
       if (!stat || !stat.victoryPoints) {
         return false
       }
 
       const playersWithSameVpAsPlayer = stats.filter(
-        (p: any) => p.victoryPoints === stat.victoryPoints
+        (p) => p.victoryPoints === stat.victoryPoints
       )
 
       return playersWithSameVpAsPlayer.length > 1

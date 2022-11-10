@@ -32,7 +32,7 @@ jobs:
         ports:
           - 5432:5432
     steps:
-      # Downloads a copy of the code in your repository before running CI tests
+      # Downloads a copy of the code in your repository before running CI tests.
       - name: Check out repository code
         uses: actions/checkout@v3
       - uses: actions/setup-node@v3

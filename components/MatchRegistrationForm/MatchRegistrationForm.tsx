@@ -1,5 +1,5 @@
 import { Tab, TabList, TabPanels, Tabs } from "@chakra-ui/react"
-import { Corporation, User } from "@prisma/client"
+import { Corporation, Tournament, User } from "@prisma/client"
 import { FC, useMemo, useState } from "react"
 import styled from "styled-components"
 
@@ -33,6 +33,7 @@ const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
 
   const [selectedPlayers, setSelectedPlayers] = useState<User[]>([])
   const [stats, setStats] = useState<({ player: User } & PlayerData)[]>([])
+  const [tournament, setTournament] = useState<Tournament | null>(null)
 
   const handleTabChanged = (index: number) => setTabIndex(index)
 
@@ -77,6 +78,7 @@ const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
                 corporations={corporations}
                 onIsValidChanged={setIsStatsTabValid}
                 onStatsChanged={handleStatsChanged}
+                setTournament={setTournament}
               />
               <NextButton
                 isDisabled={!isPlayerAndStatsTabValid}
@@ -85,7 +87,7 @@ const MatchRegistrationForm: FC<MatchFormProps> = ({ users, corporations }) => {
             </TabPanel>
 
             <TabPanel>
-              <ReviewTab stats={stats} />
+              <ReviewTab stats={stats} tournament={tournament} />
             </TabPanel>
           </TabPanels>
         </Tabs>

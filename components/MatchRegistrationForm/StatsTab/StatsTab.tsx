@@ -1,9 +1,18 @@
 import { Stack } from "@chakra-ui/react"
-import { Corporation, User } from "@prisma/client"
+import { Corporation, Tournament, User } from "@prisma/client"
 import { assoc, map, pick, pluck, values } from "ramda"
-import React, { FC, useCallback, useEffect, useMemo, useState } from "react"
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 
 import Player, { PlayerData } from "./Player"
+import TournamentPicker from "./TournamentPicker"
 import validateStats from "./validate-stats"
 
 interface StatsTabProps {
@@ -11,6 +20,7 @@ interface StatsTabProps {
   corporations: Corporation[]
   onIsValidChanged: (v: boolean) => void
   onStatsChanged: (stats: ({ player: User } & PlayerData)[]) => void
+  setTournament: Dispatch<SetStateAction<Tournament | null>>
 }
 
 const StatsTab: FC<StatsTabProps> = ({
@@ -18,6 +28,7 @@ const StatsTab: FC<StatsTabProps> = ({
   corporations,
   onIsValidChanged,
   onStatsChanged,
+  setTournament,
 }) => {
   const [statsMap, setStatsMap] = useState<
     Record<string, { player: User } & PlayerData>
@@ -76,6 +87,7 @@ const StatsTab: FC<StatsTabProps> = ({
         ),
         players
       )}
+      <TournamentPicker setTournament={setTournament} />
     </Stack>
   )
 }

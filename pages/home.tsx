@@ -8,7 +8,7 @@ import {
 } from "@prisma/client"
 import type { NextPage } from "next"
 import { useRouter } from "next/router"
-import { compose, defaultTo, filter, take } from "ramda"
+import { take } from "ramda"
 import { useCallback, useMemo } from "react"
 import useSWR from "swr"
 
@@ -65,11 +65,7 @@ const HomePage: NextPage<HomeProps> = ({
   )
 
   const usersToDisplay = useMemo(
-    () =>
-      compose<any, any, any>(
-        filter((u: any) => u.MatchRanking.length),
-        defaultTo([])
-      )(users),
+    () => (users ? users.filter((u) => u.MatchRanking.length) : []),
     [users]
   )
   const router = useRouter()

@@ -1,13 +1,10 @@
-import { compose, equals, filter, length, map, values } from "ramda"
+import { User } from "@prisma/client"
 
+import { PlayerData } from "./Player"
 import validatePlayerStats from "./validate-player-stats"
 
-const validateStats = compose<any, any, any, any, any, boolean>(
-  equals(0),
-  length,
-  filter(equals(false)),
-  values,
-  map(validatePlayerStats)
-)
+const validateStats = (
+  statsMap: Record<string, { player: User } & PlayerData>
+) => !Object.values(statsMap).map(validatePlayerStats).includes(false)
 
 export default validateStats

@@ -21,6 +21,12 @@ const title = (t: TooltipItem<"line">[]) => {
   return "Game: " + t[0].label
 }
 
+interface RawTooltip {
+  x: number
+  y: number
+  standing: number
+}
+
 export const Config: ChartOptions<"line"> = {
   animation: false,
   plugins: {
@@ -28,7 +34,8 @@ export const Config: ChartOptions<"line"> = {
       position: "bottom",
     },
     tooltip: {
-      itemSort: (a: any, b: any) => a.raw.standing - b.raw.standing,
+      itemSort: (a, b) =>
+        (a.raw as RawTooltip).standing - (b.raw as RawTooltip).standing,
       callbacks: {
         footer: footer,
         title: title,

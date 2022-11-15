@@ -4,7 +4,7 @@ import corporationLogos from "./corporation-logos"
 
 interface CoporationLogoProps {
   id?: string
-  size?: number
+  size: number
   onClick?: () => void
 }
 

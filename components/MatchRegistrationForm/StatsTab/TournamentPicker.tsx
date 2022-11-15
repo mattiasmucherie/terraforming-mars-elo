@@ -7,9 +7,9 @@ import useSWR from "swr"
 import { getFetcher } from "../../../lib/getFetcher"
 
 interface TournamentPickerProps {
-  setTournamentId: Dispatch<SetStateAction<string | null>>
+  setTournament: Dispatch<SetStateAction<Tournament | null>>
 }
-const TournamentPicker: FC<TournamentPickerProps> = ({ setTournamentId }) => {
+const TournamentPicker: FC<TournamentPickerProps> = ({ setTournament }) => {
   const [checked, setChecked] = useState(true)
   const { data } = useSWR<Tournament | null>(
     "/api/tournament/current",
@@ -17,13 +17,13 @@ const TournamentPicker: FC<TournamentPickerProps> = ({ setTournamentId }) => {
   )
   useEffect(() => {
     if (checked && data) {
-      setTournamentId(data.id)
+      setTournament(data)
     } else if (!checked && data) {
-      setTournamentId(null)
+      setTournament(null)
     } else {
-      setTournamentId(null)
+      setTournament(null)
     }
-  }, [data, checked, setTournamentId])
+  }, [data, checked, setTournament])
 
   if (!data || !data) {
     return null

@@ -1,4 +1,7 @@
-const corporationLogs: any = {
+const corporationLogs: Record<
+  string,
+  ({ size }: { size: number }) => JSX.Element
+> = {
   "00fc0717-e38c-4c9e-aa97-ebe477e0b0e1": ({ size }: { size: number }) => (
     <span
       style={{

@@ -1,9 +1,10 @@
-import { useTheme } from "@chakra-ui/react"
+import { useTheme, WithCSSVar } from "@chakra-ui/react"
+import type { Dict } from "@chakra-ui/utils"
 import React, { FC, ReactNode } from "react"
 import styled from "styled-components"
 
 interface Props {
-  chakraTheme: { breakpoints: { md: string } }
+  chakraTheme: WithCSSVar<Dict>
 }
 
 const Container = styled.div`
@@ -22,7 +23,7 @@ interface FullWidthContainerProps {
 }
 
 const FullWidthContainer: FC<FullWidthContainerProps> = ({ children }) => {
-  const chakraTheme = useTheme() as any
+  const chakraTheme = useTheme()
   return <Container chakraTheme={chakraTheme}>{children}</Container>
 }
 

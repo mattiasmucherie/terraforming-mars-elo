@@ -1,23 +1,29 @@
-import { User } from "@prisma/client"
-import { compose, defaultTo, descend, filter, prop, sort, take } from "ramda"
+import { MatchRanking, User } from "@prisma/client"
+import { compose, descend, filter, prop, sort, take } from "ramda"
 import React, { FC, useMemo } from "react"
 
 import PlayerRanking from "./PlayerRanking"
 
-const sortByRank = sort(descend(prop("rank") as any) as any)
+const sortByRank = sort<UserAndMatchRank>(descend(prop("rank")))
+
+type UserAndMatchRank = User & { MatchRanking: MatchRanking[] }
 
 interface EloTopListProps {
-  users: User[]
+  users: UserAndMatchRank[]
 }
 
 const EloTopList: FC<EloTopListProps> = ({ users }) => {
   const topPlayers = useMemo(
     () =>
-      compose<any, any, any, any, any>(
+      compose<
+        [UserAndMatchRank[]],
+        UserAndMatchRank[],
+        UserAndMatchRank[],
+        UserAndMatchRank[]
+      >(
         take(3),
         sortByRank,
-        filter((u: any) => u.MatchRanking.length),
-        defaultTo([])
+        filter((u: UserAndMatchRank) => !!u.MatchRanking.length)
       )(users),
     [users]
   )

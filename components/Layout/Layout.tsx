@@ -1,4 +1,5 @@
 import { Box, Flex, IconButton } from "@chakra-ui/react"
+import type { IconDefinition } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { isEmpty } from "ramda"
 import React, { FC, ReactNode } from "react"
@@ -24,7 +25,12 @@ const Actions = styled(Flex)`
 type LayoutProps = {
   children: ReactNode
   heading?: string | (() => JSX.Element)
-  actions?: Array<any>
+  actions?: Array<{
+    ariaLabel: string
+    icon: IconDefinition
+    onClick: () => Promise<boolean>
+    colorScheme: string
+  }>
 }
 
 const Layout: FC<LayoutProps> = ({ children, heading, actions = [] }) => {

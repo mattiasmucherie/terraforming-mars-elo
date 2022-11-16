@@ -99,7 +99,15 @@ export function DataTable<Data extends object>({
                     </Stat>
                   </Td>
                 ) : (
-                  <Td key={cell.id} isNumeric={meta?.isNumeric}>
+                  <Td
+                    key={cell.id}
+                    isNumeric={meta?.isNumeric}
+                    sx={{
+                      maxWidth: "150px",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </Td>
                 )

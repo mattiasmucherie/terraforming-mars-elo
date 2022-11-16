@@ -25,11 +25,11 @@ const CorporationTable: FC<CorporationTableProps> = ({ corporations }) => {
           ? `${Math.round((c.wins / c.matchRanking.length) * 100)} %`
           : "-"
       },
-      header: "Win Rate",
+      header: "W/R",
     }),
     columnHelper.accessor("matchRanking", {
       cell: (info) => info.getValue().length,
-      header: "# Matches",
+      header: "#",
       meta: {
         isNumeric: true,
       },

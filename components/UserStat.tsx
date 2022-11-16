@@ -1,37 +1,26 @@
-import { ChevronDownIcon } from "@chakra-ui/icons"
+import { ArrowDownIcon, ArrowUpIcon, ChevronDownIcon } from "@chakra-ui/icons"
 import {
   Box,
   Button,
   Flex,
+  Heading,
   Menu,
   MenuButton,
   MenuList,
   SimpleGrid,
+  Stack,
   Text,
 } from "@chakra-ui/react"
-import {
-  Stat,
-  StatArrow,
-  StatHelpText,
-  StatLabel,
-  StatNumber,
-} from "@chakra-ui/stat"
-import { faGear } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Stat, StatArrow, StatHelpText, StatNumber } from "@chakra-ui/stat"
 import { Corporation, Match, MatchRanking, User } from "@prisma/client"
 import React, { FC } from "react"
-import styled from "styled-components"
 
 import { getCorporationStat } from "../utils/getCorporationStat"
+import { getEloChangeLastGames } from "../utils/getEloChangeLastGames"
 import { getFavoriteCorporation } from "../utils/getFavoriteCorporation"
 import EditProfilePictureModal from "./EditProfilePictureModal"
 import EditUsernameModal from "./EditUsernameModal"
 import NextAvatar from "./NextAvatar"
-
-const IconContainer = styled.div`
-  width: 14px;
-  font-size: 18px;
-`
 
 interface UserStatProps {
   user: User & {
@@ -44,22 +33,52 @@ interface UserStatProps {
 const UserStat: FC<UserStatProps> = ({ user }) => {
   const mostPlayed = getFavoriteCorporation(user)
   const [best, worst] = getCorporationStat(user)
+  const lastFourGames = getEloChangeLastGames(user.matches)
   return (
     <>
-      <Flex px="2" pb="4" alignItems="start" justifyContent="space-between">
-        <Flex align="start" gap={2}>
-          <Box p="2" flexShrink={0}>
-            <NextAvatar
-              width="64px"
-              height="64px"
-              alt={user.name}
-              src={user.image ?? ""}
-            ></NextAvatar>
-          </Box>
-          <Box>
+      <Box p="4">
+        <Stack align="start" gap={2}>
+          <NextAvatar
+            width="128px"
+            height="128px"
+            alt={user.name}
+            src={user.image ?? ""}
+          ></NextAvatar>
+
+          <Box width="100%">
+            <Flex alignItems="center" justifyContent="space-between" gap={4}>
+              <Box>
+                <Heading as="h2" size="lg">
+                  {user.name}
+                </Heading>
+              </Box>
+              <Box>
+                <Menu>
+                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                    Edit
+                  </MenuButton>
+                  <MenuList>
+                    <EditUsernameModal user={user} />
+                    <EditProfilePictureModal user={user} />
+                  </MenuList>
+                </Menu>
+              </Box>
+            </Flex>
             <Stat>
-              <StatLabel>{user.name}</StatLabel>
-              <StatNumber>{Math.round(user.rank)}</StatNumber>
+              <Flex alignItems="center" gap={4}>
+                <StatNumber>{Math.round(user.rank)}</StatNumber>
+                <Flex gap={2}>
+                  <Text color={lastFourGames >= 0 ? `green.600` : `red.600`}>
+                    {lastFourGames >= 0 ? (
+                      <ArrowUpIcon sx={{ transform: "rotate(45deg)" }} />
+                    ) : (
+                      <ArrowDownIcon sx={{ transform: "rotate(-45deg)" }} />
+                    )}
+                    {lastFourGames}
+                  </Text>
+                  <Text> on last four games</Text>
+                </Flex>
+              </Flex>
               <StatHelpText>
                 <SimpleGrid>
                   <Box>
@@ -87,19 +106,8 @@ const UserStat: FC<UserStatProps> = ({ user }) => {
               </StatHelpText>
             </Stat>
           </Box>
-        </Flex>
-        <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-            <IconContainer>
-              <FontAwesomeIcon icon={faGear} />
-            </IconContainer>
-          </MenuButton>
-          <MenuList>
-            <EditUsernameModal user={user} />
-            <EditProfilePictureModal user={user} />
-          </MenuList>
-        </Menu>
-      </Flex>
+        </Stack>
+      </Box>
     </>
   )
 }

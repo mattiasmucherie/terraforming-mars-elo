@@ -7,13 +7,13 @@ test.describe("New Match", () => {
 
     const eloTable = await page.locator('[data-test-id="elo-table"]')
     await expect(eloTable.locator("tr >> nth=1 >> td >> nth=2")).toHaveText(
-      "1035"
+      "1049"
     )
     await expect(eloTable.locator("tr >> nth=2 >> td >> nth=2")).toHaveText(
-      "1011"
+      "1004"
     )
     await expect(eloTable.locator("tr >> nth=3 >> td >> nth=2")).toHaveText(
-      "994"
+      "982"
     )
 
     await page.locator('button[name="Menu button"]').click()
@@ -90,13 +90,13 @@ test.describe("New Match", () => {
 
     const newEloTable = await page.locator('[data-test-id="elo-table"]')
     await expect(newEloTable.locator("tr >> nth=1 >> td >> nth=2")).toHaveText(
-      "1056"
+      "1069"
     )
     await expect(newEloTable.locator("tr >> nth=2 >> td >> nth=2")).toHaveText(
-      "1018"
+      "1012"
     )
     await expect(newEloTable.locator("tr >> nth=3 >> td >> nth=2")).toHaveText(
-      "987"
+      "975"
     )
   })
   test("should create a new match and update elo accordingly with drawn games", async ({
@@ -106,13 +106,13 @@ test.describe("New Match", () => {
 
     const eloTable = await page.locator('[data-test-id="elo-table"]')
     await expect(eloTable.locator("tr >> nth=1 >> td >> nth=2")).toHaveText(
-      "1056"
+      "1069"
     )
     await expect(eloTable.locator("tr >> nth=2 >> td >> nth=2")).toHaveText(
-      "1018"
+      "1012"
     )
     await expect(eloTable.locator("tr >> nth=3 >> td >> nth=2")).toHaveText(
-      "987"
+      "975"
     )
 
     await page.locator('button[name="Menu button"]').click()
@@ -193,13 +193,13 @@ test.describe("New Match", () => {
 
     const newEloTable = await page.locator('[data-test-id="elo-table"]')
     await expect(newEloTable.locator("tr >> nth=1 >> td >> nth=2")).toHaveText(
-      "1059"
+      "1080"
     )
     await expect(newEloTable.locator("tr >> nth=2 >> td >> nth=2")).toHaveText(
-      "1041"
+      "1028"
     )
     await expect(newEloTable.locator("tr >> nth=3 >> td >> nth=2")).toHaveText(
-      "980"
+      "967"
     )
   })
 })

@@ -69,7 +69,7 @@ async function main() {
     {
       userId: userData[0].id,
       corporationId: corporationData[0].id,
-      victoryPoints: 59,
+      victoryPoints: 57,
       tournamentId: tournament.id,
     },
     {
@@ -135,7 +135,7 @@ async function main() {
     {
       userId: userData[2].id,
       corporationId: corporationData[6].id,
-      victoryPoints: 58,
+      victoryPoints: 57,
       tournamentId: tournament.id,
     },
     {

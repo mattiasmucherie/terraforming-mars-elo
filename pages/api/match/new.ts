@@ -49,7 +49,7 @@ export const newMatch = async (
   // Calculate their new ranking
   const newRanking = elo(
     users.map((u) => u.rank),
-    1
+    names.map((n) => n.victoryPoints)
   )
   // Create match
   await prisma.match.create({

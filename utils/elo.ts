@@ -1,4 +1,4 @@
-export const elo = (players: number[], exBase = 1.25) => {
+export const elo = (players: number[], VP: number[]) => {
   const amountOfPlayers = players.length
   const expected = players.map((p, i) => {
     const sumPart = players.reduce((prev, acc, ri) => {
@@ -8,22 +8,13 @@ export const elo = (players: number[], exBase = 1.25) => {
     return sumPart / ((amountOfPlayers * (amountOfPlayers - 1)) / 2)
   })
 
-  const scores = players.map((p, i) => {
-    if (exBase === 1) {
-      return (
-        (amountOfPlayers - (i + 1)) /
-        ((amountOfPlayers * (amountOfPlayers - 1)) / 2)
-      )
-    }
-    return (
-      (Math.pow(exBase, amountOfPlayers - (i + 1)) - 1) /
-      players.reduce(
-        (prev, acc, ri) =>
-          prev + Math.pow(exBase, amountOfPlayers - (ri + 1)) - 1,
-        0
-      )
-    )
+  const sumForScores = VP.reduce((acc, curr) => {
+    return acc + curr - Math.min(...VP)
+  }, 0)
+  const scores = VP.map((v) => {
+    return (v - Math.min(...VP)) / sumForScores
   })
+
   return players.map(
     (p, i) => p + 32 * (amountOfPlayers - 1) * (scores[i] - expected[i])
   )

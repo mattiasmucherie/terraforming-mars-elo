@@ -23,7 +23,17 @@ export const getUsersInTournament = async () => {
     points: 0,
     position: 1,
   }))
+  const mostGames = users.reduce((prev, curr) => {
+    return prev.MatchRanking.length > curr.MatchRanking.length ? prev : curr
+  }).MatchRanking.length
 
+  users.forEach((u) => {
+    u.MatchRanking.sort((m1, m2) => m1.standing - m2.standing)
+    const amountOfGames = Math.floor((mostGames * 2) / 3)
+    if (amountOfGames < u.MatchRanking.length) {
+      u.MatchRanking = u.MatchRanking.slice(0, amountOfGames)
+    }
+  })
   const matches = await prisma.match.findMany({
     where: { matchRankings: { some: { tournamentId: latestTournament.id } } },
     include: { matchRankings: true },
@@ -35,7 +45,10 @@ export const getUsersInTournament = async () => {
     m.matchRankings.forEach((mr) => {
       const points = amountOfPlayer - mr.standing + 1
       const userIndex = users.findIndex((u) => u.id === mr.userId)
-      if (userIndex > -1) {
+      const isInTheirTopMatches = users[userIndex].MatchRanking.find(
+        (umr) => umr.id === mr.id
+      )
+      if (userIndex > -1 && !!isInTheirTopMatches) {
         users[userIndex] = {
           ...users[userIndex],
           points: users[userIndex].points + points,

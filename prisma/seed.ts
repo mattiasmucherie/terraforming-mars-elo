@@ -145,6 +145,118 @@ async function main() {
       tournamentId: tournament.id,
     },
   ])
+  await newMatch([
+    {
+      userId: userData[3].id,
+      corporationId: corporationData[3].id,
+      victoryPoints: 59,
+      tournamentId: tournament.id,
+    },
+    {
+      userId: userData[2].id,
+      corporationId: corporationData[6].id,
+      victoryPoints: 57,
+      tournamentId: tournament.id,
+    },
+  ])
+  await newMatch([
+    {
+      userId: userData[3].id,
+      corporationId: corporationData[3].id,
+      victoryPoints: 59,
+      tournamentId: tournament.id,
+    },
+    {
+      userId: userData[2].id,
+      corporationId: corporationData[6].id,
+      victoryPoints: 57,
+      tournamentId: tournament.id,
+    },
+  ])
+  await newMatch([
+    {
+      userId: userData[3].id,
+      corporationId: corporationData[3].id,
+      victoryPoints: 59,
+      tournamentId: tournament.id,
+    },
+    {
+      userId: userData[2].id,
+      corporationId: corporationData[6].id,
+      victoryPoints: 57,
+      tournamentId: tournament.id,
+    },
+  ])
+  await newMatch([
+    {
+      userId: userData[3].id,
+      corporationId: corporationData[3].id,
+      victoryPoints: 59,
+      tournamentId: tournament.id,
+    },
+    {
+      userId: userData[2].id,
+      corporationId: corporationData[6].id,
+      victoryPoints: 57,
+      tournamentId: tournament.id,
+    },
+  ])
+  await newMatch([
+    {
+      userId: userData[3].id,
+      corporationId: corporationData[3].id,
+      victoryPoints: 59,
+      tournamentId: tournament.id,
+    },
+    {
+      userId: userData[2].id,
+      corporationId: corporationData[6].id,
+      victoryPoints: 57,
+      tournamentId: tournament.id,
+    },
+  ])
+  await newMatch([
+    {
+      userId: userData[3].id,
+      corporationId: corporationData[3].id,
+      victoryPoints: 59,
+      tournamentId: tournament.id,
+    },
+    {
+      userId: userData[2].id,
+      corporationId: corporationData[6].id,
+      victoryPoints: 57,
+      tournamentId: tournament.id,
+    },
+  ])
+  await newMatch([
+    {
+      userId: userData[3].id,
+      corporationId: corporationData[3].id,
+      victoryPoints: 59,
+      tournamentId: tournament.id,
+    },
+    {
+      userId: userData[2].id,
+      corporationId: corporationData[6].id,
+      victoryPoints: 57,
+      tournamentId: tournament.id,
+    },
+  ])
+  await newMatch([
+    {
+      userId: userData[3].id,
+      corporationId: corporationData[3].id,
+      victoryPoints: 59,
+      tournamentId: tournament.id,
+    },
+    {
+      userId: userData[2].id,
+      corporationId: corporationData[6].id,
+      victoryPoints: 57,
+      tournamentId: tournament.id,
+    },
+  ])
   // eslint-disable-next-line no-console
   console.log(`Seeding finished.`)
 }

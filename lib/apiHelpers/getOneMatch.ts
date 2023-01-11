@@ -23,7 +23,7 @@ export const getOneMatch = async (
 > => {
   const idSchema = string().uuid().required()
   const id = await idSchema.validate(matchId)
-  return await prisma.match.findUnique({
+  const match = await prisma.match.findUnique({
     where: { id },
     include: {
       matchRankings: {
@@ -31,4 +31,6 @@ export const getOneMatch = async (
       },
     },
   })
+  match?.matchRankings.sort((a, b) => a.standing - b.standing)
+  return match
 }

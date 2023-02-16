@@ -39,7 +39,11 @@ const Player: FC<PlayerProps> = ({ stats, position }) => {
       <Divider my="3" />
 
       <Flex alignItems="center" justifyContent="space-between">
-        <CorporationLogo id={corporation.id} size={30} />
+        <CorporationLogo
+          id={corporation.id}
+          size={30}
+          name={corporation.name}
+        />
 
         <Flex alignItems="center">
           {megaCredits && <MegaCredits>{megaCredits}</MegaCredits>}

@@ -94,6 +94,7 @@ const Player: FC<PlayerProps> = ({
             id={formData.corporation.id}
             onClick={openCopSelector}
             size={30}
+            name={formData.corporation.name}
           />
         )}
 

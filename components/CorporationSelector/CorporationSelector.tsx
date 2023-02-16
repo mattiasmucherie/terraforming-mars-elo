@@ -66,7 +66,7 @@ const CorporationSelector: FC<CorporationSelectorProps> = ({
               justifyContent="center"
               key={c.id}
             >
-              <CorporationLogo id={c.id} size={30} />
+              <CorporationLogo id={c.id} name={c.name} size={30} />
             </Box>
           ))}
         </SimpleGrid>

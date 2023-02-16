@@ -422,6 +422,109 @@ const corporationLogs: Record<
       </div>
     </div>
   ),
+  "a4d9f9d2-325f-4bff-b47c-81000de26377": ({ size }: { size: number }) => (
+    <span
+      style={{
+        fontFamily: "Prototype",
+        fontSize: `${size * 0.8}px`,
+        color: "orange",
+        fontWeight: "bold",
+        marginTop: "10px",
+        textShadow:
+          "-1px 0 #333333, 0 1px #333333, 1px 0 #333333,0px -1px #333333, 6px 3px 5px grey",
+      }}
+    >
+      APHRODITE
+    </span>
+  ),
+  "bf10a5f5-6175-4159-bd67-18fba336b1fa": ({ size }: { size: number }) => (
+    <div
+      style={{
+        fontFamily: "Prototype",
+        fontSize: `${size * 0.8}px`,
+        boxShadow: "6px 6px 6px grey",
+        // marginLeft: "9px",
+        borderRadius: "3px",
+        overflow: "hidden",
+      }}
+    >
+      <span
+        style={{
+          background:
+            "linear-gradient(to right, rgb(251,192,137),rgb(251,192,137),rgb(23,185,236))",
+          display: "inline-block",
+          paddingLeft: "5px",
+        }}
+      >
+        CEL
+      </span>
+      <span
+        style={{
+          background:
+            "linear-gradient(to right,rgb(23,185,236),rgb(251,192,137))",
+          display: "inline-block",
+        }}
+      >
+        ES
+      </span>
+      <span
+        style={{
+          background: " rgb(251,192,137)",
+          display: "inline-block",
+          paddingRight: "5px",
+        }}
+      >
+        TIC
+      </span>
+    </div>
+  ),
+  "8294b249-bc12-4849-a673-64cd5489d0e2": ({ size }: { size: number }) => (
+    <span
+      style={{
+        fontFamily: "Prototype",
+        fontSize: `${size * 0.8}px`,
+        color: "#e63900",
+        textShadow: "6px 3px 5px grey",
+      }}
+    >
+      <span
+        style={{
+          color: "white",
+          background: "#e63900",
+          textShadow: "none",
+          paddingLeft: "2px",
+        }}
+      >
+        MA
+      </span>
+      NUTECH
+    </span>
+  ),
+  "efb93916-6555-4c3d-8a10-38d584b5f65a": ({ size }: { size: number }) => (
+    <div
+      style={{
+        fontFamily: "Prototype",
+        fontSize: `${size * 0.8}px`,
+        color: "white",
+        textShadow:
+          "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 6px 3px 5px grey",
+      }}
+    >
+      MORNING STAR INC.
+    </div>
+  ),
+  "1bf85fd9-8820-4e69-b8da-ca673d3a6ee1": ({ size }: { size: number }) => (
+    <div
+      style={{
+        fontFamily: "Prototype",
+        fontSize: `${size * 0.8}px`,
+        textShadow:
+          "-1px 0 white, 0 1px white, 1px 0 white, 0 -1px white, 6px 3px 5px grey",
+      }}
+    >
+      VIRON
+    </div>
+  ),
 }
 
 export default corporationLogs

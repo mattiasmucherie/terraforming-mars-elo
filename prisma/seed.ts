@@ -50,6 +50,11 @@ const corporationData = [
   { name: "Robinson Industries", id: "b42fbf82-500e-4630-9b11-0f699b017269" },
   { name: "Valley Trust", id: "fb2d2492-e9b2-4cdd-a31c-4722ad1cab65" },
   { name: "Vitor", id: "1a0844c3-1ee9-4487-a26d-272456887224" },
+  { name: "Aphrodite", id: "a4d9f9d2-325f-4bff-b47c-81000de26377" },
+  { name: "Celestic", id: "bf10a5f5-6175-4159-bd67-18fba336b1fa" },
+  { name: "Manutech", id: "8294b249-bc12-4849-a673-64cd5489d0e2" },
+  { name: "Morning Star Inc.", id: "efb93916-6555-4c3d-8a10-38d584b5f65a" },
+  { name: "Viron", id: "1bf85fd9-8820-4e69-b8da-ca673d3a6ee1" },
 ]
 async function main() {
   // eslint-disable-next-line no-console

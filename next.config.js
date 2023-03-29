@@ -15,6 +15,7 @@ let nextConfig = {
       "ekhaqsvkyqszwbsovncd.supabase.in",
       "ekhaqsvkyqszwbsovncd.supabase.co",
       "cloudflare-ipfs.com",
+      "ui-avatars.com",
     ],
   },
   async rewrites() {

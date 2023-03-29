@@ -13,7 +13,13 @@ export default async function handler(
       const nameSchema = string().required()
       const name = await nameSchema.validate(req.body.name, { strict: true })
       const user = await prisma.user.create({
-        data: { name },
+        data: {
+          name,
+          image: `https://ui-avatars.com/api/?name=${name.replaceAll(
+            " ",
+            "+"
+          )}`,
+        },
       })
       return res.status(200).json({ name: user.name })
     } catch (e) {

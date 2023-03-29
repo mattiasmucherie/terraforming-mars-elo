@@ -23,13 +23,16 @@ export const getUsersInTournament = async () => {
     points: 0,
     position: 1,
   }))
+  if (!users.length) {
+    return { tournament: latestTournament, usersPosition: [] }
+  }
   const mostGames = users.reduce((prev, curr) => {
     return prev.MatchRanking.length > curr.MatchRanking.length ? prev : curr
   }).MatchRanking.length
 
   users.forEach((u) => {
     u.MatchRanking.sort((m1, m2) => m1.standing - m2.standing)
-    const amountOfGames = Math.floor((mostGames * 2) / 3)
+    const amountOfGames = Math.floor((mostGames * 2) / 3) || 1
     if (amountOfGames < u.MatchRanking.length) {
       u.MatchRanking = u.MatchRanking.slice(0, amountOfGames)
     }

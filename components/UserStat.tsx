@@ -18,10 +18,10 @@ import React, { FC } from "react"
 import { getCorporationStat } from "../utils/getCorporationStat"
 import { getEloChangeLastGames } from "../utils/getEloChangeLastGames"
 import { getFavoriteCorporation } from "../utils/getFavoriteCorporation"
+import { getPlayerWinRate } from "../utils/getPlayerWinRate"
 import EditProfilePictureModal from "./EditProfilePictureModal"
 import EditUsernameModal from "./EditUsernameModal"
 import NextAvatar from "./NextAvatar"
-import { getPlayerWinRate } from "../utils/getPlayerWinRate"
 
 interface UserStatProps {
   user: User & {

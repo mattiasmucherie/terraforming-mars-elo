@@ -18,6 +18,7 @@ import React, { FC } from "react"
 import { getCorporationStat } from "../utils/getCorporationStat"
 import { getEloChangeLastGames } from "../utils/getEloChangeLastGames"
 import { getFavoriteCorporation } from "../utils/getFavoriteCorporation"
+import { getPlayerWinRate } from "../utils/getPlayerWinRate"
 import EditProfilePictureModal from "./EditProfilePictureModal"
 import EditUsernameModal from "./EditUsernameModal"
 import NextAvatar from "./NextAvatar"
@@ -34,6 +35,7 @@ const UserStat: FC<UserStatProps> = ({ user }) => {
   const mostPlayed = getFavoriteCorporation(user)
   const [best, worst] = getCorporationStat(user)
   const lastFourGames = getEloChangeLastGames(user.matches)
+  const winRate = getPlayerWinRate(user)
   return (
     <>
       <Box p="4">
@@ -102,6 +104,9 @@ const UserStat: FC<UserStatProps> = ({ user }) => {
                       {worst.average}
                     </Box>
                   )}
+                  <Box>
+                    <Text as="b">Winrate: </Text> {winRate} %
+                  </Box>
                 </SimpleGrid>
               </StatHelpText>
             </Stat>

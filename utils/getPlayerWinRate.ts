@@ -23,5 +23,6 @@ export const getPlayerWinRate = (
     return 0
   }
 
-  return (totalWins / totalMatches) * 100
+  const winRate = (totalWins / totalMatches) * 100
+  return parseFloat(winRate.toFixed(2))
 }

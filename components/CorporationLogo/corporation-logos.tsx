@@ -525,6 +525,144 @@ const corporationLogs: Record<
       VIRON
     </div>
   ),
+  "cabed5b8-597d-4e1a-8ce2-b8f53f474d6c": ({ size }: { size: number }) => (
+    <div
+      style={{
+        fontFamily: "Prototype",
+        fontWeight: "normal",
+        color: "#c5c553",
+        letterSpacing: "4px",
+        background: "#cc3333",
+        border: "2px solid #c5c553",
+        boxShadow: "1px 1px 5px 1px black",
+        textAlign: "center",
+        padding: "0 5px",
+        fontSize: `${size * 0.8}px`,
+        borderRadius: "5px",
+      }}
+    >
+      ARIDOR
+    </div>
+  ),
+  "339cd86a-606e-435f-a490-34f23879751f": ({ size }: { size: number }) => (
+    <div
+      style={{
+        fontSize: `${size * 0.8}px`,
+        fontFamily: "Prototype",
+        letterSpacing: "1px",
+        background: "linear-gradient(to right,#000089, lightblue, white)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        WebkitTextStroke: "0.5px",
+        WebkitTextStrokeColor: "black",
+      }}
+    >
+      ARKLIGHT
+    </div>
+  ),
+  "9eaba334-75e6-4a56-9fe3-9c80369ba3bc": ({ size }: { size: number }) => (
+    <div
+      style={{
+        fontFamily: "Prototype",
+        padding: "0 5px",
+        fontWeight: "normal",
+        letterSpacing: "1px",
+        fontSize: `${size * 0.8}px`,
+        borderBottom: "3px solid #cc3333",
+        borderTop: "3px solid #cc3333",
+      }}
+    >
+      POLYPHEMOS
+    </div>
+  ),
+  "08e5c833-372f-48dc-9732-071b220e318b": ({ size }: { size: number }) => (
+    <div
+      style={{
+        display: "inline-block",
+        fontFamily: '"Times New Roman", Arial',
+        background:
+          "linear-gradient(rgba(0,0,0,0) 0%, #3633ff 20%, rgba(0,0,0,0) 22%, #3633ff 50%, rgba(0,0,0,0) 78%, #3633ff 80%, rgba(0,0,0,0) 100%)",
+        color: "#aaa",
+        textShadow: "0 0 1px black, 0 0 3px black",
+        width: "180px",
+        fontWeight: "normal",
+        letterSpacing: "2px",
+        textAlign: "center",
+        fontSize: `${size}px`,
+        borderRadius: "0% 100% 0% 75%",
+        boxShadow: "0 4px 10px 0px black",
+      }}
+    >
+      POSEIDON
+    </div>
+  ),
+  "2c785940-0818-4350-a14a-83842a182859": ({ size }: { size: number }) => (
+    <>
+      <div
+        style={{
+          fontFamily: "Prototype",
+          display: "inline-block",
+          color: "white",
+          background: "#ff9900",
+          lineHeight: "50px",
+          width: "83px",
+          textAlign: "center",
+          fontSize: "24px",
+          marginLeft: "0px",
+          borderRadius: "100% 0 50% 0",
+          textShadow: "0 0 6px black",
+          boxShadow: "0 3px 10px 0px black",
+        }}
+      >
+        STORM
+      </div>
+      <div
+        style={{
+          fontFamily: "Prototype",
+          display: "inline-block",
+          lineHeight: "50px",
+          width: "100px",
+          textAlign: "center",
+          fontSize: "24px",
+          marginLeft: "-5px",
+          textShadow: "0 5px 10px black",
+        }}
+      >
+        CRAFT
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          fontSize: "10px",
+          letterSpacing: "2px",
+          textShadow: "0 0 6px black",
+          color: "white",
+          fontWeight: "normal",
+          marginTop: "-16px",
+          marginLeft: "20px",
+          transform: "scaleX(1.7)",
+          fontFamily: "Prototype",
+        }}
+      >
+        INCOR
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          transform: "scaleX(1.7)",
+          fontFamily: "Prototype",
+          letterSpacing: "2px",
+          fontSize: "10px",
+          fontWeight: "normal",
+          textShadow: "0 5px 10px black",
+          marginTop: "-16px",
+          marginLeft: "90px",
+        }}
+      >
+        PORATED
+      </div>
+    </>
+  ),
 }
 
 export default corporationLogs

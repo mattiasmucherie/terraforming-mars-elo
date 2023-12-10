@@ -55,6 +55,14 @@ const corporationData = [
   { name: "Manutech", id: "8294b249-bc12-4849-a673-64cd5489d0e2" },
   { name: "Morning Star Inc.", id: "efb93916-6555-4c3d-8a10-38d584b5f65a" },
   { name: "Viron", id: "1bf85fd9-8820-4e69-b8da-ca673d3a6ee1" },
+  { name: "Aridor", id: "cabed5b8-597d-4e1a-8ce2-b8f53f474d6c" },
+  { name: "Arklight", id: "339cd86a-606e-435f-a490-34f23879751f" },
+  { name: "Polyphemos", id: "9eaba334-75e6-4a56-9fe3-9c80369ba3bc" },
+  { name: "Poseidon", id: "08e5c833-372f-48dc-9732-071b220e318b" },
+  {
+    name: "Stormcraft Incoporation",
+    id: "2c785940-0818-4350-a14a-83842a182859",
+  },
 ]
 async function main() {
   // eslint-disable-next-line no-console

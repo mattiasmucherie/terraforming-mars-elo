@@ -607,7 +607,7 @@ const corporationLogs: Record<
           lineHeight: "50px",
           width: "83px",
           textAlign: "center",
-          fontSize: "24px",
+          fontSize: `${size}px`,
           marginLeft: "0px",
           borderRadius: "100% 0 50% 0",
           textShadow: "0 0 6px black",
@@ -623,7 +623,7 @@ const corporationLogs: Record<
           lineHeight: "50px",
           width: "100px",
           textAlign: "center",
-          fontSize: "24px",
+          fontSize: `${size}px`,
           marginLeft: "-5px",
           textShadow: "0 5px 10px black",
         }}
